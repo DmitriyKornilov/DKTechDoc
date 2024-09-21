@@ -1,0 +1,379 @@
+{
+  "TablesList" : [
+    "DOCUMENTS",
+    "STATUSES",
+    "TYPES"
+  ],
+  "DOCUMENTS" : {
+    "Description" : "Список документов",
+    "Notes" : [
+    ],
+    "FieldsList" : [
+      "DocID",
+      "StatusID",
+      "TypeID",
+      "DocNum",
+      "DocYear",
+      "DocName",
+      "DocDate",
+      "UpperName",
+      "Note"
+    ],
+    "DocID" : {
+      "FieldType" : "INTEGER",
+      "PrimaryKey" : true,
+      "Status" : true,
+      "NotNull" : true,
+      "DefaultValue" : "",
+      "Description" : [
+        "ID документа"
+      ],
+      "ExistingValues" : [
+      ],
+      "ReferenceTo" : {
+        "TableName" : "",
+        "FieldName" : "",
+        "OnDelete" : 4,
+        "OnUpdate" : 4
+      },
+      "ReferenceFrom" : {
+        "TableNames" : [
+        ],
+        "FieldNames" : [
+        ]
+      }
+    },
+    "StatusID" : {
+      "FieldType" : "INTEGER",
+      "PrimaryKey" : false,
+      "Status" : false,
+      "NotNull" : true,
+      "DefaultValue" : "0",
+      "Description" : [
+        "ID статуса документа"
+      ],
+      "ExistingValues" : [
+      ],
+      "ReferenceTo" : {
+        "TableName" : "STATUSES",
+        "FieldName" : "StatusID",
+        "OnDelete" : 0,
+        "OnUpdate" : 0
+      },
+      "ReferenceFrom" : {
+        "TableNames" : [
+        ],
+        "FieldNames" : [
+        ]
+      }
+    },
+    "TypeID" : {
+      "FieldType" : "INTEGER",
+      "PrimaryKey" : false,
+      "Status" : false,
+      "NotNull" : true,
+      "DefaultValue" : "0",
+      "Description" : [
+        "ID типа документа"
+      ],
+      "ExistingValues" : [
+      ],
+      "ReferenceTo" : {
+        "TableName" : "TYPES",
+        "FieldName" : "TypeID",
+        "OnDelete" : 0,
+        "OnUpdate" : 0
+      },
+      "ReferenceFrom" : {
+        "TableNames" : [
+        ],
+        "FieldNames" : [
+        ]
+      }
+    },
+    "DocNum" : {
+      "FieldType" : "TEXT",
+      "PrimaryKey" : false,
+      "Status" : false,
+      "NotNull" : true,
+      "DefaultValue" : "",
+      "Description" : [
+        "Номер документа"
+      ],
+      "ExistingValues" : [
+      ],
+      "ReferenceTo" : {
+        "TableName" : "",
+        "FieldName" : "",
+        "OnDelete" : 4,
+        "OnUpdate" : 4
+      },
+      "ReferenceFrom" : {
+        "TableNames" : [
+        ],
+        "FieldNames" : [
+        ]
+      }
+    },
+    "DocYear" : {
+      "FieldType" : "TEXT",
+      "PrimaryKey" : false,
+      "Status" : false,
+      "NotNull" : true,
+      "DefaultValue" : "",
+      "Description" : [
+        "Год документа"
+      ],
+      "ExistingValues" : [
+      ],
+      "ReferenceTo" : {
+        "TableName" : "",
+        "FieldName" : "",
+        "OnDelete" : 4,
+        "OnUpdate" : 4
+      },
+      "ReferenceFrom" : {
+        "TableNames" : [
+        ],
+        "FieldNames" : [
+        ]
+      }
+    },
+    "DocName" : {
+      "FieldType" : "TEXT",
+      "PrimaryKey" : false,
+      "Status" : false,
+      "NotNull" : true,
+      "DefaultValue" : "",
+      "Description" : [
+        "Наименование документа"
+      ],
+      "ExistingValues" : [
+      ],
+      "ReferenceTo" : {
+        "TableName" : "",
+        "FieldName" : "",
+        "OnDelete" : 4,
+        "OnUpdate" : 4
+      },
+      "ReferenceFrom" : {
+        "TableNames" : [
+        ],
+        "FieldNames" : [
+        ]
+      }
+    },
+    "DocDate" : {
+      "FieldType" : "DATETIME",
+      "PrimaryKey" : false,
+      "Status" : false,
+      "NotNull" : true,
+      "DefaultValue" : "",
+      "Description" : [
+        "Дата введения в действие"
+      ],
+      "ExistingValues" : [
+      ],
+      "ReferenceTo" : {
+        "TableName" : "",
+        "FieldName" : "",
+        "OnDelete" : 4,
+        "OnUpdate" : 4
+      },
+      "ReferenceFrom" : {
+        "TableNames" : [
+        ],
+        "FieldNames" : [
+        ]
+      }
+    },
+    "UpperName" : {
+      "FieldType" : "TEXT",
+      "PrimaryKey" : false,
+      "Status" : false,
+      "NotNull" : true,
+      "DefaultValue" : "",
+      "Description" : [
+        "Наименование в верхнем регистре - для поиска по кириллическому тексту"
+      ],
+      "ExistingValues" : [
+      ],
+      "ReferenceTo" : {
+        "TableName" : "",
+        "FieldName" : "",
+        "OnDelete" : 4,
+        "OnUpdate" : 4
+      },
+      "ReferenceFrom" : {
+        "TableNames" : [
+        ],
+        "FieldNames" : [
+        ]
+      }
+    },
+    "Note" : {
+      "FieldType" : "TEXT",
+      "PrimaryKey" : false,
+      "Status" : false,
+      "NotNull" : false,
+      "DefaultValue" : "",
+      "Description" : [
+        "Примечание"
+      ],
+      "ExistingValues" : [
+      ],
+      "ReferenceTo" : {
+        "TableName" : "",
+        "FieldName" : "",
+        "OnDelete" : 4,
+        "OnUpdate" : 4
+      },
+      "ReferenceFrom" : {
+        "TableNames" : [
+        ],
+        "FieldNames" : [
+        ]
+      }
+    },
+    "IndexesList" : [
+    ]
+  },
+  "STATUSES" : {
+    "Description" : "Статусы документов",
+    "Notes" : [
+    ],
+    "FieldsList" : [
+      "StatusID",
+      "StatusName"
+    ],
+    "StatusID" : {
+      "FieldType" : "INTEGER",
+      "PrimaryKey" : true,
+      "Status" : true,
+      "NotNull" : true,
+      "DefaultValue" : "",
+      "Description" : [
+        "ID статуса"
+      ],
+      "ExistingValues" : [
+        "0",
+        "1",
+        "2"
+      ],
+      "ReferenceTo" : {
+        "TableName" : "",
+        "FieldName" : "",
+        "OnDelete" : 4,
+        "OnUpdate" : 4
+      },
+      "ReferenceFrom" : {
+        "TableNames" : [
+          "DOCUMENTS"
+        ],
+        "FieldNames" : [
+          "StatusID"
+        ]
+      }
+    },
+    "StatusName" : {
+      "FieldType" : "TEXT",
+      "PrimaryKey" : false,
+      "Status" : false,
+      "NotNull" : true,
+      "DefaultValue" : "",
+      "Description" : [
+        "Наименование статуса (действует, отменен, т.д.)"
+      ],
+      "ExistingValues" : [
+        "<не указан>",
+        "действует",
+        "отменен"
+      ],
+      "ReferenceTo" : {
+        "TableName" : "",
+        "FieldName" : "",
+        "OnDelete" : 4,
+        "OnUpdate" : 4
+      },
+      "ReferenceFrom" : {
+        "TableNames" : [
+        ],
+        "FieldNames" : [
+        ]
+      }
+    },
+    "IndexesList" : [
+    ]
+  },
+  "TYPES" : {
+    "Description" : "Типы документов",
+    "Notes" : [
+    ],
+    "FieldsList" : [
+      "TypeID",
+      "TypeName"
+    ],
+    "TypeID" : {
+      "FieldType" : "INTEGER",
+      "PrimaryKey" : true,
+      "Status" : true,
+      "NotNull" : true,
+      "DefaultValue" : "",
+      "Description" : [
+        "ID типа"
+      ],
+      "ExistingValues" : [
+        "0",
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "ReferenceTo" : {
+        "TableName" : "",
+        "FieldName" : "",
+        "OnDelete" : 4,
+        "OnUpdate" : 4
+      },
+      "ReferenceFrom" : {
+        "TableNames" : [
+          "DOCUMENTS"
+        ],
+        "FieldNames" : [
+          "TypeID"
+        ]
+      }
+    },
+    "TypeName" : {
+      "FieldType" : "TEXT",
+      "PrimaryKey" : false,
+      "Status" : false,
+      "NotNull" : true,
+      "DefaultValue" : "",
+      "Description" : [
+        "Наименование (ГОСТ, ГОСТ Р, ГОСТ ИСО и т.д.)"
+      ],
+      "ExistingValues" : [
+        "<не указан>",
+        "ГОСТ",
+        "ГОСТ Р",
+        "ГОСТ IEC",
+        "ГОСТ Р ИСО"
+      ],
+      "ReferenceTo" : {
+        "TableName" : "",
+        "FieldName" : "",
+        "OnDelete" : 4,
+        "OnUpdate" : 4
+      },
+      "ReferenceFrom" : {
+        "TableNames" : [
+        ],
+        "FieldNames" : [
+        ]
+      }
+    },
+    "IndexesList" : [
+    ]
+  }
+}
