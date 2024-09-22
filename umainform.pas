@@ -326,7 +326,7 @@ begin
   DocList.CanSelect:= True;
   DocList.HeaderFont.Style:= [fsBold];
   DocList.AddColumn('№ п/п', 60);
-  DocList.AddColumn('Обозначение', 150);
+  DocList.AddColumn('Обозначение', 200);
   DocList.AddColumn('Дата введения', 150);
   DocList.AddColumn('Статус', 100);
   DocList.AddColumn('Наименование', 250);
