@@ -128,6 +128,7 @@ end;
 procedure TMainForm.ExportButtonClick(Sender: TObject);
 begin
   DocList.Save([ctInteger, //№ п/п
+                ctString,  //тип
                 ctString,  //Обозначение
                 ctDate,    //дата введения в действие
                 ctString,  //статус
@@ -326,8 +327,9 @@ begin
   DocList.CanSelect:= True;
   DocList.HeaderFont.Style:= [fsBold];
   DocList.AddColumn('№ п/п', 60);
-  DocList.AddColumn('Обозначение', 200);
-  DocList.AddColumn('Дата введения', 150);
+  DocList.AddColumn('Тип', 130);
+  DocList.AddColumn('Номер', 130);
+  DocList.AddColumn('Дата введения', 130);
   DocList.AddColumn('Статус', 100);
   DocList.AddColumn('Наименование', 250);
   DocList.AddColumn('Примечание', 250);
@@ -357,8 +359,10 @@ begin
 
   V:= VIntToStr(VOrder(Length(DocIDs)));
   DocList.SetColumn('№ п/п', V);
-  V:= VDocumentCode(TypeNames, DocNums, DocYears);
-  DocList.SetColumn('Обозначение', V, taLeftJustify);
+  DocList.SetColumn('Тип', TypeNames, taLeftJustify);
+  //V:= VDocumentCode(TypeNames, DocNums, DocYears);
+  V:= VDocumentNumber(DocNums, DocYears);
+  DocList.SetColumn('Номер', V, taLeftJustify);
   V:= VFormatDateTime('dd.mm.yyyy', DocDates);
   DocList.SetColumn('Дата введения', V);
   DocList.SetColumn('Статус', StatusNames);
