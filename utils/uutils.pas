@@ -10,8 +10,11 @@ uses
   //DK packages utils
   DK_StrUtils, DK_Const, DK_Vector, DK_Dialogs;
 
+function DocumentNumber(const ADocNum, ADocYear: String): String;
+function VDocumentNumber(const ADocNums, ADocYears: TStrVector): TStrVector;
 function DocumentCode(const ATypeName, ADocNum, ADocYear: String): String;
 function VDocumentCode(const ATypeNames, ADocNums, ADocYears: TStrVector): TStrVector;
+
 
 function DocumentFullName(const ATypeName, ADocNum, ADocYear, ADocName: String): String;
 
@@ -23,13 +26,30 @@ function DocumentOpen(const AFileName: String): Boolean;
 function DocumentDelete(const AFileName: String): Boolean;
 
 function DocumentCopy(const ASrcFileName, ADestFileName: String;
-                      const ASaveDialog: Boolean = True): Boolean; //SaveDialog
+                      const ASaveDialog: Boolean = True): Boolean;
+
 
 implementation
 
+function DocumentNumber(const ADocNum, ADocYear: String): String;
+begin
+  Result:= ADocNum + SYMBOL_MIDDASH + ADocYear;
+end;
+
+function VDocumentNumber(const ADocNums, ADocYears: TStrVector): TStrVector;
+var
+  i: Integer;
+begin
+  Result:= nil;
+  if VIsNil(ADocNums) then Exit;
+
+  for i:= 0 to High(ADocNums) do
+    VAppend(Result, DocumentNumber(ADocNums[i], ADocYears[i]));
+end;
+
 function DocumentCode(const ATypeName, ADocNum, ADocYear: String): String;
 begin
-  Result:= ATypeName + SYMBOL_SPACE + ADocNum + SYMBOL_MIDDASH + ADocYear;
+  Result:= ATypeName + SYMBOL_SPACE + DocumentNumber(ADocNum, ADocYear);
 end;
 
 function VDocumentCode(const ATypeNames, ADocNums, ADocYears: TStrVector): TStrVector;
@@ -136,6 +156,7 @@ begin
   Result:= CopyFile(ASrcFileName, FileName,
                    [cffOverwriteFile, cffCreateDestDirectory, cffPreserveTime]);
 end;
+
 
 end.
 

@@ -83,6 +83,7 @@
         <Filename Value="forms\udocumenteditform.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="DocumentEditForm"/>
+        <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="UDocumentEditForm"/>
       </Unit>
