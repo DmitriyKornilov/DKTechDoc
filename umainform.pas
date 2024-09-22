@@ -13,7 +13,7 @@ uses
   //Project utils
   UDataBase, UUtils, UImages,
   //Forms
-  UDocumentEditForm;
+  UDocumentEditForm, UAboutForm;
 
 type
 
@@ -52,6 +52,7 @@ type
     RefreshButton: TSpeedButton;
     ToolPanel: TPanel;
     VT: TVirtualStringTree;
+    procedure AboutButtonClick(Sender: TObject);
     procedure AddButtonClick(Sender: TObject);
     procedure DelButtonClick(Sender: TObject);
     procedure DictionaryButtonClick(Sender: TObject);
@@ -68,6 +69,7 @@ type
     procedure FormShow(Sender: TObject);
     procedure PDFCopyButtonClick(Sender: TObject);
     procedure PDFShowButtonClick(Sender: TObject);
+    procedure RefreshButtonClick(Sender: TObject);
     procedure StatusesMenuItemClick(Sender: TObject);
     procedure TypesMenuItemClick(Sender: TObject);
     procedure VTDblClick(Sender: TObject);
@@ -109,7 +111,7 @@ implementation
 procedure TMainForm.FormCreate(Sender: TObject);
 begin
   HeapTraceOutputFile('trace.trc');
-  Caption:= 'DKTechDoc v.0.0.0 - Техническая документация';
+  Caption:= 'DKTechDoc v.0.0.1 - Библиотека технических документов';
   DBConnect;
 
   DataBase.DocTypesLoad(DocTypeComboBox, FilterTypeIDs, True);
@@ -181,6 +183,11 @@ end;
 procedure TMainForm.AddButtonClick(Sender: TObject);
 begin
   DocumentEditFormOpen(0);
+end;
+
+procedure TMainForm.AboutButtonClick(Sender: TObject);
+begin
+  FormModalShow(TAboutForm);
 end;
 
 procedure TMainForm.DelButtonClick(Sender: TObject);
@@ -258,6 +265,12 @@ begin
   DocumentShow;
 end;
 
+procedure TMainForm.RefreshButtonClick(Sender: TObject);
+begin
+  DataBase.Reconnect;
+  ViewUpdate;
+end;
+
 procedure TMainForm.VTDblClick(Sender: TObject);
 begin
   DocumentShow;
@@ -303,7 +316,7 @@ end;
 
 procedure TMainForm.ViewUpdate;
 begin
-
+  DocListLoad;
 end;
 
 procedure TMainForm.DocListCreate;

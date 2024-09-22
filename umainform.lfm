@@ -38,6 +38,7 @@ object MainForm: TMainForm
       Constraints.MinWidth = 40
       Images = Images.PX24
       ImageIndex = 1
+      OnClick = AboutButtonClick
       ShowHint = True
       ParentShowHint = False
     end
@@ -69,6 +70,7 @@ object MainForm: TMainForm
       Constraints.MinWidth = 40
       Images = Images.PX24
       ImageIndex = 2
+      OnClick = RefreshButtonClick
       ShowHint = True
       ParentShowHint = False
     end
