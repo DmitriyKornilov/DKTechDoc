@@ -129,7 +129,7 @@ procedure TMainForm.ExportButtonClick(Sender: TObject);
 begin
   DocList.Save([ctInteger, //№ п/п
                 ctString,  //тип
-                ctString,  //Обозначение
+                ctString,  //номер
                 ctDate,    //дата введения в действие
                 ctString,  //статус
                 ctString,  //наименование
