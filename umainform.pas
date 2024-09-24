@@ -330,7 +330,7 @@ begin
   DocList.AddColumn('Тип', 130);
   DocList.AddColumn('Номер', 130);
   DocList.AddColumn('Дата введения', 130);
-  DocList.AddColumn('Статус', 100);
+  DocList.AddColumn('Статус', 150);
   DocList.AddColumn('Наименование', 250);
   DocList.AddColumn('Примечание', 250);
   DocList.AutosizeColumnEnable('Наименование');
