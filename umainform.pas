@@ -6,9 +6,9 @@ interface
 
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ExtCtrls, Buttons,
-  Menus, StdCtrls, DividerBevel, VirtualTrees,
+  Menus, StdCtrls, DividerBevel, VirtualTrees, Clipbrd,
   //DK packages utils
-  DK_HeapTrace, DK_LCLStrRus, DK_CtrlUtils, DK_VSTTables, DK_VSTTypes,
+  {DK_HeapTrace,} DK_LCLStrRus, DK_CtrlUtils, DK_VSTTables, DK_VSTTypes,
   DK_Vector, DK_Const, DK_Dialogs, DK_StrUtils,
   //Project utils
   UDataBase, UUtils, UImages,
@@ -24,18 +24,26 @@ type
     AddButton: TSpeedButton;
     DelButton: TSpeedButton;
     DictionaryButton: TSpeedButton;
+    FullNameMenuItem: TMenuItem;
+    TypeNumMenuItem: TMenuItem;
+    NameCopyButton: TSpeedButton;
+    NameCopyMenu: TPopupMenu;
     DividerBevel1: TDividerBevel;
     DividerBevel2: TDividerBevel;
     DividerBevel3: TDividerBevel;
     DividerBevel4: TDividerBevel;
     DividerBevel5: TDividerBevel;
     DividerBevel6: TDividerBevel;
+    DividerBevel7: TDividerBevel;
     DocNameEdit: TEdit;
     DocNumEdit: TEdit;
     DocNameLabel: TLabel;
     DocStatusComboBox: TComboBox;
     DocTypeComboBox: TComboBox;
     DocNumLabel: TLabel;
+    InfoMemo: TMemo;
+    InfoPanel: TPanel;
+    NameMenuItem: TMenuItem;
     StatusLabel: TLabel;
     EditButton: TSpeedButton;
     ExitButton: TSpeedButton;
@@ -51,10 +59,15 @@ type
     TypesMenuItem: TMenuItem;
     RefreshButton: TSpeedButton;
     ToolPanel: TPanel;
+    TypeNumYearMenuItem: TMenuItem;
     VT: TVirtualStringTree;
     procedure AboutButtonClick(Sender: TObject);
     procedure AddButtonClick(Sender: TObject);
+    procedure TypeNumMenuItemClick(Sender: TObject);
+    procedure TypeNumYearMenuItemClick(Sender: TObject);
     procedure DelButtonClick(Sender: TObject);
+    procedure FullNameMenuItemClick(Sender: TObject);
+    procedure NameCopyButtonClick(Sender: TObject);
     procedure DictionaryButtonClick(Sender: TObject);
     procedure DocNameEditChange(Sender: TObject);
     procedure DocNumEditChange(Sender: TObject);
@@ -67,6 +80,7 @@ type
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure NameMenuItemClick(Sender: TObject);
     procedure PDFCopyButtonClick(Sender: TObject);
     procedure PDFShowButtonClick(Sender: TObject);
     procedure RefreshButtonClick(Sender: TObject);
@@ -74,6 +88,7 @@ type
     procedure TypesMenuItemClick(Sender: TObject);
     procedure VTDblClick(Sender: TObject);
   private
+    CanLoadDocList: Boolean;
     DocList: TVSTTable;
 
     DocIDs, TypeIDs, StatusIDs: TIntVector;
@@ -110,13 +125,14 @@ implementation
 
 procedure TMainForm.FormCreate(Sender: TObject);
 begin
-  HeapTraceOutputFile('trace.trc');
+  //HeapTraceOutputFile('trace.trc');
   Caption:= 'DKTechDoc v.0.0.1 - Библиотека технических документов';
   DBConnect;
 
   DataBase.DocTypesLoad(DocTypeComboBox, FilterTypeIDs, True);
   DataBase.DocStatusesLoad(DocStatusComboBox, FilterStatusIDs, True);
 
+  CanLoadDocList:= True;
   DocListCreate;
 end;
 
@@ -139,15 +155,23 @@ end;
 
 procedure TMainForm.FilterClearButtonClick(Sender: TObject);
 begin
+  CanLoadDocList:= False;
   DocStatusComboBox.ItemIndex:= 0;
   DocTypeComboBox.ItemIndex:= 0;
   DocNumEdit.Text:= EmptyStr;
   DocNameEdit.Text:= EmptyStr;
+  CanLoadDocList:= True;
+  DocListLoad;
 end;
 
 procedure TMainForm.DictionaryButtonClick(Sender: TObject);
 begin
   ControlPopupMenuShow(Sender, DictionaryMenu);
+end;
+
+procedure TMainForm.NameCopyButtonClick(Sender: TObject);
+begin
+  ControlPopupMenuShow(Sender, NameCopyMenu);
 end;
 
 procedure TMainForm.DocListFilter;
@@ -186,6 +210,26 @@ begin
   DocumentEditFormOpen(0);
 end;
 
+procedure TMainForm.TypeNumMenuItemClick(Sender: TObject);
+begin
+ Clipboard.AsText:= (Sender as TMenuItem).Caption;
+end;
+
+procedure TMainForm.TypeNumYearMenuItemClick(Sender: TObject);
+begin
+  Clipboard.AsText:= (Sender as TMenuItem).Caption;
+end;
+
+procedure TMainForm.NameMenuItemClick(Sender: TObject);
+begin
+  Clipboard.AsText:= (Sender as TMenuItem).Caption;
+end;
+
+procedure TMainForm.FullNameMenuItemClick(Sender: TObject);
+begin
+  Clipboard.AsText:= (Sender as TMenuItem).Caption;
+end;
+
 procedure TMainForm.AboutButtonClick(Sender: TObject);
 begin
   FormModalShow(TAboutForm);
@@ -215,7 +259,7 @@ end;
 procedure TMainForm.FormShow(Sender: TObject);
 begin
   SetToolPanels([
-    ToolPanel
+    ToolPanel, InfoPanel
   ]);
   SetToolButtons([
     RefreshButton, AboutButton, ExitButton,
@@ -224,7 +268,7 @@ begin
   ]);
 
   Images.ToButtons([
-    DictionaryButton,
+    DictionaryButton, NameCopyButton,
     RefreshButton, AboutButton, ExitButton,
     AddButton, DelButton, EditButton, PDFShowButton, PDFCopyButton,
     ExportButton, FilterClearButton
@@ -342,6 +386,8 @@ var
   FilterDocNum, FilterDocName: String;
   V: TStrVector;
 begin
+  if not CanLoadDocList then Exit;
+
   SelectedDocID:= ASelectedID;
   if SelectedDocID<=0 then
     if DocList.IsSelected then
@@ -377,6 +423,8 @@ begin
 end;
 
 procedure TMainForm.DocListSelect;
+var
+  i: Integer;
 begin
   DelButton.Enabled:= DocList.IsSelected;
   EditButton.Enabled:= DelButton.Enabled;
@@ -384,6 +432,22 @@ begin
   PDFShowButton.Enabled:= DelButton.Enabled and
                           FileExists(DocumentFileName(DocIDs[DocList.SelectedIndex]));
   PDFCopyButton.Enabled:= PDFShowButton.Enabled;
+
+  if DocList.IsSelected and (not VIsNil(DocIDs)) then
+  begin
+    i:= DocList.SelectedIndex;
+    InfoMemo.Text:= DocumentFullName(TypeNames[i], DocNums[i], DocYears[i], DocNames[i]);
+
+    TypeNumMenuItem.Caption:= TypeNames[i] + SYMBOL_SPACE + DocNums[i];
+    TypeNumYearMenuItem.Caption:= DocumentCode(TypeNames[i], DocNums[i], DocYears[i]);
+    NameMenuItem.Caption:= DocNames[i];
+    FullNameMenuItem.Caption:= InfoMemo.Text;
+    NameCopyButton.Enabled:= True;
+  end
+  else begin
+    InfoMemo.Lines.Clear;
+    NameCopyButton.Enabled:= False;
+  end;
 end;
 
 procedure TMainForm.DocumentEditFormOpen(const AEditType: Byte);
@@ -391,10 +455,6 @@ var
   DocumentEditForm: TDocumentEditForm;
   DocID: Integer;
 begin
-  {DocIDs: TIntVector;
-    DocDates: TDateVector;
-    TypeNames, DocNums, DocYears, DocNames, StatusNames, Notes: TStrVector;  }
-
   DocumentEditForm:= TDocumentEditForm.Create(nil);
   try
     if AEditType=0 then //добавить
@@ -408,6 +468,7 @@ begin
       DocumentEditForm.DocDatePicker.Date:= DocDates[DocList.SelectedIndex];
       DocumentEditForm.DocNameEdit.Text:= DocNames[DocList.SelectedIndex];
       DocumentEditForm.DocStatusComboBox.Text:= StatusNames[DocList.SelectedIndex];
+      DocumentEditForm.NoteEdit.Text:= Notes[DocList.SelectedIndex];
     end;
     DocumentEditForm.EditType:= AEditType;
     DocumentEditForm.DocID:= DocID;

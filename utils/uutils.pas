@@ -15,7 +15,6 @@ function VDocumentNumber(const ADocNums, ADocYears: TStrVector): TStrVector;
 function DocumentCode(const ATypeName, ADocNum, ADocYear: String): String;
 function VDocumentCode(const ATypeNames, ADocNums, ADocYears: TStrVector): TStrVector;
 
-
 function DocumentFullName(const ATypeName, ADocNum, ADocYear, ADocName: String): String;
 
 function DocumentFileName(const ADocID: Integer): String;
@@ -66,7 +65,9 @@ end;
 function DocumentFullName(const ATypeName, ADocNum, ADocYear, ADocName: String): String;
 begin
   Result:= DocumentCode(ATypeName, ADocNum, ADocYear) +
-           SYMBOL_DOT + SYMBOL_SPACE + ADocName;
+           SYMBOL_SPACE + SRusQuoted(ADocName);
+  //Result:= DocumentCode(ATypeName, ADocNum, ADocYear) +
+  //         SYMBOL_DOT + SYMBOL_SPACE + ADocName;
 end;
 
 function DocumentChoose(const AEdit: TEdit = nil): String;
