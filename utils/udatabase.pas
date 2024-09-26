@@ -93,7 +93,7 @@ begin
   QSetSQL(SQLStr);
   QParamInt('FilterTypeID', AFilterTypeID);
   QParamInt('FilterStatusID', AFilterStatusID);
-  QParamStr('FilterDocNum', '%'+AFilterDocNum+'%');
+  QParamStr('FilterDocNum', {'%'+}AFilterDocNum+'%');
   QParamStr('FilterDocName', '%'+SUpper(AFilterDocName)+'%');
   QOpen;
   if not QIsEmpty then

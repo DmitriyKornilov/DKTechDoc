@@ -322,13 +322,37 @@ begin
 end;
 
 procedure TMainForm.TypesMenuItemClick(Sender: TObject);
+var
+  ID, n: Integer;
 begin
   DictionarySelect(1);
+
+  CanLoadDocList:= False;
+  ID:= 0;
+  if DocTypeComboBox.ItemIndex>=0 then
+    ID:= FilterTypeIDs[DocTypeComboBox.ItemIndex];
+  DataBase.DocTypesLoad(DocTypeComboBox, FilterTypeIDs, True);
+  n:= VIndexOf(FilterTypeIDs, ID);
+  if n>=0 then
+    DocTypeComboBox.ItemIndex:= n;
+  CanLoadDocList:= True;
 end;
 
 procedure TMainForm.StatusesMenuItemClick(Sender: TObject);
+var
+  ID, n: Integer;
 begin
   DictionarySelect(2);
+
+  CanLoadDocList:= False;
+  ID:= 0;
+  if DocStatusComboBox.ItemIndex>=0 then
+    ID:= FilterStatusIDs[DocStatusComboBox.ItemIndex];
+  DataBase.DocStatusesLoad(DocStatusComboBox, FilterStatusIDs, True);
+  n:= VIndexOf(FilterStatusIDs, ID);
+  if n>=0 then
+    DocStatusComboBox.ItemIndex:= n;
+  CanLoadDocList:= True;
 end;
 
 procedure TMainForm.DBConnect;
