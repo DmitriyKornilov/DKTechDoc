@@ -7,7 +7,9 @@ interface
 uses
   Classes, SysUtils, StdCtrls,
   //DK packages utils
-  DK_SQLite3, DK_SQLUtils, DK_Vector, DK_StrUtils;
+  DK_SQLite3, DK_SQLUtils, DK_Vector, DK_StrUtils,
+  //Project utils
+  UUtils;
 
 type
 
@@ -55,6 +57,7 @@ function TDataBase.DocListLoad(const AFilterTypeID, AFilterStatusID: Integer;
                                    AStatusNames, ANotes: TStrVector): Boolean;
 var
   SQLStr: String;
+  Indexes: TIntVector;
 begin
   Result:= False;
 
@@ -118,6 +121,21 @@ begin
     Result:= True;
   end;
   QClose;
+
+  if not Result then Exit;
+
+  VDocumentCodeSort(ADocNums, Indexes);
+
+  ADocIDs:= VReplace(ADocIDs, Indexes);
+  ATypeIDs:= VReplace(ATypeIDs, Indexes);
+  AStatusIDs:= VReplace(AStatusIDs, Indexes);
+  ADocDates:= VReplace(ADocDates, Indexes);
+  ATypeNames:= VReplace(ATypeNames, Indexes);
+  ADocNums:= VReplace(ADocNums, Indexes);
+  ADocYears:= VReplace(ADocYears, Indexes);
+  ADocNames:= VReplace(ADocNames, Indexes);
+  AStatusNames:= VReplace(AStatusNames, Indexes);
+  ANotes:= VReplace(ANotes, Indexes);
 end;
 
 function TDataBase.DocAdd(out ADocID: Integer;
