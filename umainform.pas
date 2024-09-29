@@ -457,7 +457,7 @@ begin
                           FileExists(DocumentFileName(DocIDs[DocList.SelectedIndex]));
   PDFCopyButton.Enabled:= PDFShowButton.Enabled;
 
-  if DocList.IsSelected and (not VIsNil(DocIDs)) then
+  if DocList.IsSelected then
   begin
     i:= DocList.SelectedIndex;
     InfoMemo.Text:= DocumentFullName(TypeNames[i], DocNums[i], DocYears[i], DocNames[i]);
@@ -466,12 +466,11 @@ begin
     TypeNumYearMenuItem.Caption:= DocumentCode(TypeNames[i], DocNums[i], DocYears[i]);
     NameMenuItem.Caption:= DocNames[i];
     FullNameMenuItem.Caption:= InfoMemo.Text;
-    NameCopyButton.Enabled:= True;
   end
-  else begin
+  else
     InfoMemo.Lines.Clear;
-    NameCopyButton.Enabled:= False;
-  end;
+
+  InfoPanel.Visible:= DocList.IsSelected;
 end;
 
 procedure TMainForm.DocumentEditFormOpen(const AEditType: Byte);
