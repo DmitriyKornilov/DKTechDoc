@@ -257,8 +257,7 @@
       ],
       "ExistingValues" : [
         "0",
-        "1",
-        "2"
+        "1"
       ],
       "ReferenceTo" : {
         "TableName" : "",
@@ -286,8 +285,7 @@
       ],
       "ExistingValues" : [
         "<не указан>",
-        "действует",
-        "отменен"
+        "действует"
       ],
       "ReferenceTo" : {
         "TableName" : "",

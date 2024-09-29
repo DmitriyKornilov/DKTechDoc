@@ -324,8 +324,11 @@ end;
 procedure TMainForm.TypesMenuItemClick(Sender: TObject);
 var
   ID, n: Integer;
+  S: String;
 begin
   DictionarySelect(1);
+
+  S:= DocTypeComboBox.Text;
 
   CanLoadDocList:= False;
   ID:= 0;
@@ -336,13 +339,19 @@ begin
   if n>=0 then
     DocTypeComboBox.ItemIndex:= n;
   CanLoadDocList:= True;
+
+  if not SSame(S, DocTypeComboBox.Text) then
+    DocListLoad;
 end;
 
 procedure TMainForm.StatusesMenuItemClick(Sender: TObject);
 var
   ID, n: Integer;
+  S: String;
 begin
   DictionarySelect(2);
+
+  S:= DocStatusComboBox.Text;
 
   CanLoadDocList:= False;
   ID:= 0;
@@ -353,6 +362,9 @@ begin
   if n>=0 then
     DocStatusComboBox.ItemIndex:= n;
   CanLoadDocList:= True;
+
+  if not SSame(S, DocStatusComboBox.Text) then
+    DocListLoad;
 end;
 
 procedure TMainForm.DBConnect;
@@ -412,33 +424,40 @@ var
 begin
   if not CanLoadDocList then Exit;
 
-  SelectedDocID:= ASelectedID;
-  if SelectedDocID<=0 then
-    if DocList.IsSelected then
-      SelectedDocID:= DocIDs[DocList.SelectedIndex];
+  Screen.Cursor:= crHourGlass;
+  try
+    SelectedDocID:= ASelectedID;
+    if SelectedDocID<=0 then
+      if DocList.IsSelected then
+        SelectedDocID:= DocIDs[DocList.SelectedIndex];
 
-  FilterTypeID:= FilterTypeIDs[DocTypeComboBox.ItemIndex];
-  FilterStatusID:= FilterStatusIDs[DocStatusComboBox.ItemIndex];
-  FilterDocNum:= STrim(DocNumEdit.Text);
-  FilterDocName:= STrim(DocNameEdit.Text);
+    FilterTypeID:= FilterTypeIDs[DocTypeComboBox.ItemIndex];
+    FilterStatusID:= FilterStatusIDs[DocStatusComboBox.ItemIndex];
+    FilterDocNum:= STrim(DocNumEdit.Text);
+    FilterDocName:= STrim(DocNameEdit.Text);
 
-  DataBase.DocListLoad(FilterTypeID, FilterStatusID, FilterDocNum, FilterDocName,
-                       DocIDs, TypeIDs, StatusIDs, DocDates,
-                       TypeNames, DocNums, DocYears, DocNames, StatusNames, Notes);
-  ExportButton.Enabled:= not VIsNil(DocIDs);
+    DataBase.DocListLoad(FilterTypeID, FilterStatusID, FilterDocNum, FilterDocName,
+                         DocIDs, TypeIDs, StatusIDs, DocDates,
+                         TypeNames, DocNums, DocYears, DocNames, StatusNames, Notes);
+    ExportButton.Enabled:= not VIsNil(DocIDs);
 
-  V:= VIntToStr(VOrder(Length(DocIDs)));
-  DocList.SetColumn('№ п/п', V);
-  DocList.SetColumn('Тип', TypeNames, taLeftJustify);
-  //V:= VDocumentCode(TypeNames, DocNums, DocYears);
-  V:= VDocumentNumber(DocNums, DocYears);
-  DocList.SetColumn('Номер', V, taLeftJustify);
-  V:= VFormatDateTime('dd.mm.yyyy', DocDates);
-  DocList.SetColumn('Дата введения', V);
-  DocList.SetColumn('Статус', StatusNames);
-  DocList.SetColumn('Наименование', DocNames, taLeftJustify);
-  DocList.SetColumn('Примечание', Notes, taLeftJustify);
-  DocList.Draw;
+    DocList.ValuesClear;
+    V:= VIntToStr(VOrder(Length(DocIDs)));
+    DocList.SetColumn('№ п/п', V);
+    DocList.SetColumn('Тип', TypeNames, taLeftJustify);
+    //V:= VDocumentCode(TypeNames, DocNums, DocYears);
+    V:= VDocumentNumber(DocNums, DocYears);
+    DocList.SetColumn('Номер', V, taLeftJustify);
+    V:= VFormatDateTime('dd.mm.yyyy', DocDates);
+    DocList.SetColumn('Дата введения', V);
+    DocList.SetColumn('Статус', StatusNames);
+    DocList.SetColumn('Наименование', DocNames, taLeftJustify);
+    DocList.SetColumn('Примечание', Notes, taLeftJustify);
+    DocList.Draw;
+
+  finally
+    Screen.Cursor:= crDefault;
+  end;
 
   if SelectedDocID=0 then Exit;
   i:= VIndexOf(DocIDs, SelectedDocID);

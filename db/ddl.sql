@@ -8,7 +8,6 @@ CREATE TABLE IF NOT EXISTS STATUSES (
 );
 INSERT OR IGNORE INTO  STATUSES (StatusID, StatusName) VALUES (0, '<не указан>');
 INSERT OR IGNORE INTO  STATUSES (StatusID, StatusName) VALUES (1, 'действует');
-INSERT OR IGNORE INTO  STATUSES (StatusID, StatusName) VALUES (2, 'отменен');
 
 /* Типы документов */
 CREATE TABLE IF NOT EXISTS TYPES (

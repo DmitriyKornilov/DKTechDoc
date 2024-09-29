@@ -858,10 +858,10 @@ object MainForm: TMainForm
     TabOrder = 2
     Visible = False
     object InfoMemo: TMemo
-      Left = 81
+      Left = 80
       Height = 36
       Top = 0
-      Width = 1698
+      Width = 1699
       Align = alClient
       BorderStyle = bsNone
       Color = clBtnFace
@@ -891,7 +891,7 @@ object MainForm: TMainForm
       Left = 60
       Height = 36
       Top = 0
-      Width = 21
+      Width = 20
       Caption = 'DividerBevel7'
       Align = alLeft
       BevelWidth = 2
