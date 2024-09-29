@@ -110,9 +110,9 @@ begin
 
   //определяем наибольшую длину вектора
   Count:= MMaxLength(M);
-  //дополняем вектора до наибольшей длины
+  //дополняем вектора нулями до наибольшей длины
   for i:= 0 to High(ACodes) do
-    VRedim(M[i], Count, -1);
+    VRedim(M[i], Count);
 
   //транспонируем матрицу
   M:= MTranspose(M);
@@ -127,7 +127,7 @@ begin
     n1:= 0; //первый индекс диапазона
     for j:= 1 to High(ACodes) do
     begin
-      if M[i-1, j]>=0 then //предыдущая и часть кода в текущем индексе существует
+      if M[i-1, j]>0 then //предыдущая часть кода в текущем индексе существует
       begin
         if M[i-1, j]<>M[i-1, j-1] then //в предыдущей части кода пошло следующее число
         begin
@@ -137,7 +137,7 @@ begin
           n1:= j;
         end;
       end
-      else begin //предыдущая или эта часть кода НЕ существует
+      else begin //предыдущая часть кода НЕ существует
         n1:= j; //запоминаем текущий индекс как начало диапазона
       end;
     end;
@@ -148,95 +148,6 @@ begin
       DoUpdate(i, n1, n2);
   end;
 end;
-
-//procedure VDocumentCodeSort(const ACodes: TStrVector; out AIndexes: TIntVector);
-//var
-//  i, j, Count, n1, n2: Integer;
-//  V, TmpIndexes, SortIndexes: TIntVector;
-//  M: TIntMatrix;
-//begin
-//  AIndexes:= nil;
-//  if VIsNil(ACodes) then Exit;
-//
-//  M:= nil;
-//  for i:= 0 to High(ACodes) do
-//  begin
-//    //получаем из кода документа вектор чисел
-//    V:= VStrToNumbers(ACodes[i]);
-//    //сохраням этот вектор в матрицу
-//    MAppend(M, V);
-//  end;
-//
-//  //определяем наибольшую длину вектора
-//  Count:= MMaxLength(M);
-//  //дополняем вектора до наибольшей длины
-//  for i:= 0 to High(ACodes) do
-//    VRedim(M[i], Count, -1);
-//
-//  //транспонируем матрицу
-//  M:= MTranspose(M);
-//  //получаем индексы сортированного вектора первой части кода
-//  VSort(M[0], AIndexes);
-//
-//  n1:= 0;
-//  for j:= 1 to High(ACodes) do
-//  begin
-//    if M[0, j]>=0 then //предыдущая и часть кода в текущем индексе существует
-//    begin
-//      if M[0, j]<>M[0, j-1] then //в предыдущей части кода пошло следующее число
-//      begin
-//        n2:= j-1;
-//        if n2>n1 then
-//        begin
-//          //получаем индексы в диапазоне
-//          TmpIndexes:= VCut(AIndexes, n1, n2);
-//          //получаем коды в диапазоне
-//          V:= VCut(M[1], n1, n2);
-//          //сортируем
-//          VSort(V, SortIndexes);
-//          TmpIndexes:= VReplace(TmpIndexes, SortIndexes);
-//          //записываем в итоговый вектор
-//          VChangeIn(AIndexes, TmpIndexes, n1, n2);
-//        end;
-//        n1:= j;
-//      end;
-//
-//    end
-//    else begin //предыдущая или эта часть кода НЕ существует
-//      n1:= j; //запоминаем текущий индекс
-//    end;
-//
-//  end;
-//
-//  //оставшиеся коды
-//  n2:= High(ACodes);
-//  if n2>n1 then
-//  begin
-//    //получаем индексы в диапазоне
-//    TmpIndexes:= VCut(AIndexes, n1, n2);
-//    //получаем коды в диапазоне
-//    V:= VCut(M[1], n1, n2);
-//    //сортируем
-//    VSort(V, SortIndexes);
-//    TmpIndexes:= VReplace(TmpIndexes, SortIndexes);
-//    //записываем в итоговый вектор
-//    VChangeIn(AIndexes, TmpIndexes, n1, n2);
-//  end;
-//
-//
-//  //for i:= 1 to Count-1 do
-//  //begin
-//  //
-//  //end;
-//
-//  //V:= VReplace(M[0], AIndexes);
-//
-//  //VShowAdd(M[0]);
-//  //VShowAdd(V);
-//  //VShowAdd(AIndexes);
-//  //VShow;
-//
-//end;
 
 function DocumentFullName(const ATypeName, ADocNum, ADocYear, ADocName: String): String;
 begin
