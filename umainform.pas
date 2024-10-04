@@ -13,7 +13,7 @@ uses
   //Project utils
   UDataBase, UUtils, UImages,
   //Forms
-  UDocumentEditForm, UAboutForm;
+  UDocumentEditForm, UAddonEditForm, UAboutForm;
 
 type
 
@@ -22,11 +22,24 @@ type
   TMainForm = class(TForm)
     AboutButton: TSpeedButton;
     AddButton: TSpeedButton;
+    AddonAddButton: TSpeedButton;
     DelButton: TSpeedButton;
+    AddonDelButton: TSpeedButton;
     DictionaryButton: TSpeedButton;
+    DividerBevel7: TDividerBevel;
+    DividerBevel8: TDividerBevel;
+    AddonEditButton: TSpeedButton;
     FullNameMenuItem: TMenuItem;
-    TypeNumMenuItem: TMenuItem;
+    InfoPanel: TPanel;
+    AddonCaptionPanel: TPanel;
     NameCopyButton: TSpeedButton;
+    NameMemo: TMemo;
+    NamePanel: TPanel;
+    AddonToolPanel: TPanel;
+    AddonPDFCopyButton: TSpeedButton;
+    AddonPDFShowButton: TSpeedButton;
+    Splitter1: TSplitter;
+    TypeNumMenuItem: TMenuItem;
     NameCopyMenu: TPopupMenu;
     DividerBevel1: TDividerBevel;
     DividerBevel2: TDividerBevel;
@@ -34,15 +47,12 @@ type
     DividerBevel4: TDividerBevel;
     DividerBevel5: TDividerBevel;
     DividerBevel6: TDividerBevel;
-    DividerBevel7: TDividerBevel;
     DocNameEdit: TEdit;
     DocNumEdit: TEdit;
     DocNameLabel: TLabel;
     DocStatusComboBox: TComboBox;
     DocTypeComboBox: TComboBox;
     DocNumLabel: TLabel;
-    InfoMemo: TMemo;
-    InfoPanel: TPanel;
     NameMenuItem: TMenuItem;
     StatusLabel: TLabel;
     EditButton: TSpeedButton;
@@ -61,8 +71,15 @@ type
     ToolPanel: TPanel;
     TypeNumYearMenuItem: TMenuItem;
     VT: TVirtualStringTree;
+    AddonVT: TVirtualStringTree;
     procedure AboutButtonClick(Sender: TObject);
     procedure AddButtonClick(Sender: TObject);
+    procedure AddonAddButtonClick(Sender: TObject);
+    procedure AddonDelButtonClick(Sender: TObject);
+    procedure AddonEditButtonClick(Sender: TObject);
+    procedure AddonPDFCopyButtonClick(Sender: TObject);
+    procedure AddonPDFShowButtonClick(Sender: TObject);
+    procedure AddonVTDblClick(Sender: TObject);
     procedure TypeNumMenuItemClick(Sender: TObject);
     procedure TypeNumYearMenuItemClick(Sender: TObject);
     procedure DelButtonClick(Sender: TObject);
@@ -90,6 +107,7 @@ type
   private
     CanLoadDocList: Boolean;
     DocList: TVSTTable;
+    AddonList: TVSTTable;
 
     DocIDs, TypeIDs, StatusIDs: TIntVector;
     DocDates: TDateVector;
@@ -97,13 +115,25 @@ type
 
     FilterTypeIDs, FilterStatusIDs: TIntVector;
 
+    AddonIDs: TIntVector;
+    AddonDates: TDateVector;
+    AddonNames, AddonNums, AddonNotes: TStrVector;
+
     procedure DocListCreate;
     procedure DocListLoad(const ASelectedID: Integer = 0);
     procedure DocListSelect;
     procedure DocListFilter;
 
+    procedure AddonListCreate;
+    procedure AddonListLoad(const ASelectedID: Integer = 0);
+    procedure AddonListSelect;
+
     procedure DocumentEditFormOpen(const AEditType: Byte); //0-добавить, 1-редактировать
     procedure DocumentShow;
+
+    procedure AddonEditFormOpen(const AEditType: Byte); //0-добавить, 1-редактировать
+    procedure AddonShow;
+
 
     procedure FilterClearButtonEnable;
 
@@ -134,6 +164,40 @@ begin
 
   CanLoadDocList:= True;
   DocListCreate;
+  AddonListCreate;
+end;
+
+procedure TMainForm.FormDestroy(Sender: TObject);
+begin
+  FreeAndNil(DataBase);
+  FreeAndNil(DocList);
+  FreeAndNil(AddonList);
+end;
+
+procedure TMainForm.FormShow(Sender: TObject);
+begin
+  SetToolPanels([
+    ToolPanel, NamePanel, AddonToolPanel
+  ]);
+  SetCaptionPanels([
+    AddonCaptionPanel
+  ]);
+  SetToolButtons([
+    RefreshButton, AboutButton, ExitButton,
+    AddButton, DelButton, EditButton, PDFShowButton, PDFCopyButton,
+    ExportButton, FilterClearButton,
+    AddonAddButton, AddonDelButton, AddonEditButton, AddonPDFShowButton, AddonPDFCopyButton
+  ]);
+
+  Images.ToButtons([
+    DictionaryButton, NameCopyButton,
+    RefreshButton, AboutButton, ExitButton,
+    AddButton, DelButton, EditButton, PDFShowButton, PDFCopyButton,
+    ExportButton, FilterClearButton,
+    AddonAddButton, AddonDelButton, AddonEditButton, AddonPDFShowButton, AddonPDFCopyButton
+  ]);
+
+  DocListLoad;
 end;
 
 procedure TMainForm.ExitButtonClick(Sender: TObject);
@@ -180,6 +244,80 @@ begin
   FilterClearButtonEnable;
 end;
 
+procedure TMainForm.AddonListCreate;
+begin
+  AddonList:= TVSTTable.Create(AddonVT);
+  AddonList.OnSelect:= @AddonListSelect;
+  AddonList.CanSelect:= True;
+  AddonList.HeaderFont.Style:= [fsBold];
+  AddonList.AddColumn('№ п/п', 60);
+  AddonList.AddColumn('Дата введения', 130);
+  AddonList.AddColumn('Наименование', 500);
+  AddonList.AddColumn('Примечание', 250);
+  AddonList.AutosizeColumnEnableLast;
+  //AddonList.AutosizeColumnEnable('Наименование');
+end;
+
+procedure TMainForm.AddonListLoad(const ASelectedID: Integer);
+var
+  i, SelectedAddonID: Integer;
+  V: TStrVector;
+  S: String;
+begin
+  if not CanLoadDocList then Exit;
+
+  Screen.Cursor:= crHourGlass;
+  try
+    SelectedAddonID:= ASelectedID;
+    if SelectedAddonID<=0 then
+      if AddonList.IsSelected then
+        SelectedAddonID:= AddonIDs[AddonList.SelectedIndex];
+
+    AddonList.ValuesClear;
+    if DocList.IsSelected then
+    begin
+      DataBase.AddonListLoad(DocIDs[DocList.SelectedIndex],
+                             AddonIDs, AddonDates, AddonNames, AddonNums, AddonNotes);
+      ExportButton.Enabled:= not VIsNil(AddonIDs);
+
+
+      V:= VIntToStr(VOrder(Length(AddonIDs)));
+      AddonList.SetColumn('№ п/п', V);
+      V:= VFormatDateTime('dd.mm.yyyy', AddonDates);
+      AddonList.SetColumn('Дата введения', V);
+      S:= DocumentCode(TypeNames[DocList.SelectedIndex],
+                       DocNums[DocList.SelectedIndex],
+                       DocYears[DocList.SelectedIndex]);
+      V:= VAddonFullName(S, AddonNames, AddonNums);
+      AddonList.SetColumn('Наименование', V, taLeftJustify);
+      AddonList.SetColumn('Примечание', AddonNotes, taLeftJustify);
+    end;
+    AddonList.Draw;
+
+  finally
+    Screen.Cursor:= crDefault;
+  end;
+
+  if SelectedAddonID=0 then Exit;
+  i:= VIndexOf(AddonIDs, SelectedAddonID);
+  if i>=0 then
+    AddonList.Select(i);
+end;
+
+procedure TMainForm.AddonListSelect;
+var
+  S: String;
+begin
+  AddonDelButton.Enabled:= AddonList.IsSelected;
+  AddonEditButton.Enabled:= AddonDelButton.Enabled;
+
+  S:= AddonFileName(DocIDs[DocList.SelectedIndex], AddonIDs[AddonList.SelectedIndex]);
+  AddonPDFShowButton.Enabled:= DocList.IsSelected and
+                               AddonDelButton.Enabled and
+                               FileExists(S);
+  AddonPDFCopyButton.Enabled:= AddonPDFShowButton.Enabled;
+end;
+
 procedure TMainForm.DocNameEditChange(Sender: TObject);
 begin
   DocListFilter;
@@ -208,6 +346,65 @@ end;
 procedure TMainForm.AddButtonClick(Sender: TObject);
 begin
   DocumentEditFormOpen(0);
+end;
+
+procedure TMainForm.AddonAddButtonClick(Sender: TObject);
+begin
+  AddonEditFormOpen(0);
+end;
+
+procedure TMainForm.AddonDelButtonClick(Sender: TObject);
+var
+  S: String;
+begin
+  if not DocList.IsSelected then Exit;
+  if not AddonList.IsSelected then Exit;
+  S:= DocumentCode(TypeNames[DocList.SelectedIndex],
+                    DocNums[DocList.SelectedIndex],
+                    DocYears[DocList.SelectedIndex]);
+  S:= AddonFullName(S, AddonNames[AddonList.SelectedIndex],
+                    AddonNums[AddonList.SelectedIndex]);
+  if not Confirm('Удалить "' + S + '"?') then Exit;
+  if not DataBase.AddonDelete(AddonIDs[AddonList.SelectedIndex]) then Exit;
+  S:= AddonFileName(DocIDs[DocList.SelectedIndex],
+                    AddonIDs[AddonList.SelectedIndex]);
+  DocumentDelete(S);
+  AddonListLoad;
+end;
+
+procedure TMainForm.AddonEditButtonClick(Sender: TObject);
+begin
+  AddonEditFormOpen(1);
+end;
+
+procedure TMainForm.AddonPDFCopyButtonClick(Sender: TObject);
+var
+  SrcFileName, DestFileName, S: String;
+begin
+  if not DocList.IsSelected then Exit;
+  if not AddonList.IsSelected then Exit;
+
+  SrcFileName:= AddonFileName(DocIDs[DocList.SelectedIndex],
+                              AddonIDs[AddonList.SelectedIndex]);
+
+  S:= DocumentCode(TypeNames[DocList.SelectedIndex],
+                   DocNums[DocList.SelectedIndex],
+                   DocYears[DocList.SelectedIndex]);
+  DestFileName:= AddonFileName(S,
+                               AddonNames[AddonList.SelectedIndex],
+                               AddonNums[AddonList.SelectedIndex]);
+  if DocumentCopy(SrcFileName, DestFileName) then
+    ShowInfo('Выполнено!');
+end;
+
+procedure TMainForm.AddonPDFShowButtonClick(Sender: TObject);
+begin
+  AddonShow;
+end;
+
+procedure TMainForm.AddonVTDblClick(Sender: TObject);
+begin
+  AddonShow;
 end;
 
 procedure TMainForm.TypeNumMenuItemClick(Sender: TObject);
@@ -250,33 +447,6 @@ begin
   DocListLoad;
 end;
 
-procedure TMainForm.FormDestroy(Sender: TObject);
-begin
-  FreeAndNil(DataBase);
-  FreeAndNil(DocList);
-end;
-
-procedure TMainForm.FormShow(Sender: TObject);
-begin
-  SetToolPanels([
-    ToolPanel, InfoPanel
-  ]);
-  SetToolButtons([
-    RefreshButton, AboutButton, ExitButton,
-    AddButton, DelButton, EditButton, PDFShowButton, PDFCopyButton,
-    ExportButton, FilterClearButton
-  ]);
-
-  Images.ToButtons([
-    DictionaryButton, NameCopyButton,
-    RefreshButton, AboutButton, ExitButton,
-    AddButton, DelButton, EditButton, PDFShowButton, PDFCopyButton,
-    ExportButton, FilterClearButton
-  ]);
-
-  DocListLoad;
-end;
-
 procedure TMainForm.PDFCopyButtonClick(Sender: TObject);
 var
   SrcFileName, DestFileName: String;
@@ -295,6 +465,44 @@ procedure TMainForm.DocumentShow;
 begin
   if not DocList.IsSelected then Exit;
   DocumentOpen(DocumentFileName(DocIDs[DocList.SelectedIndex]));
+end;
+
+procedure TMainForm.AddonEditFormOpen(const AEditType: Byte);
+var
+  AddonEditForm: TAddonEditForm;
+  AddonID: Integer;
+begin
+  AddonEditForm:= TAddonEditForm.Create(nil);
+  try
+    AddonEditForm.DocID:= DocIDs[DocList.SelectedIndex];
+    if AEditType=0 then //добавить
+      AddonID:= 0
+    else begin
+      AddonID:= AddonIDs[AddonList.SelectedIndex];
+      if SFind(AddonNames[AddonList.SelectedIndex], 'изменение', False) then
+        AddonEditForm.ModificationRadioButton.Checked:= True;
+      AddonEditForm.NumEdit.Text:= AddonNums[AddonList.SelectedIndex];
+      AddonEditForm.DatePicker.Date:= AddonDates[AddonList.SelectedIndex];
+      AddonEditForm.NoteEdit.Text:= AddonNotes[AddonList.SelectedIndex];
+    end;
+    AddonEditForm.EditType:= AEditType;
+    AddonEditForm.AddonID:= AddonID;
+    if AddonEditForm.ShowModal=mrOK then
+    begin
+      AddonID:= AddonEditForm.AddonID;
+      AddonListLoad(AddonID);
+    end;
+  finally
+    FreeAndNil(AddonEditForm);
+  end;
+end;
+
+procedure TMainForm.AddonShow;
+begin
+  if not DocList.IsSelected then Exit;
+  if not AddonList.IsSelected then Exit;
+  DocumentOpen(AddonFileName(DocIDs[DocList.SelectedIndex],
+                             AddonIDs[AddonList.SelectedIndex]));
 end;
 
 procedure TMainForm.FilterClearButtonEnable;
@@ -479,17 +687,20 @@ begin
   if DocList.IsSelected then
   begin
     i:= DocList.SelectedIndex;
-    InfoMemo.Text:= DocumentFullName(TypeNames[i], DocNums[i], DocYears[i], DocNames[i]);
+    NameMemo.Text:= DocumentFullName(TypeNames[i], DocNums[i], DocYears[i], DocNames[i]);
 
     TypeNumMenuItem.Caption:= TypeNames[i] + SYMBOL_SPACE + DocNums[i];
     TypeNumYearMenuItem.Caption:= DocumentCode(TypeNames[i], DocNums[i], DocYears[i]);
     NameMenuItem.Caption:= DocNames[i];
-    FullNameMenuItem.Caption:= InfoMemo.Text;
+    FullNameMenuItem.Caption:= NameMemo.Text;
   end
   else
-    InfoMemo.Lines.Clear;
+    NameMemo.Lines.Clear;
 
-  InfoPanel.Visible:= DocList.IsSelected;
+  NameCopyButton.Enabled:= DocList.IsSelected;
+  AddonAddButton.Enabled:= DocList.IsSelected;
+
+  AddonListLoad;
 end;
 
 procedure TMainForm.DocumentEditFormOpen(const AEditType: Byte);

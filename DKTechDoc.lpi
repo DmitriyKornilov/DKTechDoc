@@ -100,6 +100,13 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="UAboutForm"/>
       </Unit>
+      <Unit>
+        <Filename Value="forms\uaddoneditform.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="AddonEditForm"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="UAddonEditForm"/>
+      </Unit>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

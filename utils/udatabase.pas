@@ -17,6 +17,21 @@ type
 
   TDataBase = class (TSQLite3)
   public
+    function AddonListLoad(const ADocID: Integer;
+                           out AAddonIDs: TIntVector;
+                           out AAddonDates: TDateVector;
+                           out AAddonNames, AAddonNums, AAddonNotes: TStrVector): Boolean;
+
+    function AddonAdd(out AAddonID: Integer;
+                      const ADocID: Integer;
+                      const AAddonDate: TDate;
+                      const AAddonName, AAddonNum, ANote: String): Boolean;
+    function AddonUpdate(const AAddonID{, ADocID}: Integer;
+                      const AAddonDate: TDate;
+                      const AAddonName, AAddonNum, ANote: String): Boolean;
+    function AddonDelete(const AAddonID: Integer): Boolean;
+
+
     function DocListLoad(const AFilterTypeID, AFilterStatusID: Integer;
                          const AFilterDocNum, AFilterDocName: String;
                          out ADocIDs, ATypeIDs, AStatusIDs: TIntVector;
@@ -48,6 +63,103 @@ var
 implementation
 
 { TDataBase }
+
+function TDataBase.AddonListLoad(const ADocID: Integer;
+                           out AAddonIDs: TIntVector;
+                           out AAddonDates: TDateVector;
+                           out AAddonNames, AAddonNums, AAddonNotes: TStrVector): Boolean;
+begin
+  Result:= False;
+
+  AAddonIDs:= nil;
+  AAddonDates:= nil;
+  AAddonNames:= nil;
+  AAddonNums:= nil;
+  AAddonNotes:= nil;
+  if ADocID<=0 then Exit;
+
+  QSetQuery(FQuery);
+  QSetSQL(
+    sqlSELECT('ADDONS', ['AddonID', 'AddonDate', 'AddonName', 'AddonNum', 'AddonNote']) +
+    'WHERE DocID = :DocID ' +
+    'ORDER BY AddonDate, AddonName, AddonNum'
+  );
+  QParamInt('DocID', ADocID);
+  QOpen;
+  if not QIsEmpty then
+  begin
+    QFirst;
+    while not QEOF do
+    begin
+      VAppend(AAddonIDs, QFieldInt('AddonID'));
+      VAppend(AAddonDates, QFieldDT('AddonDate'));
+      VAppend(AAddonNames, QFieldStr('AddonName'));
+      VAppend(AAddonNums, QFieldStr('AddonNum'));
+      VAppend(AAddonNotes, QFieldStr('AddonNote'));
+      QNext;
+    end;
+    Result:= True;
+  end;
+  QClose;
+end;
+
+function TDataBase.AddonAdd(out AAddonID: Integer;
+                      const ADocID: Integer;
+                      const AAddonDate: TDate;
+                      const AAddonName, AAddonNum, ANote: String): Boolean;
+begin
+  Result:= False;
+  QSetQuery(FQuery);
+  try
+    //запись документа
+    QSetSQL(
+      sqlINSERT('ADDONS', ['DocID', 'AddonDate', 'AddonName', 'AddonNum', 'AddonNote'])
+    );
+    QParamInt('DocID', ADocID);
+    QParamDT('AddonDate', AAddonDate);
+    QParamStr('AddonName', AAddonName);
+    QParamStr('AddonNum', AAddonNum);
+    QParamStr('AddonNote', ANote);
+    QExec;
+    //получение ID сделанной записи
+    AAddonID:= LastWritedInt32ID('ADDONS');
+    QCommit;
+    Result:= True;
+  except
+    QRollback;
+  end;
+end;
+
+function TDataBase.AddonUpdate(const AAddonID{, ADocID}: Integer;
+                      const AAddonDate: TDate;
+                      const AAddonName, AAddonNum, ANote: String): Boolean;
+begin
+  Result:= False;
+  QSetQuery(FQuery);
+  try
+    //запись документа
+    QSetSQL(
+      sqlUPDATE('ADDONS', [{'DocID',} 'AddonDate', 'AddonName', 'AddonNum', 'AddonNote']) +
+      'WHERE AddonID = :AddonID'
+    );
+    QParamInt('AddonID', AAddonID);
+    //QParamInt('DocID', ADocID);
+    QParamDT('AddonDate', AAddonDate);
+    QParamStr('AddonName', AAddonName);
+    QParamStr('AddonNum', AAddonNum);
+    QParamStr('AddonNote', ANote);
+    QExec;
+    QCommit;
+    Result:= True;
+  except
+    QRollback;
+  end;
+end;
+
+function TDataBase.AddonDelete(const AAddonID: Integer): Boolean;
+begin
+  Result:= Delete('ADDONS', 'AddonID', AAddonID);
+end;
 
 function TDataBase.DocListLoad(const AFilterTypeID, AFilterStatusID: Integer;
                                const AFilterDocNum, AFilterDocName: String;

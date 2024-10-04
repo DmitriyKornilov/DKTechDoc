@@ -1,11 +1,10 @@
 object MainForm: TMainForm
-  Left = 213
-  Height = 240
-  Top = 149
-  Width = 1787
-  ClientHeight = 240
-  ClientWidth = 1787
-  DesignTimePPI = 120
+  Left = 438
+  Height = 475
+  Top = 139
+  Width = 1306
+  ClientHeight = 475
+  ClientWidth = 1306
   OnCreate = FormCreate
   OnDestroy = FormDestroy
   OnShow = FormShow
@@ -13,29 +12,29 @@ object MainForm: TMainForm
   WindowState = wsMaximized
   object ToolPanel: TPanel
     Left = 2
-    Height = 40
+    Height = 32
     Top = 2
-    Width = 1783
+    Width = 1302
     Align = alTop
     BorderSpacing.Left = 2
     BorderSpacing.Top = 2
     BorderSpacing.Right = 2
     BevelOuter = bvNone
     BorderStyle = bsSingle
-    ClientHeight = 36
-    ClientWidth = 1779
+    ClientHeight = 28
+    ClientWidth = 1298
     ParentFont = False
     TabOrder = 0
     object AboutButton: TSpeedButton
       Cursor = crHandPoint
-      Left = 1679
-      Height = 36
+      Left = 1219
+      Height = 28
       Hint = 'О программе'
       Top = 0
-      Width = 40
+      Width = 32
       Align = alRight
-      Constraints.MaxWidth = 40
-      Constraints.MinWidth = 40
+      Constraints.MaxWidth = 32
+      Constraints.MinWidth = 32
       Images = Images.PX24
       ImageIndex = 1
       OnClick = AboutButtonClick
@@ -44,14 +43,14 @@ object MainForm: TMainForm
     end
     object ExitButton: TSpeedButton
       Cursor = crHandPoint
-      Left = 1739
-      Height = 36
+      Left = 1266
+      Height = 28
       Hint = 'Выход'
       Top = 0
-      Width = 40
+      Width = 32
       Align = alRight
-      Constraints.MaxWidth = 40
-      Constraints.MinWidth = 40
+      Constraints.MaxWidth = 32
+      Constraints.MinWidth = 32
       Images = Images.PX24
       ImageIndex = 0
       OnClick = ExitButtonClick
@@ -60,14 +59,14 @@ object MainForm: TMainForm
     end
     object RefreshButton: TSpeedButton
       Cursor = crHandPoint
-      Left = 1639
-      Height = 36
+      Left = 1187
+      Height = 28
       Hint = 'Обновить'
       Top = 0
-      Width = 40
+      Width = 32
       Align = alRight
-      Constraints.MaxWidth = 40
-      Constraints.MinWidth = 40
+      Constraints.MaxWidth = 32
+      Constraints.MinWidth = 32
       Images = Images.PX24
       ImageIndex = 2
       OnClick = RefreshButtonClick
@@ -75,10 +74,10 @@ object MainForm: TMainForm
       ParentShowHint = False
     end
     object DividerBevel1: TDividerBevel
-      Left = 1719
-      Height = 36
+      Left = 1251
+      Height = 28
       Top = 0
-      Width = 20
+      Width = 15
       Caption = 'DividerBevel1'
       Align = alRight
       BevelWidth = 2
@@ -88,11 +87,11 @@ object MainForm: TMainForm
     end
     object DictionaryButton: TSpeedButton
       Cursor = crHandPoint
-      Left = 1559
-      Height = 36
+      Left = 1117
+      Height = 28
       Hint = 'Атрибуты документов'
       Top = 0
-      Width = 60
+      Width = 55
       Align = alRight
       AutoSize = True
       Caption = ' ▼ '
@@ -105,10 +104,10 @@ object MainForm: TMainForm
       ParentShowHint = False
     end
     object DividerBevel2: TDividerBevel
-      Left = 1619
-      Height = 36
+      Left = 1172
+      Height = 28
       Top = 0
-      Width = 20
+      Width = 15
       Caption = 'DividerBevel2'
       Align = alRight
       BevelWidth = 2
@@ -119,10 +118,10 @@ object MainForm: TMainForm
     object AddButton: TSpeedButton
       Cursor = crHandPoint
       Left = 0
-      Height = 36
+      Height = 28
       Hint = 'Добавить'
       Top = 0
-      Width = 40
+      Width = 32
       Align = alLeft
       Images = Images.PX24
       ImageIndex = 3
@@ -132,11 +131,11 @@ object MainForm: TMainForm
     end
     object DelButton: TSpeedButton
       Cursor = crHandPoint
-      Left = 40
-      Height = 36
+      Left = 32
+      Height = 28
       Hint = 'Удалить'
       Top = 0
-      Width = 40
+      Width = 32
       Align = alLeft
       Enabled = False
       Images = Images.PX24
@@ -147,11 +146,11 @@ object MainForm: TMainForm
     end
     object EditButton: TSpeedButton
       Cursor = crHandPoint
-      Left = 80
-      Height = 36
+      Left = 64
+      Height = 28
       Hint = 'Редактировать'
       Top = 0
-      Width = 40
+      Width = 32
       Align = alLeft
       Enabled = False
       Images = Images.PX24
@@ -161,10 +160,10 @@ object MainForm: TMainForm
       ParentShowHint = False
     end
     object DividerBevel3: TDividerBevel
-      Left = 120
-      Height = 36
+      Left = 96
+      Height = 28
       Top = 0
-      Width = 20
+      Width = 15
       Caption = 'DividerBevel3'
       Align = alLeft
       BevelWidth = 2
@@ -174,11 +173,11 @@ object MainForm: TMainForm
     end
     object ExportButton: TSpeedButton
       Cursor = crHandPoint
-      Left = 240
-      Height = 36
+      Left = 190
+      Height = 28
       Hint = 'Экспорт в файл электронной таблицы XLSX или ODS'
       Top = 0
-      Width = 40
+      Width = 32
       Align = alLeft
       Enabled = False
       Images = Images.PX24
@@ -189,15 +188,15 @@ object MainForm: TMainForm
     end
     object PDFShowButton: TSpeedButton
       Cursor = crHandPoint
-      Left = 140
-      Height = 38
+      Left = 111
+      Height = 30
       Hint = 'Открыть документ'
       Top = 0
-      Width = 40
+      Width = 32
       Align = alLeft
       AutoSize = True
-      Constraints.MinHeight = 38
-      Constraints.MinWidth = 40
+      Constraints.MinHeight = 30
+      Constraints.MinWidth = 32
       Enabled = False
       Glyph.Data = {
         36100000424D3610000000000000360000002800000020000000200000000100
@@ -340,15 +339,15 @@ object MainForm: TMainForm
     end
     object PDFCopyButton: TSpeedButton
       Cursor = crHandPoint
-      Left = 180
-      Height = 38
+      Left = 143
+      Height = 30
       Hint = 'Скопировать документ'
       Top = 0
-      Width = 40
+      Width = 32
       Align = alLeft
       AutoSize = True
-      Constraints.MinHeight = 38
-      Constraints.MinWidth = 40
+      Constraints.MinHeight = 30
+      Constraints.MinWidth = 32
       Enabled = False
       Glyph.Data = {
         36100000424D3610000000000000360000002800000020000000200000000100
@@ -490,10 +489,10 @@ object MainForm: TMainForm
       ParentShowHint = False
     end
     object DividerBevel4: TDividerBevel
-      Left = 220
-      Height = 36
+      Left = 175
+      Height = 28
       Top = 0
-      Width = 20
+      Width = 15
       Caption = 'DividerBevel4'
       Align = alLeft
       BevelWidth = 2
@@ -502,10 +501,10 @@ object MainForm: TMainForm
       ParentFont = False
     end
     object DividerBevel5: TDividerBevel
-      Left = 280
-      Height = 36
+      Left = 222
+      Height = 28
       Top = 0
-      Width = 20
+      Width = 15
       Caption = 'DividerBevel5'
       Align = alLeft
       BevelWidth = 2
@@ -515,28 +514,28 @@ object MainForm: TMainForm
     end
     object FilterPanel: TPanel
       AnchorSideRight.Control = DividerBevel6
-      Left = 300
-      Height = 36
+      Left = 237
+      Height = 28
       Top = 0
-      Width = 1239
+      Width = 865
       Align = alLeft
       Anchors = [akTop, akLeft, akRight, akBottom]
       BevelOuter = bvNone
-      ClientHeight = 36
-      ClientWidth = 1239
+      ClientHeight = 28
+      ClientWidth = 865
       TabOrder = 0
       object FilterClearButton: TSpeedButton
         Cursor = crHandPoint
-        Left = 1197
-        Height = 38
+        Left = 831
+        Height = 30
         Hint = 'Очистить фильтр'
         Top = 0
-        Width = 40
+        Width = 32
         Align = alRight
         AutoSize = True
         BorderSpacing.Right = 2
-        Constraints.MinHeight = 38
-        Constraints.MinWidth = 40
+        Constraints.MinHeight = 30
+        Constraints.MinWidth = 32
         Enabled = False
         Glyph.Data = {
           36100000424D3610000000000000360000002800000020000000200000000100
@@ -682,9 +681,9 @@ object MainForm: TMainForm
         AnchorSideTop.Control = FilterPanel
         AnchorSideTop.Side = asrCenter
         Left = 2
-        Height = 20
-        Top = 8
-        Width = 59
+        Height = 15
+        Top = 7
+        Width = 47
         Align = alCustom
         BorderSpacing.Left = 2
         Caption = 'Фильтр:'
@@ -696,12 +695,12 @@ object MainForm: TMainForm
         AnchorSideLeft.Side = asrBottom
         AnchorSideTop.Control = FilterPanel
         AnchorSideTop.Side = asrCenter
-        Left = 320
-        Height = 20
-        Top = 8
-        Width = 24
+        Left = 258
+        Height = 15
+        Top = 7
+        Width = 19
         Align = alCustom
-        BorderSpacing.Left = 12
+        BorderSpacing.Left = 10
         Caption = 'тип'
       end
       object DocTypeComboBox: TComboBox
@@ -711,16 +710,16 @@ object MainForm: TMainForm
         AnchorSideTop.Side = asrCenter
         AnchorSideRight.Control = Owner
         AnchorSideRight.Side = asrBottom
-        Left = 350
-        Height = 28
-        Top = 4
-        Width = 188
-        BorderSpacing.Left = 6
-        BorderSpacing.Top = 8
-        BorderSpacing.Right = 8
-        Constraints.MinWidth = 188
+        Left = 282
+        Height = 23
+        Top = 3
+        Width = 150
+        BorderSpacing.Left = 5
+        BorderSpacing.Top = 6
+        BorderSpacing.Right = 6
+        Constraints.MinWidth = 150
         DropDownCount = 20
-        ItemHeight = 20
+        ItemHeight = 15
         Style = csDropDownList
         TabOrder = 0
         OnChange = DocTypeComboBoxChange
@@ -730,12 +729,12 @@ object MainForm: TMainForm
         AnchorSideLeft.Side = asrBottom
         AnchorSideTop.Control = FilterPanel
         AnchorSideTop.Side = asrCenter
-        Left = 73
-        Height = 20
-        Top = 8
-        Width = 41
+        Left = 59
+        Height = 15
+        Top = 7
+        Width = 34
         Align = alCustom
-        BorderSpacing.Left = 12
+        BorderSpacing.Left = 10
         Caption = 'статус'
       end
       object DocStatusComboBox: TComboBox
@@ -745,16 +744,16 @@ object MainForm: TMainForm
         AnchorSideTop.Side = asrCenter
         AnchorSideRight.Control = Owner
         AnchorSideRight.Side = asrBottom
-        Left = 120
-        Height = 28
-        Top = 4
-        Width = 188
-        BorderSpacing.Left = 6
-        BorderSpacing.Top = 8
-        BorderSpacing.Right = 8
-        Constraints.MinWidth = 188
+        Left = 98
+        Height = 23
+        Top = 3
+        Width = 150
+        BorderSpacing.Left = 5
+        BorderSpacing.Top = 6
+        BorderSpacing.Right = 6
+        Constraints.MinWidth = 150
         DropDownCount = 20
-        ItemHeight = 20
+        ItemHeight = 15
         Style = csDropDownList
         TabOrder = 1
         OnChange = DocStatusComboBoxChange
@@ -764,12 +763,12 @@ object MainForm: TMainForm
         AnchorSideLeft.Side = asrBottom
         AnchorSideTop.Control = FilterPanel
         AnchorSideTop.Side = asrCenter
-        Left = 550
-        Height = 20
-        Top = 8
-        Width = 46
+        Left = 442
+        Height = 15
+        Top = 7
+        Width = 36
         Align = alCustom
-        BorderSpacing.Left = 12
+        BorderSpacing.Left = 10
         Caption = 'номер'
       end
       object DocNumEdit: TEdit
@@ -777,12 +776,12 @@ object MainForm: TMainForm
         AnchorSideLeft.Side = asrBottom
         AnchorSideTop.Control = FilterPanel
         AnchorSideTop.Side = asrCenter
-        Left = 602
-        Height = 28
-        Top = 4
-        Width = 150
-        BorderSpacing.Left = 6
-        BorderSpacing.Top = 8
+        Left = 483
+        Height = 23
+        Top = 3
+        Width = 120
+        BorderSpacing.Left = 5
+        BorderSpacing.Top = 6
         TabOrder = 2
         OnChange = DocNumEditChange
       end
@@ -791,12 +790,12 @@ object MainForm: TMainForm
         AnchorSideLeft.Side = asrBottom
         AnchorSideTop.Control = FilterPanel
         AnchorSideTop.Side = asrCenter
-        Left = 764
-        Height = 20
-        Top = 8
-        Width = 105
+        Left = 613
+        Height = 15
+        Top = 7
+        Width = 81
         Align = alCustom
-        BorderSpacing.Left = 12
+        BorderSpacing.Left = 10
         Caption = 'наименование'
       end
       object DocNameEdit: TEdit
@@ -805,23 +804,23 @@ object MainForm: TMainForm
         AnchorSideTop.Control = FilterLabel
         AnchorSideTop.Side = asrCenter
         AnchorSideRight.Control = FilterClearButton
-        Left = 875
-        Height = 28
-        Top = 4
-        Width = 314
+        Left = 699
+        Height = 23
+        Top = 3
+        Width = 126
         Anchors = [akTop, akLeft, akRight]
-        BorderSpacing.Left = 6
-        BorderSpacing.Top = 8
-        BorderSpacing.Right = 8
+        BorderSpacing.Left = 5
+        BorderSpacing.Top = 6
+        BorderSpacing.Right = 6
         TabOrder = 3
         OnChange = DocNameEditChange
       end
     end
     object DividerBevel6: TDividerBevel
-      Left = 1539
-      Height = 36
+      Left = 1102
+      Height = 28
       Top = 0
-      Width = 20
+      Width = 15
       Caption = 'DividerBevel6'
       Align = alRight
       BevelWidth = 2
@@ -832,11 +831,13 @@ object MainForm: TMainForm
   end
   object VT: TVirtualStringTree
     Left = 2
-    Height = 152
-    Top = 44
-    Width = 1783
+    Height = 182
+    Top = 36
+    Width = 1302
     Align = alClient
-    BorderSpacing.Around = 2
+    BorderSpacing.Left = 2
+    BorderSpacing.Top = 2
+    BorderSpacing.Right = 2
     DefaultText = 'Node'
     Header.AutoSizeIndex = 0
     Header.Columns = <>
@@ -846,63 +847,489 @@ object MainForm: TMainForm
   end
   object InfoPanel: TPanel
     Left = 2
-    Height = 40
-    Top = 198
-    Width = 1783
+    Height = 250
+    Top = 223
+    Width = 1302
     Align = alBottom
-    BorderSpacing.Around = 2
+    BorderSpacing.Left = 2
+    BorderSpacing.Right = 2
+    BorderSpacing.Bottom = 2
     BevelOuter = bvNone
-    BorderStyle = bsSingle
-    ClientHeight = 36
-    ClientWidth = 1779
+    ClientHeight = 250
+    ClientWidth = 1302
     TabOrder = 2
-    Visible = False
-    object InfoMemo: TMemo
-      Left = 80
-      Height = 36
-      Top = 0
-      Width = 1699
-      Align = alClient
-      BorderStyle = bsNone
-      Color = clBtnFace
-      ReadOnly = True
-      ScrollBars = ssAutoBoth
-      TabOrder = 0
-    end
-    object NameCopyButton: TSpeedButton
-      Cursor = crHandPoint
+    object NamePanel: TPanel
       Left = 0
-      Height = 36
-      Hint = 'Скопировать наименование документа'
+      Height = 32
       Top = 0
-      Width = 60
-      Align = alLeft
-      AutoSize = True
-      Caption = ' ▼ '
-      Images = Images.PX24
-      ImageIndex = 14
-      Margin = 5
-      Spacing = 5
-      OnClick = NameCopyButtonClick
-      ShowHint = True
-      ParentShowHint = False
+      Width = 1302
+      Align = alTop
+      BevelOuter = bvNone
+      BorderStyle = bsSingle
+      ClientHeight = 28
+      ClientWidth = 1298
+      TabOrder = 0
+      object NameMemo: TMemo
+        Left = 73
+        Height = 28
+        Top = 0
+        Width = 1225
+        Align = alClient
+        BorderStyle = bsNone
+        Color = clBtnFace
+        ReadOnly = True
+        ScrollBars = ssAutoBoth
+        TabOrder = 0
+      end
+      object NameCopyButton: TSpeedButton
+        Cursor = crHandPoint
+        Left = 0
+        Height = 28
+        Hint = 'Скопировать наименование документа'
+        Top = 0
+        Width = 55
+        Align = alLeft
+        AutoSize = True
+        Caption = ' ▼ '
+        Enabled = False
+        Images = Images.PX24
+        ImageIndex = 14
+        Margin = 5
+        Spacing = 5
+        OnClick = NameCopyButtonClick
+        ShowHint = True
+        ParentShowHint = False
+      end
+      object DividerBevel7: TDividerBevel
+        Left = 55
+        Height = 28
+        Top = 0
+        Width = 18
+        Caption = 'DividerBevel7'
+        Align = alLeft
+        BevelWidth = 2
+        Font.Style = [fsBold]
+        Orientation = trVertical
+        ParentFont = False
+      end
     end
-    object DividerBevel7: TDividerBevel
-      Left = 60
-      Height = 36
-      Top = 0
-      Width = 20
-      Caption = 'DividerBevel7'
-      Align = alLeft
-      BevelWidth = 2
+    object AddonCaptionPanel: TPanel
+      Left = 0
+      Height = 24
+      Top = 34
+      Width = 1302
+      Align = alTop
+      Alignment = taLeftJustify
+      BorderSpacing.Top = 2
+      BevelOuter = bvNone
+      BorderStyle = bsSingle
+      Caption = '  Изменения и поправки, не вошедшие в редакцию документа'
       Font.Style = [fsBold]
-      Orientation = trVertical
+      ParentBackground = False
+      ParentColor = False
       ParentFont = False
+      TabOrder = 1
+    end
+    object AddonToolPanel: TPanel
+      Left = 0
+      Height = 32
+      Top = 60
+      Width = 1302
+      Align = alTop
+      BorderSpacing.Top = 2
+      BevelOuter = bvNone
+      BorderStyle = bsSingle
+      ClientHeight = 28
+      ClientWidth = 1298
+      TabOrder = 2
+      object AddonAddButton: TSpeedButton
+        Cursor = crHandPoint
+        Left = 0
+        Height = 28
+        Hint = 'Добавить'
+        Top = 0
+        Width = 32
+        Align = alLeft
+        Enabled = False
+        Images = Images.PX24
+        ImageIndex = 3
+        OnClick = AddonAddButtonClick
+        ShowHint = True
+        ParentShowHint = False
+      end
+      object AddonDelButton: TSpeedButton
+        Cursor = crHandPoint
+        Left = 32
+        Height = 28
+        Hint = 'Удалить'
+        Top = 0
+        Width = 32
+        Align = alLeft
+        Enabled = False
+        Images = Images.PX24
+        ImageIndex = 4
+        OnClick = AddonDelButtonClick
+        ShowHint = True
+        ParentShowHint = False
+      end
+      object AddonEditButton: TSpeedButton
+        Cursor = crHandPoint
+        Left = 64
+        Height = 28
+        Hint = 'Редактировать'
+        Top = 0
+        Width = 32
+        Align = alLeft
+        Enabled = False
+        Images = Images.PX24
+        ImageIndex = 5
+        OnClick = AddonEditButtonClick
+        ShowHint = True
+        ParentShowHint = False
+      end
+      object DividerBevel8: TDividerBevel
+        Left = 96
+        Height = 28
+        Top = 0
+        Width = 15
+        Caption = 'DividerBevel8'
+        Align = alLeft
+        BevelWidth = 2
+        Font.Style = [fsBold]
+        Orientation = trVertical
+        ParentFont = False
+      end
+      object AddonPDFShowButton: TSpeedButton
+        Cursor = crHandPoint
+        Left = 111
+        Height = 30
+        Hint = 'Открыть документ'
+        Top = 0
+        Width = 32
+        Align = alLeft
+        AutoSize = True
+        Constraints.MinHeight = 30
+        Constraints.MinWidth = 32
+        Enabled = False
+        Glyph.Data = {
+          36100000424D3610000000000000360000002800000020000000200000000100
+          2000000000000010000064000000640000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          00000000000000000000000000000000000000000000000000000000FF490000
+          FFDB0000FFEE0000FFEF0000FFEF0000FFEF0000FFEF0000FFEF0000FFEF0000
+          FFEF0000FFEF0000FFEF0000FFEF0000FFEF0000FFEF0000FFEF0000FFEF0000
+          FFEF0000FFEF0000FFEF0000FFEF0000FFEF0000FFEF0000FFEF0000FFEF0000
+          FFEF0000FFEF0000FFEF0000FFEF0000FFEE0000FFDC0000FF4A0000FFD70000
+          FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000
+          FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000
+          FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000
+          FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFD90000FFEC0000
+          FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000
+          FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000
+          FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000
+          FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFEE0000FFEE0000
+          FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000
+          FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000
+          FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000
+          FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFEF0000FFEE0000
+          FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000
+          FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000
+          FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000
+          FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFEF0000FFEC0000
+          FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000
+          FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000
+          FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000
+          FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFEE0000FFD30000
+          FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000
+          FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000
+          FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000
+          FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFD50000FF400000
+          FFCC0000FFDE0000FFE30000FFE60000FFE80000FFE90000FFEB0000FFEB0000
+          FFEB0000FFED0000FFED0000FFED0000FFED0000FFED0000FFEF0000FFEF0000
+          FFEF0000FFEF0000FFEF0000FFEF0000FFED0000FFED0000FFED0000FFED0000
+          FFEB0000FFEA0000FFE80000FFE60000FFE10000FFCE0000FF40000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000
+        }
+        Images = Images.PX24
+        ImageIndex = 13
+        OnClick = AddonPDFShowButtonClick
+        ShowHint = True
+        ParentFont = False
+        ParentShowHint = False
+      end
+      object AddonPDFCopyButton: TSpeedButton
+        Cursor = crHandPoint
+        Left = 143
+        Height = 30
+        Hint = 'Скопировать документ'
+        Top = 0
+        Width = 32
+        Align = alLeft
+        AutoSize = True
+        Constraints.MinHeight = 30
+        Constraints.MinWidth = 32
+        Enabled = False
+        Glyph.Data = {
+          36100000424D3610000000000000360000002800000020000000200000000100
+          2000000000000010000064000000640000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          00000000000000000000000000000000000000000000000000000000FF490000
+          FFDB0000FFEE0000FFEF0000FFEF0000FFEF0000FFEF0000FFEF0000FFEF0000
+          FFEF0000FFEF0000FFEF0000FFEF0000FFEF0000FFEF0000FFEF0000FFEF0000
+          FFEF0000FFEF0000FFEF0000FFEF0000FFEF0000FFEF0000FFEF0000FFEF0000
+          FFEF0000FFEF0000FFEF0000FFEF0000FFEE0000FFDC0000FF4A0000FFD70000
+          FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000
+          FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000
+          FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000
+          FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFD90000FFEC0000
+          FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000
+          FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000
+          FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000
+          FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFEE0000FFEE0000
+          FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000
+          FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000
+          FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000
+          FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFEF0000FFEE0000
+          FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000
+          FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000
+          FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000
+          FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFEF0000FFEC0000
+          FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000
+          FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000
+          FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000
+          FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFEE0000FFD30000
+          FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000
+          FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000
+          FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000
+          FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFD50000FF400000
+          FFCC0000FFDE0000FFE30000FFE60000FFE80000FFE90000FFEB0000FFEB0000
+          FFEB0000FFED0000FFED0000FFED0000FFED0000FFED0000FFEF0000FFEF0000
+          FFEF0000FFEF0000FFEF0000FFEF0000FFED0000FFED0000FFED0000FFED0000
+          FFEB0000FFEA0000FFE80000FFE60000FFE10000FFCE0000FF40000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000
+        }
+        Images = Images.PX24
+        ImageIndex = 9
+        OnClick = AddonPDFCopyButtonClick
+        ShowHint = True
+        ParentFont = False
+        ParentShowHint = False
+      end
+    end
+    object AddonVT: TVirtualStringTree
+      Left = 0
+      Height = 156
+      Top = 94
+      Width = 1302
+      Align = alClient
+      BorderSpacing.Top = 2
+      DefaultText = 'Node'
+      Header.AutoSizeIndex = 0
+      Header.Columns = <>
+      Header.MainColumn = -1
+      TabOrder = 3
+      OnDblClick = AddonVTDblClick
     end
   end
+  object Splitter1: TSplitter
+    Cursor = crVSplit
+    Left = 0
+    Height = 5
+    Top = 218
+    Width = 1306
+    Align = alBottom
+    ResizeAnchor = akBottom
+    ResizeStyle = rsLine
+  end
   object DictionaryMenu: TPopupMenu
-    Left = 544
-    Top = 48
+    Left = 435
+    Top = 38
     object TypesMenuItem: TMenuItem
       Caption = 'Типы документов'
       OnClick = TypesMenuItemClick
@@ -913,8 +1340,8 @@ object MainForm: TMainForm
     end
   end
   object NameCopyMenu: TPopupMenu
-    Left = 544
-    Top = 128
+    Left = 435
+    Top = 102
     object TypeNumMenuItem: TMenuItem
       Caption = 'Номер'
       OnClick = TypeNumMenuItemClick

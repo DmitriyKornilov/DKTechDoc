@@ -28,7 +28,11 @@ function DocumentCopy(const ASrcFileName, ADestFileName: String;
                       const ASaveDialog: Boolean = True): Boolean;
 
 
+function AddonFullName(const ADocCode, AAddonName, AAddonNum: String): String;
+function VAddonFullName(const ADocCode: String; const AAddonNames, AAddonNums: TStrVector): TStrVector;
 
+function AddonFileName(const ADocID, AAddonID: Integer): String;
+function AddonFileName(const ADocCode, AAddonName, AAddonNum: String): String;
 
 implementation
 
@@ -243,6 +247,37 @@ begin
   if not IsOK then Exit;
   Result:= CopyFile(ASrcFileName, FileName,
                    [cffOverwriteFile, cffCreateDestDirectory, cffPreserveTime]);
+end;
+
+function AddonFullName(const ADocCode, AAddonName, AAddonNum: String): String;
+begin
+  Result:= AAddonName;
+  if not SEmpty(AAddonNum) then
+    Result:= Result + ' № ' + AAddonNum;
+  Result:= Result + ' к ' + ADocCode;
+end;
+
+function VAddonFullName(const ADocCode: String; const AAddonNames,
+  AAddonNums: TStrVector): TStrVector;
+var
+  i: Integer;
+begin
+  Result:= nil;
+  if VIsNil(AAddonNames) then Exit;
+  for i:= 0 to High(AAddonNames) do
+    VAppend(Result, AddonFullName(ADocCode, AAddonNames[i], AAddonNums[i]));
+end;
+
+function AddonFileName(const ADocID, AAddonID: Integer): String;
+begin
+  Result:= ExtractFilePath(Application.ExeName) + DirectorySeparator +
+           'files' + DirectorySeparator + IntToStr(ADocID) + '.' +
+           IntToStr(AAddonID) + '.pdf';
+end;
+
+function AddonFileName(const ADocCode, AAddonName, AAddonNum: String): String;
+begin
+  Result:= AddonFullName(ADocCode, AAddonName, AAddonNum) + '.pdf';
 end;
 
 

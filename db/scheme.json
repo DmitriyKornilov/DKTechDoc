@@ -1,9 +1,169 @@
 {
   "TablesList" : [
+    "ADDONS",
     "DOCUMENTS",
     "STATUSES",
     "TYPES"
   ],
+  "ADDONS" : {
+    "Description" : "Поправки и изменения",
+    "Notes" : [
+    ],
+    "FieldsList" : [
+      "AddonID",
+      "AddonDate",
+      "AddonName",
+      "AddonNum",
+      "AddonNote",
+      "DocID"
+    ],
+    "AddonID" : {
+      "FieldType" : "INTEGER",
+      "PrimaryKey" : true,
+      "Status" : true,
+      "NotNull" : true,
+      "DefaultValue" : "",
+      "Description" : [
+        "ID приложения"
+      ],
+      "ExistingValues" : [
+      ],
+      "ReferenceTo" : {
+        "TableName" : "",
+        "FieldName" : "",
+        "OnDelete" : 4,
+        "OnUpdate" : 4
+      },
+      "ReferenceFrom" : {
+        "TableNames" : [
+        ],
+        "FieldNames" : [
+        ]
+      }
+    },
+    "AddonDate" : {
+      "FieldType" : "DATETIME",
+      "PrimaryKey" : false,
+      "Status" : false,
+      "NotNull" : true,
+      "DefaultValue" : "",
+      "Description" : [
+        "Дата введения"
+      ],
+      "ExistingValues" : [
+      ],
+      "ReferenceTo" : {
+        "TableName" : "",
+        "FieldName" : "",
+        "OnDelete" : 4,
+        "OnUpdate" : 4
+      },
+      "ReferenceFrom" : {
+        "TableNames" : [
+        ],
+        "FieldNames" : [
+        ]
+      }
+    },
+    "AddonName" : {
+      "FieldType" : "TEXT",
+      "PrimaryKey" : false,
+      "Status" : false,
+      "NotNull" : true,
+      "DefaultValue" : "",
+      "Description" : [
+        "Наименование приложения"
+      ],
+      "ExistingValues" : [
+      ],
+      "ReferenceTo" : {
+        "TableName" : "",
+        "FieldName" : "",
+        "OnDelete" : 4,
+        "OnUpdate" : 4
+      },
+      "ReferenceFrom" : {
+        "TableNames" : [
+        ],
+        "FieldNames" : [
+        ]
+      }
+    },
+    "AddonNum" : {
+      "FieldType" : "TEXT",
+      "PrimaryKey" : false,
+      "Status" : false,
+      "NotNull" : false,
+      "DefaultValue" : "",
+      "Description" : [
+        "Номер приложения"
+      ],
+      "ExistingValues" : [
+      ],
+      "ReferenceTo" : {
+        "TableName" : "",
+        "FieldName" : "",
+        "OnDelete" : 4,
+        "OnUpdate" : 4
+      },
+      "ReferenceFrom" : {
+        "TableNames" : [
+        ],
+        "FieldNames" : [
+        ]
+      }
+    },
+    "AddonNote" : {
+      "FieldType" : "TEXT",
+      "PrimaryKey" : false,
+      "Status" : false,
+      "NotNull" : false,
+      "DefaultValue" : "",
+      "Description" : [
+        "Примечание"
+      ],
+      "ExistingValues" : [
+      ],
+      "ReferenceTo" : {
+        "TableName" : "",
+        "FieldName" : "",
+        "OnDelete" : 4,
+        "OnUpdate" : 4
+      },
+      "ReferenceFrom" : {
+        "TableNames" : [
+        ],
+        "FieldNames" : [
+        ]
+      }
+    },
+    "DocID" : {
+      "FieldType" : "INTEGER",
+      "PrimaryKey" : false,
+      "Status" : false,
+      "NotNull" : true,
+      "DefaultValue" : "",
+      "Description" : [
+        "ID документа"
+      ],
+      "ExistingValues" : [
+      ],
+      "ReferenceTo" : {
+        "TableName" : "DOCUMENTS",
+        "FieldName" : "DocID",
+        "OnDelete" : 0,
+        "OnUpdate" : 0
+      },
+      "ReferenceFrom" : {
+        "TableNames" : [
+        ],
+        "FieldNames" : [
+        ]
+      }
+    },
+    "IndexesList" : [
+    ]
+  },
   "DOCUMENTS" : {
     "Description" : "Список документов",
     "Notes" : [
@@ -38,8 +198,10 @@
       },
       "ReferenceFrom" : {
         "TableNames" : [
+          "ADDONS"
         ],
         "FieldNames" : [
+          "DocID"
         ]
       }
     },
@@ -57,7 +219,7 @@
       "ReferenceTo" : {
         "TableName" : "STATUSES",
         "FieldName" : "StatusID",
-        "OnDelete" : 0,
+        "OnDelete" : 2,
         "OnUpdate" : 0
       },
       "ReferenceFrom" : {
@@ -81,7 +243,7 @@
       "ReferenceTo" : {
         "TableName" : "TYPES",
         "FieldName" : "TypeID",
-        "OnDelete" : 0,
+        "OnDelete" : 2,
         "OnUpdate" : 0
       },
       "ReferenceFrom" : {
