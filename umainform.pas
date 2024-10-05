@@ -26,15 +26,15 @@ type
     DelButton: TSpeedButton;
     AddonDelButton: TSpeedButton;
     DictionaryButton: TSpeedButton;
-    DividerBevel7: TDividerBevel;
+    DividerBevel10: TDividerBevel;
     DividerBevel8: TDividerBevel;
     AddonEditButton: TSpeedButton;
+    DividerBevel9: TDividerBevel;
     FullNameMenuItem: TMenuItem;
     InfoPanel: TPanel;
-    AddonCaptionPanel: TPanel;
+    CaptionPanel: TPanel;
+    InfoLabel: TLabel;
     NameCopyButton: TSpeedButton;
-    NameMemo: TMemo;
-    NamePanel: TPanel;
     AddonToolPanel: TPanel;
     AddonPDFCopyButton: TSpeedButton;
     AddonPDFShowButton: TSpeedButton;
@@ -177,10 +177,10 @@ end;
 procedure TMainForm.FormShow(Sender: TObject);
 begin
   SetToolPanels([
-    ToolPanel, NamePanel, AddonToolPanel
+    ToolPanel, AddonToolPanel
   ]);
   SetCaptionPanels([
-    AddonCaptionPanel
+    CaptionPanel
   ]);
   SetToolButtons([
     RefreshButton, AboutButton, ExitButton,
@@ -252,10 +252,9 @@ begin
   AddonList.HeaderFont.Style:= [fsBold];
   AddonList.AddColumn('№ п/п', 60);
   AddonList.AddColumn('Дата введения', 130);
-  AddonList.AddColumn('Наименование', 500);
+  AddonList.AddColumn('Наименование приложения', 500);
   AddonList.AddColumn('Примечание', 250);
   AddonList.AutosizeColumnEnableLast;
-  //AddonList.AutosizeColumnEnable('Наименование');
 end;
 
 procedure TMainForm.AddonListLoad(const ASelectedID: Integer);
@@ -278,7 +277,7 @@ begin
     begin
       DataBase.AddonListLoad(DocIDs[DocList.SelectedIndex],
                              AddonIDs, AddonDates, AddonNames, AddonNums, AddonNotes);
-      ExportButton.Enabled:= not VIsNil(AddonIDs);
+      //ExportButton.Enabled:= not VIsNil(AddonIDs);
 
 
       V:= VIntToStr(VOrder(Length(AddonIDs)));
@@ -289,7 +288,7 @@ begin
                        DocNums[DocList.SelectedIndex],
                        DocYears[DocList.SelectedIndex]);
       V:= VAddonFullName(S, AddonNames, AddonNums);
-      AddonList.SetColumn('Наименование', V, taLeftJustify);
+      AddonList.SetColumn('Наименование приложения', V, taLeftJustify);
       AddonList.SetColumn('Примечание', AddonNotes, taLeftJustify);
     end;
     AddonList.Draw;
@@ -619,9 +618,9 @@ begin
   DocList.AddColumn('Номер', 130);
   DocList.AddColumn('Дата введения', 130);
   DocList.AddColumn('Статус', 150);
-  DocList.AddColumn('Наименование', 250);
+  DocList.AddColumn('Наименование документа', 250);
   DocList.AddColumn('Примечание', 250);
-  DocList.AutosizeColumnEnable('Наименование');
+  DocList.AutosizeColumnEnable('Наименование документа');
 end;
 
 procedure TMainForm.DocListLoad(const ASelectedID: Integer);
@@ -659,7 +658,7 @@ begin
     V:= VFormatDateTime('dd.mm.yyyy', DocDates);
     DocList.SetColumn('Дата введения', V);
     DocList.SetColumn('Статус', StatusNames);
-    DocList.SetColumn('Наименование', DocNames, taLeftJustify);
+    DocList.SetColumn('Наименование документа', DocNames, taLeftJustify);
     DocList.SetColumn('Примечание', Notes, taLeftJustify);
     DocList.Draw;
 
@@ -676,6 +675,7 @@ end;
 procedure TMainForm.DocListSelect;
 var
   i: Integer;
+  FullName: String;
 begin
   DelButton.Enabled:= DocList.IsSelected;
   EditButton.Enabled:= DelButton.Enabled;
@@ -684,18 +684,19 @@ begin
                           FileExists(DocumentFileName(DocIDs[DocList.SelectedIndex]));
   PDFCopyButton.Enabled:= PDFShowButton.Enabled;
 
+  CaptionPanel.Caption:= '  Документ не выбран';
   if DocList.IsSelected then
   begin
     i:= DocList.SelectedIndex;
-    NameMemo.Text:= DocumentFullName(TypeNames[i], DocNums[i], DocYears[i], DocNames[i]);
+
+    FullName:=  DocumentFullName(TypeNames[i], DocNums[i], DocYears[i], DocNames[i]);
+    CaptionPanel.Caption:= SRepeat(2, SYMBOL_SPACE) + FullName;
 
     TypeNumMenuItem.Caption:= TypeNames[i] + SYMBOL_SPACE + DocNums[i];
     TypeNumYearMenuItem.Caption:= DocumentCode(TypeNames[i], DocNums[i], DocYears[i]);
     NameMenuItem.Caption:= DocNames[i];
-    FullNameMenuItem.Caption:= NameMemo.Text;
-  end
-  else
-    NameMemo.Lines.Clear;
+    FullNameMenuItem.Caption:= FullName;
+  end;
 
   NameCopyButton.Enabled:= DocList.IsSelected;
   AddonAddButton.Enabled:= DocList.IsSelected;
