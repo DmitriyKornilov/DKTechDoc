@@ -177,7 +177,8 @@
       "DocName",
       "DocDate",
       "UpperName",
-      "Note"
+      "Note",
+      "ControlDate"
     ],
     "DocID" : {
       "FieldType" : "INTEGER",
@@ -381,6 +382,30 @@
       "DefaultValue" : "",
       "Description" : [
         "Примечание"
+      ],
+      "ExistingValues" : [
+      ],
+      "ReferenceTo" : {
+        "TableName" : "",
+        "FieldName" : "",
+        "OnDelete" : 4,
+        "OnUpdate" : 4
+      },
+      "ReferenceFrom" : {
+        "TableNames" : [
+        ],
+        "FieldNames" : [
+        ]
+      }
+    },
+    "ControlDate" : {
+      "FieldType" : "DATETIME",
+      "PrimaryKey" : false,
+      "Status" : false,
+      "NotNull" : true,
+      "DefaultValue" : "",
+      "Description" : [
+        "Дата актуализации документа"
       ],
       "ExistingValues" : [
       ],

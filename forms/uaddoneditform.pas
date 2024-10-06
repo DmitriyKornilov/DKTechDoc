@@ -8,7 +8,7 @@ uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls, Buttons,
   ExtCtrls, DateTimePicker,
   //DK packages utils
-  DK_CtrlUtils, DK_StrUtils, DK_Vector, DK_Dialogs,
+  DK_CtrlUtils, DK_StrUtils, DK_Dialogs,
   //Project utils
   UDataBase, UUtils, UImages;
 

@@ -17,6 +17,7 @@ type
   { TDocumentEditForm }
 
   TDocumentEditForm = class(TForm)
+    ControlDatePicker: TDateTimePicker;
     DocNameEdit: TEdit;
     DocumentLabel: TLabel;
     FileLabel: TLabel;
@@ -40,6 +41,7 @@ type
     DocNumLabel: TLabel;
     DocNumEdit: TEdit;
     SaveButton: TSpeedButton;
+    ControlDateLabel: TLabel;
     procedure CancelButtonClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -98,6 +100,7 @@ begin
   Images.ToButtons([SaveButton, CancelButton, OpenButton]);
 
   DocDatePicker.Date:= Date;
+  ControlDatePicker.Date:= Date;
   OldTypeID:= 0;
   OldStatusID:= 0;
 end;
@@ -153,9 +156,11 @@ begin
   StatusID:= StatusIDs[DocStatusComboBox.ItemIndex];
 
   case EditType of
-  0: IsOK:= DataBase.DocAdd(DocID, TypeID, StatusID, DocDatePicker.Date,
+  0: IsOK:= DataBase.DocAdd(DocID, TypeID, StatusID,
+                            DocDatePicker.Date, ControlDatePicker.Date,
                             DocNum, DocYear, DocName, Note);
-  1: IsOK:= DataBase.DocUpdate(DocID, TypeID, StatusID, DocDatePicker.Date,
+  1: IsOK:= DataBase.DocUpdate(DocID, TypeID, StatusID,
+                            DocDatePicker.Date, ControlDatePicker.Date,
                             DocNum, DocYear, DocName, Note);
   end;
 

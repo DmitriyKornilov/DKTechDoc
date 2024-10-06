@@ -110,7 +110,7 @@ type
     AddonList: TVSTTable;
 
     DocIDs, TypeIDs, StatusIDs: TIntVector;
-    DocDates: TDateVector;
+    DocDates, ControlDates: TDateVector;
     TypeNames, DocNums, DocYears, DocNames, StatusNames, Notes: TStrVector;
 
     FilterTypeIDs, FilterStatusIDs: TIntVector;
@@ -277,12 +277,10 @@ begin
     begin
       DataBase.AddonListLoad(DocIDs[DocList.SelectedIndex],
                              AddonIDs, AddonDates, AddonNames, AddonNums, AddonNotes);
-      //ExportButton.Enabled:= not VIsNil(AddonIDs);
-
 
       V:= VIntToStr(VOrder(Length(AddonIDs)));
       AddonList.SetColumn('№ п/п', V);
-      V:= VFormatDateTime('dd.mm.yyyy', AddonDates);
+      V:= VFormatDateTime('dd.mm.yyyy', AddonDates, True);
       AddonList.SetColumn('Дата введения', V);
       S:= DocumentCode(TypeNames[DocList.SelectedIndex],
                        DocNums[DocList.SelectedIndex],
@@ -617,6 +615,7 @@ begin
   DocList.AddColumn('Тип', 130);
   DocList.AddColumn('Номер', 130);
   DocList.AddColumn('Дата введения', 130);
+  DocList.AddColumn('Дата актуализации', 130);
   DocList.AddColumn('Статус', 150);
   DocList.AddColumn('Наименование документа', 250);
   DocList.AddColumn('Примечание', 250);
@@ -644,7 +643,7 @@ begin
     FilterDocName:= STrim(DocNameEdit.Text);
 
     DataBase.DocListLoad(FilterTypeID, FilterStatusID, FilterDocNum, FilterDocName,
-                         DocIDs, TypeIDs, StatusIDs, DocDates,
+                         DocIDs, TypeIDs, StatusIDs, DocDates, ControlDates,
                          TypeNames, DocNums, DocYears, DocNames, StatusNames, Notes);
     ExportButton.Enabled:= not VIsNil(DocIDs);
 
@@ -655,8 +654,10 @@ begin
     //V:= VDocumentCode(TypeNames, DocNums, DocYears);
     V:= VDocumentNumber(DocNums, DocYears);
     DocList.SetColumn('Номер', V, taLeftJustify);
-    V:= VFormatDateTime('dd.mm.yyyy', DocDates);
+    V:= VFormatDateTime('dd.mm.yyyy', DocDates, True);
     DocList.SetColumn('Дата введения', V);
+    V:= VFormatDateTime('dd.mm.yyyy', ControlDates, True);
+    DocList.SetColumn('Дата актуализации', V);
     DocList.SetColumn('Статус', StatusNames);
     DocList.SetColumn('Наименование документа', DocNames, taLeftJustify);
     DocList.SetColumn('Примечание', Notes, taLeftJustify);

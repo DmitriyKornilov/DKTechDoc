@@ -35,17 +35,17 @@ type
     function DocListLoad(const AFilterTypeID, AFilterStatusID: Integer;
                          const AFilterDocNum, AFilterDocName: String;
                          out ADocIDs, ATypeIDs, AStatusIDs: TIntVector;
-                         out ADocDates: TDateVector;
+                         out ADocDates, AControlDates: TDateVector;
                          out ATypeNames, ADocNums, ADocYears, ADocNames,
                              AStatusNames, ANotes: TStrVector): Boolean;
 
 
     function DocAdd(out ADocID: Integer;
                     const ATypeID, AStatusID: Integer;
-                    const ADocDate: TDate;
+                    const ADocDate, AControlDate: TDate;
                     const ADocNum, ADocYear, ADocName, ANote: String): Boolean;
     function DocUpdate(const ADocID, ATypeID, AStatusID: Integer;
-                    const ADocDate: TDate;
+                    const ADocDate, AControlDate: TDate;
                     const ADocNum, ADocYear, ADocName, ANote: String): Boolean;
     function DocDelete(const ADocID: Integer): Boolean;
     function DocIsExists(const ADocID, ATypeID: Integer;
@@ -164,7 +164,7 @@ end;
 function TDataBase.DocListLoad(const AFilterTypeID, AFilterStatusID: Integer;
                                const AFilterDocNum, AFilterDocName: String;
                                out ADocIDs, ATypeIDs, AStatusIDs: TIntVector;
-                               out ADocDates: TDateVector;
+                               out ADocDates, AControlDates: TDateVector;
                                out ATypeNames, ADocNums, ADocYears, ADocNames,
                                    AStatusNames, ANotes: TStrVector): Boolean;
 var
@@ -177,6 +177,7 @@ begin
   ATypeIDs:= nil;
   AStatusIDs:= nil;
   ADocDates:= nil;
+  AControlDates:= nil;
   ATypeNames:= nil;
   ADocNums:= nil;
   ADocYears:= nil;
@@ -185,9 +186,10 @@ begin
   ANotes:= nil;
 
   SQLStr:=
-    'SELECT t1.DocID, t1.DocNum, t1.DocYear, t1.DocName, t1.DocDate, t1.Note, ' +
-           't1.TypeID, t2.TypeName, ' +
-           't1.StatusID, t3.StatusName ' +
+    'SELECT t1.DocID, t1.DocNum, t1.DocYear, t1.DocName, t1.DocDate, t1.ControlDate,  ' +
+           't1.Note, t1.TypeID, t1.StatusID, ' +
+           't2.TypeName, ' +
+           't3.StatusName ' +
     'FROM DOCUMENTS t1 ' +
     'INNER JOIN TYPES t2 ON (t1.TypeID=t2.TypeID) ' +
     'INNER JOIN STATUSES t3 ON (t1.StatusID=t3.StatusID) ' +
@@ -221,6 +223,7 @@ begin
       VAppend(AStatusIDs, QFieldInt('StatusID'));
 
       VAppend(ADocDates, QFieldDT('DocDate'));
+      VAppend(AControlDates, QFieldDT('ControlDate'));
 
       VAppend(ATypeNames, QFieldStr('TypeName'));
       VAppend(ADocNums, QFieldStr('DocNum'));
@@ -242,6 +245,7 @@ begin
   ATypeIDs:= VReplace(ATypeIDs, Indexes);
   AStatusIDs:= VReplace(AStatusIDs, Indexes);
   ADocDates:= VReplace(ADocDates, Indexes);
+  AControlDates:= VReplace(AControlDates, Indexes);
   ATypeNames:= VReplace(ATypeNames, Indexes);
   ADocNums:= VReplace(ADocNums, Indexes);
   ADocYears:= VReplace(ADocYears, Indexes);
@@ -252,7 +256,7 @@ end;
 
 function TDataBase.DocAdd(out ADocID: Integer;
                     const ATypeID, AStatusID: Integer;
-                    const ADocDate: TDate;
+                    const ADocDate, AControlDate: TDate;
                     const ADocNum, ADocYear, ADocName, ANote: String): Boolean;
 begin
   Result:= False;
@@ -262,12 +266,12 @@ begin
     QSetSQL(
       sqlINSERT('DOCUMENTS', ['StatusID', 'TypeID',
                               'DocNum', 'DocYear', 'DocName',
-                              'DocDate', 'UpperName', 'Note'])
+                              'DocDate', 'UpperName', 'Note', 'ControlDate'])
     );
     QParamInt('StatusID', AStatusID);
     QParamInt('TypeID', ATypeID);
     QParamDT('DocDate', ADocDate);
-
+    QParamDT('ControlDate', AControlDate);
     QParamStr('DocNum', ADocNum);
     QParamStr('DocYear', ADocYear);
     QParamStr('DocName', ADocName);
@@ -284,7 +288,7 @@ begin
 end;
 
 function TDataBase.DocUpdate(const ADocID, ATypeID, AStatusID: Integer;
-                    const ADocDate: TDate;
+                    const ADocDate, AControlDate: TDate;
                     const ADocNum, ADocYear, ADocName, ANote: String): Boolean;
 begin
   Result:= False;
@@ -294,7 +298,7 @@ begin
     QSetSQL(
       sqlUPDATE('DOCUMENTS', ['StatusID', 'TypeID',
                               'DocNum', 'DocYear', 'DocName',
-                              'DocDate', 'UpperName', 'Note']) +
+                              'DocDate', 'UpperName', 'Note', 'ControlDate']) +
       'WHERE DocID = :DocID'
     );
     QParamInt('DocID', ADocID);
@@ -302,7 +306,7 @@ begin
     QParamInt('StatusID', AStatusID);
     QParamInt('TypeID', ATypeID);
     QParamDT('DocDate', ADocDate);
-
+    QParamDT('ControlDate', AControlDate);
     QParamStr('DocNum', ADocNum);
     QParamStr('DocYear', ADocYear);
     QParamStr('DocName', ADocName);
