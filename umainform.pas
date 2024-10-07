@@ -280,7 +280,7 @@ begin
 
       V:= VIntToStr(VOrder(Length(AddonIDs)));
       AddonList.SetColumn('№ п/п', V);
-      V:= VFormatDateTime('dd.mm.yyyy', AddonDates, True);
+      V:= VFormatDateTime('dd.mm.yyyy', AddonDates{, True});
       AddonList.SetColumn('Дата введения', V);
       S:= DocumentCode(TypeNames[DocList.SelectedIndex],
                        DocNums[DocList.SelectedIndex],
@@ -654,7 +654,7 @@ begin
     //V:= VDocumentCode(TypeNames, DocNums, DocYears);
     V:= VDocumentNumber(DocNums, DocYears);
     DocList.SetColumn('Номер', V, taLeftJustify);
-    V:= VFormatDateTime('dd.mm.yyyy', DocDates, True);
+    V:= VFormatDateTime('dd.mm.yyyy', DocDates{, True});
     DocList.SetColumn('Дата введения', V);
     V:= VFormatDateTime('dd.mm.yyyy', ControlDates, True);
     DocList.SetColumn('Дата актуализации', V);

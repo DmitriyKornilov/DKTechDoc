@@ -38,7 +38,7 @@ implementation
 
 function DocumentNumber(const ADocNum, ADocYear: String): String;
 begin
-  Result:= ADocNum + SYMBOL_MIDDASH + ADocYear;
+  Result:= ADocNum + {SYMBOL_MIDDASH} SYMBOL_LONGDASH + ADocYear;
 end;
 
 function VDocumentNumber(const ADocNums, ADocYears: TStrVector): TStrVector;
