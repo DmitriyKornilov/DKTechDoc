@@ -439,8 +439,7 @@ begin
                     DocYears[DocList.SelectedIndex]);
   if not Confirm('Удалить "' + S + '"?') then Exit;
   if not DataBase.DocDelete(DocIDs[DocList.SelectedIndex]) then Exit;
-  S:= DocumentFileName(DocIDs[DocList.SelectedIndex]);
-  DocumentDelete(S);
+  DocumentAndAddonsDelete(DocIDs[DocList.SelectedIndex], AddonIDs);
   DocListLoad;
 end;
 

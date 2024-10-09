@@ -27,6 +27,7 @@ function DocumentDelete(const AFileName: String): Boolean;
 function DocumentCopy(const ASrcFileName, ADestFileName: String;
                       const ASaveDialog: Boolean = True): Boolean;
 
+procedure DocumentAndAddonsDelete(const ADocID: Integer; const AAddonIDs: TIntVector);
 
 function AddonFullName(const ADocCode, AAddonName, AAddonNum: String): String;
 function VAddonFullName(const ADocCode: String; const AAddonNames, AAddonNums: TStrVector): TStrVector;
@@ -247,6 +248,20 @@ begin
   if not IsOK then Exit;
   Result:= CopyFile(ASrcFileName, FileName,
                    [cffOverwriteFile, cffCreateDestDirectory, cffPreserveTime]);
+end;
+
+procedure DocumentAndAddonsDelete(const ADocID: Integer; const AAddonIDs: TIntVector);
+var
+  i: Integer;
+  S: String;
+begin
+  for i:= 0 to High(AAddonIDs) do
+  begin
+    S:= AddonFileName(ADocID, AAddonIDs[i]);
+    DocumentDelete(S);
+  end;
+  S:= DocumentFileName(ADocID);
+  DocumentDelete(S);
 end;
 
 function AddonFullName(const ADocCode, AAddonName, AAddonNum: String): String;
