@@ -176,7 +176,6 @@
       "DocYear",
       "DocName",
       "DocDate",
-      "UpperName",
       "Note",
       "ControlDate"
     ],
@@ -334,30 +333,6 @@
       "DefaultValue" : "",
       "Description" : [
         "Дата введения в действие"
-      ],
-      "ExistingValues" : [
-      ],
-      "ReferenceTo" : {
-        "TableName" : "",
-        "FieldName" : "",
-        "OnDelete" : 4,
-        "OnUpdate" : 4
-      },
-      "ReferenceFrom" : {
-        "TableNames" : [
-        ],
-        "FieldNames" : [
-        ]
-      }
-    },
-    "UpperName" : {
-      "FieldType" : "TEXT",
-      "PrimaryKey" : false,
-      "Status" : false,
-      "NotNull" : true,
-      "DefaultValue" : "",
-      "Description" : [
-        "Наименование в верхнем регистре - для поиска по кириллическому тексту"
       ],
       "ExistingValues" : [
       ],
