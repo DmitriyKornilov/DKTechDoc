@@ -1360,4 +1360,11 @@ object MainForm: TMainForm
       OnClick = FullNameMenuItemClick
     end
   end
+  object FilterTimer: TTimer
+    Enabled = False
+    Interval = 500
+    OnTimer = FilterTimerTimer
+    Left = 1168
+    Top = 42
+  end
 end

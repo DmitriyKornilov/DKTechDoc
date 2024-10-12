@@ -7,7 +7,7 @@ interface
 uses
   Classes, SysUtils, StdCtrls,
   //DK packages utils
-  DK_SQLite3, DK_SQLUtils, DK_Vector, DK_StrUtils,
+  DK_SQLite3, DK_SQLUtils, DK_Vector, DK_StrUtils, DK_Const,
   //Project utils
   UUtils;
 
@@ -32,12 +32,19 @@ type
     function AddonDelete(const AAddonID: Integer): Boolean;
 
 
+    //function DocListLoad(const AFilterTypeID, AFilterStatusID: Integer;
+    //                     const AFilterDocNum, AFilterDocName: String;
+    //                     out ADocIDs, ATypeIDs, AStatusIDs: TIntVector;
+    //                     out ADocDates, AControlDates: TDateVector;
+    //                     out ATypeNames, ADocNums, ADocYears, ADocNames,
+    //                         AStatusNames, ANotes: TStrVector): Boolean;
     function DocListLoad(const AFilterTypeID, AFilterStatusID: Integer;
-                         const AFilterDocNum, AFilterDocName: String;
+                         const AFilterDocNum, AMatchStr: String;
                          out ADocIDs, ATypeIDs, AStatusIDs: TIntVector;
                          out ADocDates, AControlDates: TDateVector;
                          out ATypeNames, ADocNums, ADocYears, ADocNames,
                              AStatusNames, ANotes: TStrVector): Boolean;
+    function DocFind(const AMatchStr: String; out ADocIDs: TIntVector): Boolean;
 
 
     function DocAdd(out ADocID: Integer;
@@ -161,15 +168,108 @@ begin
   Result:= Delete('ADDONS', 'AddonID', AAddonID);
 end;
 
+//function TDataBase.DocListLoad(const AFilterTypeID, AFilterStatusID: Integer;
+//                               const AFilterDocNum, AFilterDocName: String;
+//                               out ADocIDs, ATypeIDs, AStatusIDs: TIntVector;
+//                               out ADocDates, AControlDates: TDateVector;
+//                               out ATypeNames, ADocNums, ADocYears, ADocNames,
+//                                   AStatusNames, ANotes: TStrVector): Boolean;
+//var
+//  SQLStr: String;
+//  Indexes: TIntVector;
+//begin
+//  Result:= False;
+//
+//  ADocIDs:= nil;
+//  ATypeIDs:= nil;
+//  AStatusIDs:= nil;
+//  ADocDates:= nil;
+//  AControlDates:= nil;
+//  ATypeNames:= nil;
+//  ADocNums:= nil;
+//  ADocYears:= nil;
+//  ADocNames:= nil;
+//  AStatusNames:= nil;
+//  ANotes:= nil;
+//
+//  SQLStr:=
+//    'SELECT t1.DocID, t1.DocNum, t1.DocYear, t1.DocName, t1.DocDate, t1.ControlDate,  ' +
+//           't1.Note, t1.TypeID, t1.StatusID, ' +
+//           't2.TypeName, ' +
+//           't3.StatusName ' +
+//    'FROM DOCUMENTS t1 ' +
+//    'INNER JOIN TYPES t2 ON (t1.TypeID=t2.TypeID) ' +
+//    'INNER JOIN STATUSES t3 ON (t1.StatusID=t3.StatusID) ' +
+//    'WHERE (t1.DocID>0) ';
+//
+//  if AFilterTypeID>0 then
+//    SQLStr:= SQLStr + 'AND (t1.TypeID = :FilterTypeID) ';
+//  if AFilterStatusID>0 then
+//    SQLStr:= SQLStr + 'AND (t1.StatusID = :FilterStatusID) ';
+//  if not SEmpty(AFilterDocNum) then
+//    SQLStr:= SQLStr + 'AND (t1.DocNum LIKE :FilterDocNum) ';
+//  if not SEmpty(AFilterDocName) then
+//    SQLStr:= SQLStr + 'AND (t1.UpperName LIKE :FilterDocName) ';
+//
+//  SQLStr:= SQLStr + 'ORDER BY t1.DocNum, t1.DocYear';
+//
+//  QSetQuery(FQuery);
+//  QSetSQL(SQLStr);
+//  QParamInt('FilterTypeID', AFilterTypeID);
+//  QParamInt('FilterStatusID', AFilterStatusID);
+//  QParamStr('FilterDocNum', {'%'+}AFilterDocNum+'%');
+//  QParamStr('FilterDocName', '%'+SUpper(AFilterDocName)+'%');
+//  QOpen;
+//  if not QIsEmpty then
+//  begin
+//    QFirst;
+//    while not QEOF do
+//    begin
+//      VAppend(ADocIDs, QFieldInt('DocID'));
+//      VAppend(ATypeIDs, QFieldInt('TypeID'));
+//      VAppend(AStatusIDs, QFieldInt('StatusID'));
+//
+//      VAppend(ADocDates, QFieldDT('DocDate'));
+//      VAppend(AControlDates, QFieldDT('ControlDate'));
+//
+//      VAppend(ATypeNames, QFieldStr('TypeName'));
+//      VAppend(ADocNums, QFieldStr('DocNum'));
+//      VAppend(ADocYears, QFieldStr('DocYear'));
+//      VAppend(ADocNames, QFieldStr('DocName'));
+//      VAppend(AStatusNames, QFieldStr('StatusName'));
+//      VAppend(ANotes, QFieldStr('Note'));
+//      QNext;
+//    end;
+//    Result:= True;
+//  end;
+//  QClose;
+//
+//  if not Result then Exit;
+//
+//  VDocumentCodeSort(ADocNums, Indexes);
+//
+//  ADocIDs:= VReplace(ADocIDs, Indexes);
+//  ATypeIDs:= VReplace(ATypeIDs, Indexes);
+//  AStatusIDs:= VReplace(AStatusIDs, Indexes);
+//  ADocDates:= VReplace(ADocDates, Indexes);
+//  AControlDates:= VReplace(AControlDates, Indexes);
+//  ATypeNames:= VReplace(ATypeNames, Indexes);
+//  ADocNums:= VReplace(ADocNums, Indexes);
+//  ADocYears:= VReplace(ADocYears, Indexes);
+//  ADocNames:= VReplace(ADocNames, Indexes);
+//  AStatusNames:= VReplace(AStatusNames, Indexes);
+//  ANotes:= VReplace(ANotes, Indexes);
+//end;
+
 function TDataBase.DocListLoad(const AFilterTypeID, AFilterStatusID: Integer;
-                               const AFilterDocNum, AFilterDocName: String;
-                               out ADocIDs, ATypeIDs, AStatusIDs: TIntVector;
-                               out ADocDates, AControlDates: TDateVector;
-                               out ATypeNames, ADocNums, ADocYears, ADocNames,
-                                   AStatusNames, ANotes: TStrVector): Boolean;
+                         const AFilterDocNum, AMatchStr: String;
+                         out ADocIDs, ATypeIDs, AStatusIDs: TIntVector;
+                         out ADocDates, AControlDates: TDateVector;
+                         out ATypeNames, ADocNums, ADocYears, ADocNames,
+                             AStatusNames, ANotes: TStrVector): Boolean;
 var
   SQLStr: String;
-  Indexes: TIntVector;
+  Indexes, MatchIDs: TIntVector;
 begin
   Result:= False;
 
@@ -184,6 +284,10 @@ begin
   ADocNames:= nil;
   AStatusNames:= nil;
   ANotes:= nil;
+
+  MatchIDs:= nil;
+  if not SEmpty(AMatchStr) then
+    if not DocFind(AMatchStr, MatchIDs) then Exit;
 
   SQLStr:=
     'SELECT t1.DocID, t1.DocNum, t1.DocYear, t1.DocName, t1.DocDate, t1.ControlDate,  ' +
@@ -201,17 +305,18 @@ begin
     SQLStr:= SQLStr + 'AND (t1.StatusID = :FilterStatusID) ';
   if not SEmpty(AFilterDocNum) then
     SQLStr:= SQLStr + 'AND (t1.DocNum LIKE :FilterDocNum) ';
-  if not SEmpty(AFilterDocName) then
-    SQLStr:= SQLStr + 'AND (t1.UpperName LIKE :FilterDocName) ';
-
+  if not VIsNil(MatchIDs) then
+    SQLStr:= SQLStr + 'AND ' + SQLIN('t1', 'DocID', Length(MatchIDs));
   SQLStr:= SQLStr + 'ORDER BY t1.DocNum, t1.DocYear';
 
   QSetQuery(FQuery);
   QSetSQL(SQLStr);
+  QParamStr('MatchStr', AMatchStr);
   QParamInt('FilterTypeID', AFilterTypeID);
   QParamInt('FilterStatusID', AFilterStatusID);
-  QParamStr('FilterDocNum', {'%'+}AFilterDocNum+'%');
-  QParamStr('FilterDocName', '%'+SUpper(AFilterDocName)+'%');
+  QParamStr('FilterDocNum', AFilterDocNum+'%');
+  QParamsInt(MatchIDs);
+
   QOpen;
   if not QIsEmpty then
   begin
@@ -252,6 +357,44 @@ begin
   ADocNames:= VReplace(ADocNames, Indexes);
   AStatusNames:= VReplace(AStatusNames, Indexes);
   ANotes:= VReplace(ANotes, Indexes);
+end;
+
+function TDataBase.DocFind(const AMatchStr: String; out ADocIDs: TIntVector): Boolean;
+var
+  V: TStrVector;
+  S: String;
+begin
+  ADocIDs:= nil;
+  Result:= False;
+  if SEmpty(AMatchStr) then Exit;
+
+  V:= VCreateStr([
+    'CREATE VIRTUAL TABLE IF NOT EXISTS DOCS_FTS USING FTS5(DocID, DocName);',
+    'INSERT OR IGNORE INTO DOCS_FTS SELECT DocID, DocName FROM DOCUMENTS;'
+  ]);
+  ExecuteScript(V, False{no commit});
+
+  QSetQuery(FQuery);
+  QSetSQL(
+    'SELECT DocID, DocName ' +
+    'FROM DOCS_FTS ' +
+    'WHERE DOCS_FTS MATCH :MatchStr || "*"'
+  );
+  S:= PrepareMatchStr(AMatchStr);
+  QParamStr('MatchStr', S);
+
+  QOpen;
+  if not QIsEmpty then
+  begin
+    QFirst;
+    while not QEOF do
+    begin
+      VAppend(ADocIDs, StrToInt(QFieldStr('DocID')));
+      QNext;
+    end;
+    Result:= True;
+  end;
+  QClose;
 end;
 
 function TDataBase.DocAdd(out ADocID: Integer;

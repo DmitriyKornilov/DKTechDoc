@@ -30,6 +30,7 @@ type
     DividerBevel8: TDividerBevel;
     AddonEditButton: TSpeedButton;
     DividerBevel9: TDividerBevel;
+    FilterTimer: TTimer;
     FullNameMenuItem: TMenuItem;
     InfoPanel: TPanel;
     CaptionPanel: TPanel;
@@ -80,6 +81,7 @@ type
     procedure AddonPDFCopyButtonClick(Sender: TObject);
     procedure AddonPDFShowButtonClick(Sender: TObject);
     procedure AddonVTDblClick(Sender: TObject);
+    procedure FilterTimerTimer(Sender: TObject);
     procedure TypeNumMenuItemClick(Sender: TObject);
     procedure TypeNumYearMenuItemClick(Sender: TObject);
     procedure DelButtonClick(Sender: TObject);
@@ -106,6 +108,7 @@ type
     procedure VTDblClick(Sender: TObject);
   private
     CanLoadDocList: Boolean;
+    CanStartTimer, CanApplyFilter: Boolean;
     DocList: TVSTTable;
     AddonList: TVSTTable;
 
@@ -163,6 +166,8 @@ begin
   DataBase.DocStatusesLoad(DocStatusComboBox, FilterStatusIDs, True);
 
   CanLoadDocList:= True;
+  CanStartTimer:= True;
+  CanApplyFilter:= True;
   DocListCreate;
   AddonListCreate;
 end;
@@ -223,7 +228,12 @@ begin
   DocStatusComboBox.ItemIndex:= 0;
   DocTypeComboBox.ItemIndex:= 0;
   DocNumEdit.Text:= EmptyStr;
+  //DocNameEdit.Text:= EmptyStr;
+
+  CanStartTimer:= False;
   DocNameEdit.Text:= EmptyStr;
+  CanStartTimer:= True;
+
   CanLoadDocList:= True;
   DocListLoad;
 end;
@@ -317,6 +327,21 @@ end;
 
 procedure TMainForm.DocNameEditChange(Sender: TObject);
 begin
+  if not CanStartTimer then Exit;
+
+  CanApplyFilter:= False;
+  if FilterTimer.Enabled then
+    FilterTimer.Enabled:= False;
+  FilterTimer.Enabled:= True;
+  CanApplyFilter:= True;
+
+  //DocListFilter;
+end;
+
+procedure TMainForm.FilterTimerTimer(Sender: TObject);
+begin
+  FilterTimer.Enabled:= False;
+  if not CanApplyFilter then Exit;
   DocListFilter;
 end;
 

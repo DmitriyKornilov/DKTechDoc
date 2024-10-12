@@ -35,6 +35,8 @@ function VAddonFullName(const ADocCode: String; const AAddonNames, AAddonNums: T
 function AddonFileName(const ADocID, AAddonID: Integer): String;
 function AddonFileName(const ADocCode, AAddonName, AAddonNum: String): String;
 
+function PrepareMatchStr(const AMatchStr: String): String;
+
 implementation
 
 function DocumentNumber(const ADocNum, ADocYear: String): String;
@@ -293,6 +295,28 @@ end;
 function AddonFileName(const ADocCode, AAddonName, AAddonNum: String): String;
 begin
   Result:= AddonFullName(ADocCode, AAddonName, AAddonNum) + '.pdf';
+end;
+
+function PrepareMatchStr(const AMatchStr: String): String;
+var
+  i: Integer;
+  S: String;
+const
+  ALLOWABLE_SYMBOLS = LETTERS_RUSSIAN_UPPER + LETTERS_ENGLISH_UPPER;
+begin
+  Result:= EmptyStr;
+  if SEmpty(AMatchStr) then Exit;
+
+  for i:= 1 to SLength(AMatchStr) do
+  begin
+    S:= SSymbol(AMatchStr, i);
+    if SFind(ALLOWABLE_SYMBOLS, SUpper(S)) then
+      Result:= Result + S
+    else
+      Result:= Result + SYMBOL_SPACE
+  end;
+
+  Result:= STrim(Result);
 end;
 
 
