@@ -262,7 +262,6 @@ end;
 function TDataBase.DocFind(const AMatchStr: String; out ADocIDs: TIntVector): Boolean;
 var
   V: TStrVector;
-  S: String;
 begin
   ADocIDs:= nil;
   Result:= False;
@@ -280,9 +279,7 @@ begin
     'FROM DOCS_FTS ' +
     'WHERE DOCS_FTS MATCH :MatchStr || "*"'
   );
-  S:= PrepareMatchStr(AMatchStr);
-  QParamStr('MatchStr', S);
-
+  QParamStr('MatchStr', AMatchStr);
   QOpen;
   if not QIsEmpty then
   begin

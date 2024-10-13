@@ -117,6 +117,7 @@ type
     TypeNames, DocNums, DocYears, DocNames, StatusNames, Notes: TStrVector;
 
     FilterTypeIDs, FilterStatusIDs: TIntVector;
+    DocNameMatchStr: String;
 
     AddonIDs: TIntVector;
     AddonDates: TDateVector;
@@ -326,16 +327,20 @@ begin
 end;
 
 procedure TMainForm.DocNameEditChange(Sender: TObject);
+var
+  NewMatchStr: String;
 begin
   if not CanStartTimer then Exit;
+
+  NewMatchStr:= PrepareMatchStr(DocNameEdit.Text);
+  if SSame(NewMatchStr, DocNameMatchStr) then Exit;
+  DocNameMatchStr:= NewMatchStr;
 
   CanApplyFilter:= False;
   if FilterTimer.Enabled then
     FilterTimer.Enabled:= False;
   FilterTimer.Enabled:= True;
   CanApplyFilter:= True;
-
-  //DocListFilter;
 end;
 
 procedure TMainForm.FilterTimerTimer(Sender: TObject);
@@ -649,7 +654,7 @@ end;
 procedure TMainForm.DocListLoad(const ASelectedID: Integer);
 var
   i, SelectedDocID, FilterTypeID, FilterStatusID: Integer;
-  FilterDocNum, FilterDocName: String;
+  FilterDocNum: String;
   V: TStrVector;
 begin
   if not CanLoadDocList then Exit;
@@ -664,9 +669,8 @@ begin
     FilterTypeID:= FilterTypeIDs[DocTypeComboBox.ItemIndex];
     FilterStatusID:= FilterStatusIDs[DocStatusComboBox.ItemIndex];
     FilterDocNum:= STrim(DocNumEdit.Text);
-    FilterDocName:= STrim(DocNameEdit.Text);
 
-    DataBase.DocListLoad(FilterTypeID, FilterStatusID, FilterDocNum, FilterDocName,
+    DataBase.DocListLoad(FilterTypeID, FilterStatusID, FilterDocNum, DocNameMatchStr,
                          DocIDs, TypeIDs, StatusIDs, DocDates, ControlDates,
                          TypeNames, DocNums, DocYears, DocNames, StatusNames, Notes);
     ExportButton.Enabled:= not VIsNil(DocIDs);
