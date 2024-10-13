@@ -23,22 +23,37 @@ type
     AboutButton: TSpeedButton;
     AddButton: TSpeedButton;
     AddonAddButton: TSpeedButton;
-    DelButton: TSpeedButton;
+    AddonCaptionPanel: TPanel;
     AddonDelButton: TSpeedButton;
-    DictionaryButton: TSpeedButton;
+    AddonEditButton: TSpeedButton;
+    AddonPDFCopyButton: TSpeedButton;
+    AddonPDFShowButton: TSpeedButton;
+    AddonToolPanel: TPanel;
+    AddonVT: TVirtualStringTree;
     DividerBevel10: TDividerBevel;
     DividerBevel8: TDividerBevel;
-    AddonEditButton: TSpeedButton;
+    AddonCaptionSymbolLabel: TLabel;
+    DocNoteValueLabel: TLabel;
+    DocNameValueLabel: TLabel;
+    DocStatusValueLabel: TLabel;
+    DocNoteCaptionLabel: TLabel;
+    DocNameCaptionLabel: TLabel;
+    DocInfoPanel: TPanel;
+    DelButton: TSpeedButton;
+    DictionaryButton: TSpeedButton;
     DividerBevel9: TDividerBevel;
+    DocStatusCaptionLabel: TLabel;
+    DocDateCaptionLabel: TLabel;
+    DocDateValueLabel: TLabel;
     FilterTimer: TTimer;
     FullNameMenuItem: TMenuItem;
     InfoPanel: TPanel;
-    CaptionPanel: TPanel;
-    InfoLabel: TLabel;
+    DocCaptionPanel: TPanel;
+    DocCodeCaptionLabel: TLabel;
+    DocCodeValueLabel: TLabel;
+    DocCaptionSymbolLabel: TLabel;
     NameCopyButton: TSpeedButton;
-    AddonToolPanel: TPanel;
-    AddonPDFCopyButton: TSpeedButton;
-    AddonPDFShowButton: TSpeedButton;
+    AddonInfoPanel: TPanel;
     Splitter1: TSplitter;
     TypeNumMenuItem: TMenuItem;
     NameCopyMenu: TPopupMenu;
@@ -72,15 +87,16 @@ type
     ToolPanel: TPanel;
     TypeNumYearMenuItem: TMenuItem;
     VT: TVirtualStringTree;
-    AddonVT: TVirtualStringTree;
     procedure AboutButtonClick(Sender: TObject);
     procedure AddButtonClick(Sender: TObject);
     procedure AddonAddButtonClick(Sender: TObject);
+    procedure AddonCaptionPanelClick(Sender: TObject);
     procedure AddonDelButtonClick(Sender: TObject);
     procedure AddonEditButtonClick(Sender: TObject);
     procedure AddonPDFCopyButtonClick(Sender: TObject);
     procedure AddonPDFShowButtonClick(Sender: TObject);
     procedure AddonVTDblClick(Sender: TObject);
+    procedure DocCaptionPanelClick(Sender: TObject);
     procedure FilterTimerTimer(Sender: TObject);
     procedure TypeNumMenuItemClick(Sender: TObject);
     procedure TypeNumYearMenuItemClick(Sender: TObject);
@@ -128,6 +144,8 @@ type
     procedure DocListSelect;
     procedure DocListFilter;
 
+    procedure DocInfoUpdate;
+
     procedure AddonListCreate;
     procedure AddonListLoad(const ASelectedID: Integer = 0);
     procedure AddonListSelect;
@@ -171,6 +189,7 @@ begin
   CanApplyFilter:= True;
   DocListCreate;
   AddonListCreate;
+  DocInfoUpdate;
 end;
 
 procedure TMainForm.FormDestroy(Sender: TObject);
@@ -186,7 +205,7 @@ begin
     ToolPanel, AddonToolPanel
   ]);
   SetCaptionPanels([
-    CaptionPanel
+    DocCaptionPanel, AddonCaptionPanel
   ]);
   SetToolButtons([
     RefreshButton, AboutButton, ExitButton,
@@ -253,6 +272,28 @@ procedure TMainForm.DocListFilter;
 begin
   DocListLoad;
   FilterClearButtonEnable;
+end;
+
+procedure TMainForm.DocInfoUpdate;
+var
+  i: Integer;
+begin
+  if DocList.IsSelected then
+  begin
+    i:= DocList.SelectedIndex;
+    DocCodeValueLabel.Caption:= DocumentCode(TypeNames[i], DocNums[i], DocYears[i]);
+    DocNameValueLabel.Caption:= DocNames[i];
+    DocStatusValueLabel.Caption:= StatusNames[i];
+    DocDateValueLabel.Caption:= FormatDateTime('dd.mm.yyyy', DocDates[i]);
+    DocNoteValueLabel.Caption:= Notes[i];
+  end
+  else begin
+    DocCodeValueLabel.Caption:= EmptyStr;
+    DocNameValueLabel.Caption:= EmptyStr;
+    DocStatusValueLabel.Caption:= EmptyStr;
+    DocDateValueLabel.Caption:= EmptyStr;
+    DocNoteValueLabel.Caption:= EmptyStr;
+  end;
 end;
 
 procedure TMainForm.AddonListCreate;
@@ -432,6 +473,54 @@ end;
 procedure TMainForm.AddonVTDblClick(Sender: TObject);
 begin
   AddonShow;
+end;
+
+procedure TMainForm.AddonCaptionPanelClick(Sender: TObject);
+begin
+  VT.Align:= alTop;
+  InfoPanel.Visible:= False;
+  Splitter1.Align:= alTop;
+  try
+    AddonInfoPanel.Visible:= not AddonInfoPanel.Visible;
+    if AddonInfoPanel.Visible then
+    begin
+      InfoPanel.Height:= InfoPanel.Height + AddonInfoPanel.Height;
+      AddonCaptionSymbolLabel.Caption:= SYMBOL_COLLAPSE;
+    end
+    else begin
+      InfoPanel.Height:= InfoPanel.Height - AddonInfoPanel.Height;
+      AddonCaptionSymbolLabel.Caption:= SYMBOL_DROPDOWN;
+    end;
+
+  finally
+    InfoPanel.Visible:= True;
+    Splitter1.Align:= alBottom;
+    VT.Align:= alClient;
+  end;
+end;
+
+procedure TMainForm.DocCaptionPanelClick(Sender: TObject);
+begin
+  VT.Align:= alTop;
+  InfoPanel.Visible:= False;
+  Splitter1.Align:= alTop;
+  try
+    DocInfoPanel.Visible:= not DocInfoPanel.Visible;
+    if DocInfoPanel.Visible then
+    begin
+      InfoPanel.Height:= InfoPanel.Height + DocInfoPanel.Height;
+      DocCaptionSymbolLabel.Caption:= SYMBOL_COLLAPSE;
+    end
+    else begin
+      InfoPanel.Height:= InfoPanel.Height - DocInfoPanel.Height;
+      DocCaptionSymbolLabel.Caption:= SYMBOL_DROPDOWN;
+    end;
+
+  finally
+    InfoPanel.Visible:= True;
+    Splitter1.Align:= alBottom;
+    VT.Align:= alClient;
+  end;
 end;
 
 procedure TMainForm.TypeNumMenuItemClick(Sender: TObject);
@@ -704,7 +793,7 @@ end;
 procedure TMainForm.DocListSelect;
 var
   i: Integer;
-  FullName: String;
+  //FullName: String;
 begin
   DelButton.Enabled:= DocList.IsSelected;
   EditButton.Enabled:= DelButton.Enabled;
@@ -713,19 +802,21 @@ begin
                           FileExists(DocumentFileName(DocIDs[DocList.SelectedIndex]));
   PDFCopyButton.Enabled:= PDFShowButton.Enabled;
 
-  CaptionPanel.Caption:= '  Документ не выбран';
+  //DocCaptionPanel.Caption:= '  Документ не выбран';
   if DocList.IsSelected then
   begin
     i:= DocList.SelectedIndex;
 
-    FullName:=  DocumentFullName(TypeNames[i], DocNums[i], DocYears[i], DocNames[i]);
-    CaptionPanel.Caption:= SRepeat(2, SYMBOL_SPACE) + FullName;
+    //FullName:=  DocumentFullName(TypeNames[i], DocNums[i], DocYears[i], DocNames[i]);
+    //DocCaptionPanel.Caption:= SRepeat(2, SYMBOL_SPACE) + FullName;
 
     TypeNumMenuItem.Caption:= TypeNames[i] + SYMBOL_SPACE + DocNums[i];
     TypeNumYearMenuItem.Caption:= DocumentCode(TypeNames[i], DocNums[i], DocYears[i]);
     NameMenuItem.Caption:= DocNames[i];
-    FullNameMenuItem.Caption:= FullName;
+    FullNameMenuItem.Caption:= DocumentFullName(TypeNames[i], DocNums[i], DocYears[i], DocNames[i]);//FullName;
   end;
+
+  DocInfoUpdate;
 
   NameCopyButton.Enabled:= DocList.IsSelected;
   AddonAddButton.Enabled:= DocList.IsSelected;
