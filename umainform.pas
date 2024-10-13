@@ -124,7 +124,7 @@ type
     procedure VTDblClick(Sender: TObject);
   private
     CanLoadDocList: Boolean;
-    CanStartTimer, CanApplyFilter: Boolean;
+    CanApplyFilter: Boolean;
     DocList: TVSTTable;
     AddonList: TVSTTable;
 
@@ -185,7 +185,6 @@ begin
   DataBase.DocStatusesLoad(DocStatusComboBox, FilterStatusIDs, True);
 
   CanLoadDocList:= True;
-  CanStartTimer:= True;
   CanApplyFilter:= True;
   DocListCreate;
   AddonListCreate;
@@ -248,12 +247,7 @@ begin
   DocStatusComboBox.ItemIndex:= 0;
   DocTypeComboBox.ItemIndex:= 0;
   DocNumEdit.Text:= EmptyStr;
-  //DocNameEdit.Text:= EmptyStr;
-
-  CanStartTimer:= False;
   DocNameEdit.Text:= EmptyStr;
-  CanStartTimer:= True;
-
   CanLoadDocList:= True;
   DocListLoad;
 end;
@@ -371,8 +365,6 @@ procedure TMainForm.DocNameEditChange(Sender: TObject);
 var
   NewMatchStr: String;
 begin
-  if not CanStartTimer then Exit;
-
   NewMatchStr:= PrepareMatchStr(DocNameEdit.Text);
   if SSame(NewMatchStr, DocNameMatchStr) then Exit;
   DocNameMatchStr:= NewMatchStr;
@@ -793,7 +785,6 @@ end;
 procedure TMainForm.DocListSelect;
 var
   i: Integer;
-  //FullName: String;
 begin
   DelButton.Enabled:= DocList.IsSelected;
   EditButton.Enabled:= DelButton.Enabled;
@@ -802,14 +793,9 @@ begin
                           FileExists(DocumentFileName(DocIDs[DocList.SelectedIndex]));
   PDFCopyButton.Enabled:= PDFShowButton.Enabled;
 
-  //DocCaptionPanel.Caption:= '  Документ не выбран';
   if DocList.IsSelected then
   begin
     i:= DocList.SelectedIndex;
-
-    //FullName:=  DocumentFullName(TypeNames[i], DocNums[i], DocYears[i], DocNames[i]);
-    //DocCaptionPanel.Caption:= SRepeat(2, SYMBOL_SPACE) + FullName;
-
     TypeNumMenuItem.Caption:= TypeNames[i] + SYMBOL_SPACE + DocNums[i];
     TypeNumYearMenuItem.Caption:= DocumentCode(TypeNames[i], DocNums[i], DocYears[i]);
     NameMenuItem.Caption:= DocNames[i];
