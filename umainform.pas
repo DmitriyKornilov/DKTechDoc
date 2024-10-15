@@ -282,11 +282,11 @@ begin
     DocNoteValueLabel.Caption:= Notes[i];
   end
   else begin
-    DocCodeValueLabel.Caption:= EmptyStr;
-    DocNameValueLabel.Caption:= EmptyStr;
-    DocStatusValueLabel.Caption:= EmptyStr;
-    DocDateValueLabel.Caption:= EmptyStr;
-    DocNoteValueLabel.Caption:= EmptyStr;
+    DocCodeValueLabel.Caption:= SYMBOL_SPACE;
+    DocNameValueLabel.Caption:= SYMBOL_SPACE;
+    DocStatusValueLabel.Caption:= SYMBOL_SPACE;
+    DocDateValueLabel.Caption:= SYMBOL_SPACE;
+    DocNoteValueLabel.Caption:= SYMBOL_SPACE;
   end;
 end;
 

@@ -104,6 +104,7 @@
         <Filename Value="forms\uaddoneditform.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="AddonEditForm"/>
+        <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="UAddonEditForm"/>
       </Unit>
