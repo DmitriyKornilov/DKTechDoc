@@ -260,26 +260,22 @@ begin
 end;
 
 function TDataBase.DocFind(const AMatchStr: String; out ADocIDs: TIntVector): Boolean;
-var
-  V: TStrVector;
 begin
   ADocIDs:= nil;
   Result:= False;
   if SEmpty(AMatchStr) then Exit;
 
-  V:= VCreateStr([
-    'CREATE VIRTUAL TABLE IF NOT EXISTS DOCS_FTS USING FTS5(DocID, DocName);',
+  ExecuteScript([
     'INSERT OR IGNORE INTO DOCS_FTS SELECT DocID, DocName FROM DOCUMENTS;'
   ]);
-  ExecuteScript(V, False{no commit});
 
   QSetQuery(FQuery);
   QSetSQL(
     'SELECT DocID, DocName ' +
     'FROM DOCS_FTS ' +
-    'WHERE DOCS_FTS MATCH :MatchStr || "*"'
+    'WHERE DOCS_FTS MATCH :MatchStr'
   );
-  QParamStr('MatchStr', AMatchStr);
+  QParamStr('MatchStr', AMatchStr + '*');
   QOpen;
   if not QIsEmpty then
   begin

@@ -692,7 +692,11 @@ begin
 
   DataBase:= TDataBase.Create;
   DataBase.Connect(DBName);
+
   DataBase.ExecuteScript(DDLName);
+  DataBase.ExecuteScript([
+    'CREATE VIRTUAL TABLE IF NOT EXISTS DOCS_FTS USING FTS5(DocID, DocName);'
+  ]);
 end;
 
 procedure TMainForm.DictionarySelect(const ADictionary: Byte);
