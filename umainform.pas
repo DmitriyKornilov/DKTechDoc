@@ -351,12 +351,15 @@ procedure TMainForm.AddonListSelect;
 var
   S: String;
 begin
+  AddonPDFShowButton.Enabled:= False;
+  AddonPDFCopyButton.Enabled:= False;
   AddonDelButton.Enabled:= AddonList.IsSelected;
   AddonEditButton.Enabled:= AddonDelButton.Enabled;
 
+  if not DocList.IsSelected then Exit;
+
   S:= AddonFileName(DocIDs[DocList.SelectedIndex], AddonIDs[AddonList.SelectedIndex]);
-  AddonPDFShowButton.Enabled:= DocList.IsSelected and
-                               AddonDelButton.Enabled and
+  AddonPDFShowButton.Enabled:= AddonDelButton.Enabled and
                                FileExists(S);
   AddonPDFCopyButton.Enabled:= AddonPDFShowButton.Enabled;
 end;
