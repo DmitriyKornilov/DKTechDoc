@@ -156,7 +156,6 @@ type
     procedure AddonEditFormOpen(const AEditType: Byte); //0-добавить, 1-редактировать
     procedure AddonShow;
 
-
     procedure FilterClearButtonEnable;
 
     procedure DBConnect;
@@ -763,6 +762,9 @@ begin
                          TypeNames, DocNums, DocYears, DocNames, StatusNames, Notes);
     ExportButton.Enabled:= not VIsNil(DocIDs);
 
+    for i:= 0 to High(DocNums) do
+      DocNums[i]:= SReplace(DocNums[i], SYMBOL_HYPHEN, MDASH_DEFAULT);
+
     DocList.ValuesClear;
     V:= VIntToStr(VOrder(Length(DocIDs)));
     DocList.SetColumn('№ п/п', V);
@@ -792,6 +794,7 @@ end;
 procedure TMainForm.DocListSelect;
 var
   i: Integer;
+  TypeName: String;
 begin
   DelButton.Enabled:= DocList.IsSelected;
   EditButton.Enabled:= DelButton.Enabled;
@@ -803,10 +806,11 @@ begin
   if DocList.IsSelected then
   begin
     i:= DocList.SelectedIndex;
-    TypeNumMenuItem.Caption:= TypeNames[i] + SYMBOL_SPACE + DocNums[i];
-    TypeNumYearMenuItem.Caption:= DocumentCode(TypeNames[i], DocNums[i], DocYears[i]);
+    TypeName:= SReplace(TypeNames[i], SYMBOL_SPACE, SYMBOL_SPACE_NONBREAK);
+    TypeNumMenuItem.Caption:= TypeName + SYMBOL_SPACE_NONBREAK + DocNums[i];
+    TypeNumYearMenuItem.Caption:= TypeNumMenuItem.Caption + LDASH_DEFAULT + DocYears[i];
     NameMenuItem.Caption:= DocNames[i];
-    FullNameMenuItem.Caption:= DocumentFullName(TypeNames[i], DocNums[i], DocYears[i], DocNames[i]);//FullName;
+    FullNameMenuItem.Caption:= TypeNumYearMenuItem.Caption + SYMBOL_SPACE_NONBREAK + SRusQuoted(DocNames[i]);
   end;
 
   DocInfoUpdate;

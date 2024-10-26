@@ -6,12 +6,16 @@ interface
 
 uses
   Classes, SysUtils, Dialogs, StdCtrls, LCLIntf, Forms, FileUtil,
-
   //DK packages utils
   DK_StrUtils, DK_Const, DK_Vector, DK_Matrix, DK_Dialogs;
 
+const
+  LDASH_DEFAULT = SYMBOL_LONGDASH;
+  MDASH_DEFAULT = SYMBOL_MIDDASH;
+
 function DocumentNumber(const ADocNum, ADocYear: String): String;
 function VDocumentNumber(const ADocNums, ADocYears: TStrVector): TStrVector;
+
 function DocumentCode(const ATypeName, ADocNum, ADocYear: String): String;
 function VDocumentCode(const ATypeNames, ADocNums, ADocYears: TStrVector): TStrVector;
 procedure VDocumentCodeSort(const ACodes: TStrVector; out AIndexes: TIntVector);
@@ -41,7 +45,7 @@ implementation
 
 function DocumentNumber(const ADocNum, ADocYear: String): String;
 begin
-  Result:= ADocNum + {SYMBOL_MIDDASH} SYMBOL_LONGDASH + ADocYear;
+  Result:= ADocNum + LDASH_DEFAULT + ADocYear;
 end;
 
 function VDocumentNumber(const ADocNums, ADocYears: TStrVector): TStrVector;
@@ -160,8 +164,6 @@ function DocumentFullName(const ATypeName, ADocNum, ADocYear, ADocName: String):
 begin
   Result:= DocumentCode(ATypeName, ADocNum, ADocYear) +
            SYMBOL_SPACE + SRusQuoted(ADocName);
-  //Result:= DocumentCode(ATypeName, ADocNum, ADocYear) +
-  //         SYMBOL_DOT + SYMBOL_SPACE + ADocName;
 end;
 
 function DocumentChoose(const AEdit: TEdit = nil): String;
