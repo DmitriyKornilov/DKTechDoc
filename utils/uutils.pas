@@ -13,17 +13,17 @@ const
   LDASH_DEFAULT = SYMBOL_LONGDASH;
   MDASH_DEFAULT = SYMBOL_MIDDASH;
 
-function DocumentNumber(const ADocNum, ADocYear: String): String;
-function VDocumentNumber(const ADocNums, ADocYears: TStrVector): TStrVector;
+function DocumentNumber(const ADocNum, ADelimiter, ADocYear: String): String;
+function VDocumentNumber(const ADocNums, ADelimiters, ADocYears: TStrVector): TStrVector;
 
-function DocumentCode(const ATypeName, ADocNum, ADocYear: String): String;
-function VDocumentCode(const ATypeNames, ADocNums, ADocYears: TStrVector): TStrVector;
+function DocumentCode(const ATypeName, ADocNum, ADelimiter, ADocYear: String): String;
+function VDocumentCode(const ATypeNames, ADocNums, ADelimiters, ADocYears: TStrVector): TStrVector;
 procedure VDocumentCodeSort(const ACodes: TStrVector; out AIndexes: TIntVector);
 
-function DocumentFullName(const ATypeName, ADocNum, ADocYear, ADocName: String): String;
+function DocumentFullName(const ATypeName, ADocNum, ADelimiter, ADocYear, ADocName: String): String;
 
 function DocumentFileName(const ADocID: Integer): String;
-function DocumentFileName(const ATypeName, ADocNum, ADocYear: String): String;
+function DocumentFileName(const ATypeName, ADocNum, ADelimiter, ADocYear: String): String;
 
 function DocumentChoose(const AEdit: TEdit = nil): String;
 function DocumentOpen(const AFileName: String): Boolean;
@@ -43,12 +43,12 @@ function PrepareMatchStr(const AMatchStr: String): String;
 
 implementation
 
-function DocumentNumber(const ADocNum, ADocYear: String): String;
+function DocumentNumber(const ADocNum, ADelimiter, ADocYear: String): String;
 begin
-  Result:= ADocNum + LDASH_DEFAULT + ADocYear;
+  Result:= ADocNum + ADelimiter + ADocYear;
 end;
 
-function VDocumentNumber(const ADocNums, ADocYears: TStrVector): TStrVector;
+function VDocumentNumber(const ADocNums, ADelimiters, ADocYears: TStrVector): TStrVector;
 var
   i: Integer;
 begin
@@ -56,15 +56,15 @@ begin
   if VIsNil(ADocNums) then Exit;
 
   for i:= 0 to High(ADocNums) do
-    VAppend(Result, DocumentNumber(ADocNums[i], ADocYears[i]));
+    VAppend(Result, DocumentNumber(ADocNums[i], ADelimiters[i], ADocYears[i]));
 end;
 
-function DocumentCode(const ATypeName, ADocNum, ADocYear: String): String;
+function DocumentCode(const ATypeName, ADocNum, ADelimiter, ADocYear: String): String;
 begin
-  Result:= ATypeName + SYMBOL_SPACE + DocumentNumber(ADocNum, ADocYear);
+  Result:= ATypeName + SYMBOL_SPACE + DocumentNumber(ADocNum, ADelimiter, ADocYear);
 end;
 
-function VDocumentCode(const ATypeNames, ADocNums, ADocYears: TStrVector): TStrVector;
+function VDocumentCode(const ATypeNames, ADocNums, ADelimiters, ADocYears: TStrVector): TStrVector;
 var
   i: Integer;
 begin
@@ -72,7 +72,7 @@ begin
   if VIsNil(ATypeNames) then Exit;
 
   for i:= 0 to High(ATypeNames) do
-    VAppend(Result, DocumentCode(ATypeNames[i], ADocNums[i], ADocYears[i]));
+    VAppend(Result, DocumentCode(ATypeNames[i], ADocNums[i], ADelimiters[i], ADocYears[i]));
 end;
 
 procedure VDocumentCodeSort(const ACodes: TStrVector; out AIndexes: TIntVector);
@@ -160,9 +160,9 @@ begin
   end;
 end;
 
-function DocumentFullName(const ATypeName, ADocNum, ADocYear, ADocName: String): String;
+function DocumentFullName(const ATypeName, ADocNum, ADelimiter, ADocYear, ADocName: String): String;
 begin
-  Result:= DocumentCode(ATypeName, ADocNum, ADocYear) +
+  Result:= DocumentCode(ATypeName, ADocNum, ADelimiter, ADocYear) +
            SYMBOL_SPACE + SRusQuoted(ADocName);
 end;
 
@@ -195,9 +195,9 @@ begin
            'files' + DirectorySeparator + IntToStr(ADocID) + '.pdf';
 end;
 
-function DocumentFileName(const ATypeName, ADocNum, ADocYear: String): String;
+function DocumentFileName(const ATypeName, ADocNum, ADelimiter, ADocYear: String): String;
 begin
-  Result:= DocumentCode(ATypeName, ADocNum, ADocYear) + '.pdf';
+  Result:= DocumentCode(ATypeName, ADocNum, ADelimiter, ADocYear) + '.pdf';
 end;
 
 function DocumentOpen(const AFileName: String): Boolean;

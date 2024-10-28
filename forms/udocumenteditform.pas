@@ -19,6 +19,7 @@ type
   TDocumentEditForm = class(TForm)
     ControlDatePicker: TDateTimePicker;
     DocNameEdit: TEdit;
+    SymbolComboBox: TComboBox;
     DocumentLabel: TLabel;
     FileLabel: TLabel;
     FileNameEdit: TEdit;
@@ -35,7 +36,6 @@ type
     CancelButton: TSpeedButton;
     DocDateLabel: TLabel;
     DocYearEdit: TEdit;
-    DocYearLabel: TLabel;
     DocTypeComboBox: TComboBox;
     DocTypeLabel: TLabel;
     DocNumLabel: TLabel;
@@ -49,9 +49,9 @@ type
     procedure OpenButtonClick(Sender: TObject);
     procedure SaveButtonClick(Sender: TObject);
   private
-    TypeIDs, StatusIDs: TIntVector;
+    TypeIDs, StatusIDs, SymbolIDs: TIntVector;
   public
-    DocID, OldTypeID, OldStatusID: Integer;
+    DocID, OldTypeID, OldStatusID, OldSymbolID: Integer;
     EditType: Byte;
   end;
 
@@ -76,6 +76,10 @@ begin
   DataBase.DocStatusesLoad(DocStatusComboBox, StatusIDs);
   if (not VIsNil(StatusIDs)) and (OldStatusID>0) then
     DocStatusComboBox.ItemIndex:= VIndexOf(StatusIDs, OldStatusID);
+
+  DataBase.SymbolsLoad(SymbolComboBox, SymbolIDs);
+  if (not VIsNil(SymbolIDs)) and (OldSymbolID>0) then
+    SymbolComboBox.ItemIndex:= VIndexOf(SymbolIDs, OldSymbolID);
 end;
 
 procedure TDocumentEditForm.NotChangeFileCheckBoxChange(Sender: TObject);
@@ -103,12 +107,13 @@ begin
   ControlDatePicker.Date:= Date;
   OldTypeID:= 0;
   OldStatusID:= 0;
+  OldSymbolID:= 0;
 end;
 
 procedure TDocumentEditForm.SaveButtonClick(Sender: TObject);
 var
   IsOK: Boolean;
-  TypeID, StatusID: Integer;
+  TypeID, StatusID, SymbolID: Integer;
   DocNum, DocYear, DocName, Note, SrcFileName, DestFileName: String;
 begin
   IsOK:= False;
@@ -128,9 +133,10 @@ begin
   end;
 
   TypeID:= TypeIDs[DocTypeComboBox.ItemIndex];
-  if DataBase.DocIsExists(DocID, TypeID, DocNum, DocYear) then
+  SymbolID:= SymbolIDs[SymbolComboBox.ItemIndex];
+  if DataBase.DocIsExists(DocID, TypeID, SymbolID, DocNum, DocYear) then
   begin
-    DocName:= DocumentCode(DocTypeComboBox.Text, DocNum, DocYear);
+    DocName:= DocumentCode(DocTypeComboBox.Text, DocNum, SymbolComboBox.Text, DocYear);
     if not Confirm('Документ "' + DocName + '" уже есть в базе! Продолжить запись?') then Exit;
   end;
 
@@ -156,10 +162,10 @@ begin
   StatusID:= StatusIDs[DocStatusComboBox.ItemIndex];
 
   case EditType of
-  0: IsOK:= DataBase.DocAdd(DocID, TypeID, StatusID,
+  0: IsOK:= DataBase.DocAdd(DocID, TypeID, StatusID, SymbolID,
                             DocDatePicker.Date, ControlDatePicker.Date,
                             DocNum, DocYear, DocName, Note);
-  1: IsOK:= DataBase.DocUpdate(DocID, TypeID, StatusID,
+  1: IsOK:= DataBase.DocUpdate(DocID, TypeID, StatusID, SymbolID,
                             DocDatePicker.Date, ControlDatePicker.Date,
                             DocNum, DocYear, DocName, Note);
   end;

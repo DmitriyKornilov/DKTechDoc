@@ -99,7 +99,7 @@ object MainForm: TMainForm
       end
       object DictionaryButton: TSpeedButton
         Cursor = crHandPoint
-        Left = 1375
+        Left = 1376
         Height = 36
         Hint = 'Атрибуты документов'
         Top = 0
@@ -116,10 +116,10 @@ object MainForm: TMainForm
         ParentShowHint = False
       end
       object DividerBevel2: TDividerBevel
-        Left = 1435
+        Left = 1436
         Height = 36
         Top = 0
-        Width = 21
+        Width = 20
         Caption = 'DividerBevel2'
         Align = alRight
         BevelWidth = 2
@@ -175,7 +175,7 @@ object MainForm: TMainForm
         Left = 120
         Height = 36
         Top = 0
-        Width = 21
+        Width = 20
         Caption = 'DividerBevel3'
         Align = alLeft
         BevelWidth = 2
@@ -185,7 +185,7 @@ object MainForm: TMainForm
       end
       object ExportButton: TSpeedButton
         Cursor = crHandPoint
-        Left = 242
+        Left = 240
         Height = 36
         Hint = 'Экспорт в файл электронной таблицы XLSX или ODS'
         Top = 0
@@ -200,7 +200,7 @@ object MainForm: TMainForm
       end
       object PDFShowButton: TSpeedButton
         Cursor = crHandPoint
-        Left = 141
+        Left = 140
         Height = 38
         Hint = 'Открыть документ'
         Top = 0
@@ -351,7 +351,7 @@ object MainForm: TMainForm
       end
       object PDFCopyButton: TSpeedButton
         Cursor = crHandPoint
-        Left = 181
+        Left = 180
         Height = 38
         Hint = 'Скопировать документ'
         Top = 0
@@ -501,10 +501,10 @@ object MainForm: TMainForm
         ParentShowHint = False
       end
       object DividerBevel4: TDividerBevel
-        Left = 221
+        Left = 220
         Height = 36
         Top = 0
-        Width = 21
+        Width = 20
         Caption = 'DividerBevel4'
         Align = alLeft
         BevelWidth = 2
@@ -513,10 +513,10 @@ object MainForm: TMainForm
         ParentFont = False
       end
       object DividerBevel5: TDividerBevel
-        Left = 282
+        Left = 280
         Height = 36
         Top = 0
-        Width = 21
+        Width = 20
         Caption = 'DividerBevel5'
         Align = alLeft
         BevelWidth = 2
@@ -526,19 +526,19 @@ object MainForm: TMainForm
       end
       object FilterPanel: TPanel
         AnchorSideRight.Control = DividerBevel6
-        Left = 384
+        Left = 380
         Height = 36
         Top = 0
-        Width = 970
+        Width = 976
         Align = alLeft
         Anchors = [akTop, akLeft, akRight, akBottom]
         BevelOuter = bvNone
         ClientHeight = 36
-        ClientWidth = 970
+        ClientWidth = 976
         TabOrder = 0
         object FilterClearButton: TSpeedButton
           Cursor = crHandPoint
-          Left = 928
+          Left = 934
           Height = 38
           Hint = 'Очистить фильтр'
           Top = 0
@@ -820,7 +820,7 @@ object MainForm: TMainForm
           Left = 749
           Height = 28
           Top = 4
-          Width = 171
+          Width = 177
           Anchors = [akTop, akLeft, akRight]
           BorderSpacing.Left = 6
           BorderSpacing.Top = 8
@@ -830,10 +830,10 @@ object MainForm: TMainForm
         end
       end
       object DividerBevel6: TDividerBevel
-        Left = 1354
+        Left = 1356
         Height = 36
         Top = 0
-        Width = 21
+        Width = 20
         Caption = 'DividerBevel6'
         Align = alRight
         BevelWidth = 2
@@ -843,7 +843,7 @@ object MainForm: TMainForm
       end
       object NameCopyButton: TSpeedButton
         Cursor = crHandPoint
-        Left = 303
+        Left = 300
         Height = 36
         Hint = 'Скопировать наименование документа'
         Top = 0
@@ -861,10 +861,10 @@ object MainForm: TMainForm
         ParentShowHint = False
       end
       object DividerBevel9: TDividerBevel
-        Left = 363
+        Left = 360
         Height = 36
         Top = 0
-        Width = 21
+        Width = 20
         Caption = 'DividerBevel9'
         Align = alLeft
         BevelWidth = 2
@@ -1206,7 +1206,7 @@ object MainForm: TMainForm
             Left = 120
             Height = 36
             Top = 0
-            Width = 21
+            Width = 20
             Caption = 'DividerBevel8'
             Align = alLeft
             BevelWidth = 2
@@ -1216,7 +1216,7 @@ object MainForm: TMainForm
           end
           object AddonPDFShowButton: TSpeedButton
             Cursor = crHandPoint
-            Left = 141
+            Left = 140
             Height = 38
             Hint = 'Открыть документ'
             Top = 0
@@ -1367,7 +1367,7 @@ object MainForm: TMainForm
           end
           object AddonPDFCopyButton: TSpeedButton
             Cursor = crHandPoint
-            Left = 181
+            Left = 180
             Height = 38
             Hint = 'Скопировать документ'
             Top = 0
@@ -1517,10 +1517,10 @@ object MainForm: TMainForm
             ParentShowHint = False
           end
           object DividerBevel10: TDividerBevel
-            Left = 221
+            Left = 220
             Height = 36
             Top = 0
-            Width = 21
+            Width = 20
             Caption = 'DividerBevel10'
             Align = alLeft
             BevelWidth = 2
@@ -1568,6 +1568,10 @@ object MainForm: TMainForm
     object StatusesMenuItem: TMenuItem
       Caption = 'Статусы документов'
       OnClick = StatusesMenuItemClick
+    end
+    object SymbolsMenuItem: TMenuItem
+      Caption = 'Разделители номера и года'
+      OnClick = SymbolsMenuItemClick
     end
   end
   object NameCopyMenu: TPopupMenu

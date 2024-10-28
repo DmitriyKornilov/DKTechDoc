@@ -2,10 +2,10 @@ object DocumentEditForm: TDocumentEditForm
   Left = 513
   Height = 405
   Top = 250
-  Width = 970
+  Width = 1050
   Caption = 'Редактирование документа'
   ClientHeight = 405
-  ClientWidth = 970
+  ClientWidth = 1050
   DesignTimePPI = 120
   OnCreate = FormCreate
   OnShow = FormShow
@@ -16,7 +16,7 @@ object DocumentEditForm: TDocumentEditForm
     Left = 2
     Height = 73
     Top = 326
-    Width = 966
+    Width = 1046
     Align = alBottom
     Anchors = [akTop, akLeft, akRight]
     AutoSize = True
@@ -26,7 +26,7 @@ object DocumentEditForm: TDocumentEditForm
     BorderSpacing.Bottom = 6
     BevelOuter = bvNone
     ClientHeight = 73
-    ClientWidth = 966
+    ClientWidth = 1046
     TabOrder = 0
     object CancelButton: TSpeedButton
       AnchorSideTop.Control = ButtonPanelBevel
@@ -34,7 +34,7 @@ object DocumentEditForm: TDocumentEditForm
       AnchorSideRight.Control = ButtonPanel
       AnchorSideRight.Side = asrBottom
       Cursor = crHandPoint
-      Left = 845
+      Left = 925
       Height = 34
       Top = 8
       Width = 115
@@ -54,7 +54,7 @@ object DocumentEditForm: TDocumentEditForm
       AnchorSideTop.Side = asrCenter
       AnchorSideRight.Control = CancelButton
       Cursor = crHandPoint
-      Left = 724
+      Left = 804
       Height = 34
       Top = 8
       Width = 121
@@ -72,7 +72,7 @@ object DocumentEditForm: TDocumentEditForm
       Left = 0
       Height = 8
       Top = 0
-      Width = 966
+      Width = 1046
       Align = alTop
       Shape = bsTopLine
     end
@@ -90,16 +90,16 @@ object DocumentEditForm: TDocumentEditForm
     ParentColor = False
   end
   object DocTypeComboBox: TComboBox
-    AnchorSideLeft.Control = DocNameLabel
+    AnchorSideLeft.Control = DocNumLabel
     AnchorSideLeft.Side = asrBottom
     AnchorSideTop.Control = DocumentLabel
     AnchorSideTop.Side = asrBottom
     AnchorSideRight.Control = Owner
     AnchorSideRight.Side = asrBottom
-    Left = 119
+    Left = 155
     Height = 28
     Top = 38
-    Width = 843
+    Width = 887
     Anchors = [akTop, akLeft, akRight]
     BorderSpacing.Left = 6
     BorderSpacing.Top = 8
@@ -111,15 +111,13 @@ object DocumentEditForm: TDocumentEditForm
     TabOrder = 1
   end
   object DocNumEdit: TEdit
-    AnchorSideLeft.Control = DocNameLabel
-    AnchorSideLeft.Side = asrBottom
+    AnchorSideLeft.Control = DocTypeComboBox
     AnchorSideTop.Control = DocTypeComboBox
     AnchorSideTop.Side = asrBottom
-    Left = 119
+    Left = 155
     Height = 28
     Top = 74
     Width = 150
-    BorderSpacing.Left = 6
     BorderSpacing.Top = 8
     TabOrder = 2
   end
@@ -130,30 +128,17 @@ object DocumentEditForm: TDocumentEditForm
     Left = 8
     Height = 20
     Top = 78
-    Width = 85
+    Width = 141
     BorderSpacing.Left = 8
-    Caption = 'номер – год'
-    ParentColor = False
-  end
-  object DocYearLabel: TLabel
-    AnchorSideLeft.Control = DocNumEdit
-    AnchorSideLeft.Side = asrBottom
-    AnchorSideTop.Control = DocNumEdit
-    AnchorSideTop.Side = asrCenter
-    Left = 275
-    Height = 20
-    Top = 78
-    Width = 8
-    BorderSpacing.Left = 6
-    Caption = '–'
+    Caption = '№, разделитель, год'
     ParentColor = False
   end
   object DocYearEdit: TEdit
-    AnchorSideLeft.Control = DocYearLabel
+    AnchorSideLeft.Control = SymbolComboBox
     AnchorSideLeft.Side = asrBottom
     AnchorSideTop.Control = DocTypeComboBox
     AnchorSideTop.Side = asrBottom
-    Left = 289
+    Left = 369
     Height = 28
     Top = 74
     Width = 100
@@ -166,7 +151,7 @@ object DocumentEditForm: TDocumentEditForm
     AnchorSideLeft.Side = asrBottom
     AnchorSideTop.Control = DocNumEdit
     AnchorSideTop.Side = asrCenter
-    Left = 409
+    Left = 489
     Height = 20
     Top = 78
     Width = 179
@@ -180,7 +165,7 @@ object DocumentEditForm: TDocumentEditForm
     AnchorSideTop.Control = DocNumEdit
     AnchorSideTop.Side = asrCenter
     AnchorSideRight.Side = asrBottom
-    Left = 594
+    Left = 674
     Height = 28
     Top = 74
     Width = 100
@@ -211,7 +196,7 @@ object DocumentEditForm: TDocumentEditForm
     AnchorSideLeft.Side = asrBottom
     AnchorSideTop.Control = DocNumEdit
     AnchorSideTop.Side = asrCenter
-    Left = 714
+    Left = 794
     Height = 20
     Top = 78
     Width = 41
@@ -226,7 +211,7 @@ object DocumentEditForm: TDocumentEditForm
     AnchorSideTop.Side = asrCenter
     AnchorSideRight.Control = Owner
     AnchorSideRight.Side = asrBottom
-    Left = 761
+    Left = 841
     Height = 28
     Top = 74
     Width = 201
@@ -241,18 +226,16 @@ object DocumentEditForm: TDocumentEditForm
     TabOrder = 5
   end
   object DocNameEdit: TEdit
-    AnchorSideLeft.Control = DocNameLabel
-    AnchorSideLeft.Side = asrBottom
+    AnchorSideLeft.Control = DocTypeComboBox
     AnchorSideTop.Control = DocNumEdit
     AnchorSideTop.Side = asrBottom
     AnchorSideRight.Control = Owner
     AnchorSideRight.Side = asrBottom
-    Left = 119
+    Left = 155
     Height = 28
     Top = 110
-    Width = 843
+    Width = 887
     Anchors = [akTop, akLeft, akRight]
-    BorderSpacing.Left = 6
     BorderSpacing.Top = 8
     BorderSpacing.Right = 8
     TabOrder = 6
@@ -275,10 +258,10 @@ object DocumentEditForm: TDocumentEditForm
     AnchorSideTop.Side = asrBottom
     AnchorSideRight.Control = Owner
     AnchorSideRight.Side = asrBottom
-    Left = 119
+    Left = 155
     Height = 28
     Top = 146
-    Width = 843
+    Width = 887
     Anchors = [akTop, akLeft, akRight]
     BorderSpacing.Top = 8
     BorderSpacing.Right = 8
@@ -347,7 +330,7 @@ object DocumentEditForm: TDocumentEditForm
     Left = 8
     Height = 28
     Top = 274
-    Width = 908
+    Width = 988
     Anchors = [akTop, akLeft, akRight]
     BorderSpacing.Left = 8
     BorderSpacing.Top = 8
@@ -363,7 +346,7 @@ object DocumentEditForm: TDocumentEditForm
     AnchorSideRight.Side = asrBottom
     AnchorSideBottom.Control = FileNameEdit
     AnchorSideBottom.Side = asrBottom
-    Left = 922
+    Left = 1002
     Height = 36
     Top = 270
     Width = 40
@@ -384,7 +367,7 @@ object DocumentEditForm: TDocumentEditForm
     AnchorSideTop.Side = asrBottom
     AnchorSideRight.Control = Owner
     AnchorSideRight.Side = asrBottom
-    Left = 862
+    Left = 942
     Height = 28
     Top = 180
     Width = 100
@@ -418,7 +401,7 @@ object DocumentEditForm: TDocumentEditForm
     AnchorSideTop.Control = ControlDatePicker
     AnchorSideTop.Side = asrCenter
     AnchorSideRight.Control = ControlDatePicker
-    Left = 727
+    Left = 807
     Height = 20
     Top = 184
     Width = 129
@@ -427,5 +410,24 @@ object DocumentEditForm: TDocumentEditForm
     BorderSpacing.Right = 6
     Caption = 'дата актуализации'
     ParentColor = False
+  end
+  object SymbolComboBox: TComboBox
+    AnchorSideLeft.Control = DocNumEdit
+    AnchorSideLeft.Side = asrBottom
+    AnchorSideTop.Control = DocNumEdit
+    AnchorSideTop.Side = asrCenter
+    AnchorSideRight.Control = Owner
+    AnchorSideRight.Side = asrBottom
+    Left = 311
+    Height = 28
+    Top = 74
+    Width = 50
+    BorderSpacing.Left = 6
+    BorderSpacing.Top = 8
+    BorderSpacing.Right = 8
+    DropDownCount = 20
+    ItemHeight = 20
+    Style = csDropDownList
+    TabOrder = 11
   end
 end

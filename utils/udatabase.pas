@@ -33,28 +33,29 @@ type
 
     function DocListLoad(const AFilterTypeID, AFilterStatusID: Integer;
                          const AFilterDocNum, AMatchStr: String;
-                         out ADocIDs, ATypeIDs, AStatusIDs: TIntVector;
+                         out ADocIDs, ATypeIDs, AStatusIDs, ASymbolIDs: TIntVector;
                          out ADocDates, AControlDates: TDateVector;
-                         out ATypeNames, ADocNums, ADocYears, ADocNames,
+                         out ATypeNames, ADocNums, ADelimiters, ADocYears, ADocNames,
                              AStatusNames, ANotes: TStrVector): Boolean;
     function DocFind(const AMatchStr: String; out ADocIDs: TIntVector): Boolean;
 
 
     function DocAdd(out ADocID: Integer;
-                    const ATypeID, AStatusID: Integer;
+                    const ATypeID, AStatusID, ASymbolID: Integer;
                     const ADocDate, AControlDate: TDate;
                     const ADocNum, ADocYear, ADocName, ANote: String): Boolean;
-    function DocUpdate(const ADocID, ATypeID, AStatusID: Integer;
+    function DocUpdate(const ADocID, ATypeID, AStatusID, ASymbolID: Integer;
                     const ADocDate, AControlDate: TDate;
                     const ADocNum, ADocYear, ADocName, ANote: String): Boolean;
     function DocDelete(const ADocID: Integer): Boolean;
-    function DocIsExists(const ADocID, ATypeID: Integer;
+    function DocIsExists(const ADocID, ATypeID, ASymbolID: Integer;
                          const ADocNum, ADocYear: String): Boolean;
 
     procedure DocTypesLoad(const AComboBox: TComboBox; out AIDs: TIntVector;
                            const ANeedCustomZeroID: Boolean = False);
     procedure DocStatusesLoad(const AComboBox: TComboBox; out AIDs: TIntVector;
                            const ANeedCustomZeroID: Boolean = False);
+    procedure SymbolsLoad(const AComboBox: TComboBox; out AIDs: TIntVector);
   end;
 
 var
@@ -163,9 +164,9 @@ end;
 
 function TDataBase.DocListLoad(const AFilterTypeID, AFilterStatusID: Integer;
                          const AFilterDocNum, AMatchStr: String;
-                         out ADocIDs, ATypeIDs, AStatusIDs: TIntVector;
+                         out ADocIDs, ATypeIDs, AStatusIDs, ASymbolIDs: TIntVector;
                          out ADocDates, AControlDates: TDateVector;
-                         out ATypeNames, ADocNums, ADocYears, ADocNames,
+                         out ATypeNames, ADocNums, ADelimiters, ADocYears, ADocNames,
                              AStatusNames, ANotes: TStrVector): Boolean;
 var
   SQLStr: String;
@@ -176,10 +177,12 @@ begin
   ADocIDs:= nil;
   ATypeIDs:= nil;
   AStatusIDs:= nil;
+  ASymbolIDs:= nil;
   ADocDates:= nil;
   AControlDates:= nil;
   ATypeNames:= nil;
   ADocNums:= nil;
+  ADelimiters:= nil;
   ADocYears:= nil;
   ADocNames:= nil;
   AStatusNames:= nil;
@@ -191,12 +194,14 @@ begin
 
   SQLStr:=
     'SELECT t1.DocID, t1.DocNum, t1.DocYear, t1.DocName, t1.DocDate, t1.ControlDate,  ' +
-           't1.Note, t1.TypeID, t1.StatusID, ' +
+           't1.Note, t1.TypeID, t1.StatusID, t1.SymbolID, ' +
            't2.TypeName, ' +
-           't3.StatusName ' +
+           't3.StatusName, ' +
+           't4.SymbolValue ' +
     'FROM DOCUMENTS t1 ' +
     'INNER JOIN TYPES t2 ON (t1.TypeID=t2.TypeID) ' +
     'INNER JOIN STATUSES t3 ON (t1.StatusID=t3.StatusID) ' +
+    'INNER JOIN SYMBOLS t4 ON (t1.SymbolID=t4.SymbolID) ' +
     'WHERE (t1.DocID>0) ';
 
   if AFilterTypeID>0 then
@@ -226,12 +231,14 @@ begin
       VAppend(ADocIDs, QFieldInt('DocID'));
       VAppend(ATypeIDs, QFieldInt('TypeID'));
       VAppend(AStatusIDs, QFieldInt('StatusID'));
+      VAppend(ASymbolIDs, QFieldInt('SymbolID'));
 
       VAppend(ADocDates, QFieldDT('DocDate'));
       VAppend(AControlDates, QFieldDT('ControlDate'));
 
       VAppend(ATypeNames, QFieldStr('TypeName'));
       VAppend(ADocNums, QFieldStr('DocNum'));
+      VAppend(ADelimiters, QFieldStr('SymbolValue'));
       VAppend(ADocYears, QFieldStr('DocYear'));
       VAppend(ADocNames, QFieldStr('DocName'));
       VAppend(AStatusNames, QFieldStr('StatusName'));
@@ -249,10 +256,12 @@ begin
   ADocIDs:= VReplace(ADocIDs, Indexes);
   ATypeIDs:= VReplace(ATypeIDs, Indexes);
   AStatusIDs:= VReplace(AStatusIDs, Indexes);
+  ASymbolIDs:= VReplace(ASymbolIDs, Indexes);
   ADocDates:= VReplace(ADocDates, Indexes);
   AControlDates:= VReplace(AControlDates, Indexes);
   ATypeNames:= VReplace(ATypeNames, Indexes);
   ADocNums:= VReplace(ADocNums, Indexes);
+  ADelimiters:= VReplace(ADelimiters, Indexes);
   ADocYears:= VReplace(ADocYears, Indexes);
   ADocNames:= VReplace(ADocNames, Indexes);
   AStatusNames:= VReplace(AStatusNames, Indexes);
@@ -291,7 +300,7 @@ begin
 end;
 
 function TDataBase.DocAdd(out ADocID: Integer;
-                    const ATypeID, AStatusID: Integer;
+                    const ATypeID, AStatusID, ASymbolID: Integer;
                     const ADocDate, AControlDate: TDate;
                     const ADocNum, ADocYear, ADocName, ANote: String): Boolean;
 begin
@@ -300,12 +309,13 @@ begin
   try
     //запись документа
     QSetSQL(
-      sqlINSERT('DOCUMENTS', ['StatusID', 'TypeID',
+      sqlINSERT('DOCUMENTS', ['StatusID', 'TypeID', 'SymbolID',
                               'DocNum', 'DocYear', 'DocName',
                               'DocDate', 'Note', 'ControlDate'])
     );
     QParamInt('StatusID', AStatusID);
     QParamInt('TypeID', ATypeID);
+    QParamInt('SymbolID', ASymbolID);
     QParamDT('DocDate', ADocDate);
     QParamDT('ControlDate', AControlDate);
     QParamStr('DocNum', ADocNum);
@@ -322,7 +332,7 @@ begin
   end;
 end;
 
-function TDataBase.DocUpdate(const ADocID, ATypeID, AStatusID: Integer;
+function TDataBase.DocUpdate(const ADocID, ATypeID, AStatusID, ASymbolID: Integer;
                     const ADocDate, AControlDate: TDate;
                     const ADocNum, ADocYear, ADocName, ANote: String): Boolean;
 begin
@@ -331,7 +341,7 @@ begin
   try
     //запись документа
     QSetSQL(
-      sqlUPDATE('DOCUMENTS', ['StatusID', 'TypeID',
+      sqlUPDATE('DOCUMENTS', ['StatusID', 'TypeID', 'SymbolID',
                               'DocNum', 'DocYear', 'DocName',
                               'DocDate', 'Note', 'ControlDate']) +
       'WHERE DocID = :DocID'
@@ -340,6 +350,7 @@ begin
 
     QParamInt('StatusID', AStatusID);
     QParamInt('TypeID', ATypeID);
+    QParamInt('SymbolID', ASymbolID);
     QParamDT('DocDate', ADocDate);
     QParamDT('ControlDate', AControlDate);
     QParamStr('DocNum', ADocNum);
@@ -359,7 +370,7 @@ begin
   Result:= Delete('DOCUMENTS', 'DocID', ADocID);
 end;
 
-function TDataBase.DocIsExists(const ADocID, ATypeID: Integer;
+function TDataBase.DocIsExists(const ADocID, ATypeID, ASymbolID: Integer;
                          const ADocNum, ADocYear: String): Boolean;
 begin
   QSetQuery(FQuery);
@@ -367,10 +378,11 @@ begin
     'SELECT DocID ' +
     'FROM DOCUMENTS ' +
     'WHERE (DocID <> :DocID) AND (TypeID = :TypeID) AND ' +
-          '(DocNum = :DocNum) AND (DocYear = :DocYear)'
+          '(DocNum = :DocNum) AND (DocYear = :DocYear) AND (SymbolID = :SymbolID)'
   );
   QParamInt('DocID', ADocID);
   QParamInt('TypeID', ATypeID);
+  QParamInt('SymbolID', ASymbolID);
   QParamStr('DocNum', ADocNum);
   QParamStr('DocYear', ADocYear);
   QOpen;
@@ -400,6 +412,12 @@ begin
     S:= 'ВСЕ СТАТУСЫ';
   KeyPickLoad(AComboBox, AIDs, 'STATUSES', 'StatusID', 'StatusName', 'StatusName',
               True{not load zero ID}, S {custom zero ID});
+end;
+
+procedure TDataBase.SymbolsLoad(const AComboBox: TComboBox; out AIDs: TIntVector);
+begin
+  KeyPickLoad(AComboBox, AIDs, 'SYMBOLS', 'SymbolID', 'SymbolValue', 'SymbolID',
+              False{load zero ID}, LDASH_DEFAULT{custom zero ID});
 end;
 
 end.

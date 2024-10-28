@@ -72,6 +72,7 @@ type
     FilterTimer: TTimer;
     FullNameMenuItem: TMenuItem;
     InfoPanel: TPanel;
+    SymbolsMenuItem: TMenuItem;
     NameCopyButton: TSpeedButton;
     MainPanel: TPanel;
     PDFCopyButton: TSpeedButton;
@@ -99,6 +100,7 @@ type
     procedure AddonVTDblClick(Sender: TObject);
     procedure DocCaptionPanelClick(Sender: TObject);
     procedure FilterTimerTimer(Sender: TObject);
+    procedure SymbolsMenuItemClick(Sender: TObject);
     procedure TypeNumMenuItemClick(Sender: TObject);
     procedure TypeNumYearMenuItemClick(Sender: TObject);
     procedure DelButtonClick(Sender: TObject);
@@ -129,9 +131,9 @@ type
     DocList: TVSTTable;
     AddonList: TVSTTable;
 
-    DocIDs, TypeIDs, StatusIDs: TIntVector;
+    DocIDs, TypeIDs, StatusIDs, SymbolIDs: TIntVector;
     DocDates, ControlDates: TDateVector;
-    TypeNames, DocNums, DocYears, DocNames, StatusNames, Notes: TStrVector;
+    TypeNames, DocNums, Delimiters, DocYears, DocNames, StatusNames, Notes: TStrVector;
 
     FilterTypeIDs, FilterStatusIDs: TIntVector;
     DocNameMatchStr: String;
@@ -277,7 +279,7 @@ begin
   if DocList.IsSelected then
   begin
     i:= DocList.SelectedIndex;
-    DocCodeValueLabel.Caption:= DocumentCode(TypeNames[i], DocNums[i], DocYears[i]);
+    DocCodeValueLabel.Caption:= DocumentCode(TypeNames[i], DocNums[i], Delimiters[i], DocYears[i]);
     DocNameValueLabel.Caption:= DocNames[i];
     DocStatusValueLabel.Caption:= StatusNames[i];
     DocDateValueLabel.Caption:= FormatDateTime('dd.mm.yyyy', DocDates[i]);
@@ -332,6 +334,7 @@ begin
       AddonList.SetColumn('Дата введения', V);
       S:= DocumentCode(TypeNames[DocList.SelectedIndex],
                        DocNums[DocList.SelectedIndex],
+                       Delimiters[DocList.SelectedIndex],
                        DocYears[DocList.SelectedIndex]);
       V:= VAddonFullName(S, AddonNames, AddonNums);
       AddonList.SetColumn('Наименование приложения', V, taLeftJustify);
@@ -426,6 +429,7 @@ begin
   if not AddonList.IsSelected then Exit;
   S:= DocumentCode(TypeNames[DocList.SelectedIndex],
                     DocNums[DocList.SelectedIndex],
+                    Delimiters[DocList.SelectedIndex],
                     DocYears[DocList.SelectedIndex]);
   S:= AddonFullName(S, AddonNames[AddonList.SelectedIndex],
                     AddonNums[AddonList.SelectedIndex]);
@@ -454,6 +458,7 @@ begin
 
   S:= DocumentCode(TypeNames[DocList.SelectedIndex],
                    DocNums[DocList.SelectedIndex],
+                   Delimiters[DocList.SelectedIndex],
                    DocYears[DocList.SelectedIndex]);
   DestFileName:= AddonFileName(S,
                                AddonNames[AddonList.SelectedIndex],
@@ -552,6 +557,7 @@ begin
   if not DocList.IsSelected then Exit;
   S:= DocumentCode(TypeNames[DocList.SelectedIndex],
                     DocNums[DocList.SelectedIndex],
+                    Delimiters[DocList.SelectedIndex],
                     DocYears[DocList.SelectedIndex]);
   if not Confirm('Удалить "' + S + '"?') then Exit;
   if not DataBase.DocDelete(DocIDs[DocList.SelectedIndex]) then Exit;
@@ -568,6 +574,7 @@ begin
   SrcFileName:= DocumentFileName(DocIDs[DocList.SelectedIndex]);
   DestFileName:= DocumentFileName(TypeNames[DocList.SelectedIndex],
                                   DocNums[DocList.SelectedIndex],
+                                  Delimiters[DocList.SelectedIndex],
                                   DocYears[DocList.SelectedIndex]);
   if DocumentCopy(SrcFileName, DestFileName) then
     ShowInfo('Выполнено!');
@@ -687,11 +694,17 @@ begin
     DocListLoad;
 end;
 
+procedure TMainForm.SymbolsMenuItemClick(Sender: TObject);
+begin
+  DictionarySelect(3);
+  DocListLoad;
+end;
+
 procedure TMainForm.DBConnect;
 var
   DBPath, DBName, DDLName: String;
 begin
-  DBPath:= ExtractFilePath(Application.ExeName) + DirectorySeparator + 'db' + DirectorySeparator;
+  DBPath:= ExtractFilePath(Application.ExeName) + 'db' + DirectorySeparator;
   DBName:= DBPath + 'base.db';
   DDLName:= DBPath + 'ddl.sql';
 
@@ -714,6 +727,8 @@ begin
                 'TYPES', 'TypeID', 'TypeName', True, True{, 400, GridFont});
     2: IsOK:= DataBase.EditList('Статусы документов',
                 'STATUSES', 'StatusID', 'StatusName', True, True{, 400, GridFont});
+    3: IsOK:= DataBase.EditList('Разделители номера и года',
+                'SYMBOLS', 'SymbolID', 'SymbolValue', False, False{, 400, GridFont});
   end;
 
   if IsOK then ViewUpdate;
@@ -761,8 +776,8 @@ begin
     FilterDocNum:= STrim(DocNumEdit.Text);
 
     DataBase.DocListLoad(FilterTypeID, FilterStatusID, FilterDocNum, DocNameMatchStr,
-                         DocIDs, TypeIDs, StatusIDs, DocDates, ControlDates,
-                         TypeNames, DocNums, DocYears, DocNames, StatusNames, Notes);
+                         DocIDs, TypeIDs, StatusIDs, SymbolIDs, DocDates, ControlDates,
+                         TypeNames, DocNums, Delimiters, DocYears, DocNames, StatusNames, Notes);
     ExportButton.Enabled:= not VIsNil(DocIDs);
 
     for i:= 0 to High(DocNums) do
@@ -773,7 +788,7 @@ begin
     DocList.SetColumn('№ п/п', V);
     DocList.SetColumn('Тип', TypeNames, taLeftJustify);
     //V:= VDocumentCode(TypeNames, DocNums, DocYears);
-    V:= VDocumentNumber(DocNums, DocYears);
+    V:= VDocumentNumber(DocNums, Delimiters, DocYears);
     DocList.SetColumn('Номер', V, taLeftJustify);
     V:= VFormatDateTime('dd.mm.yyyy', DocDates{, True});
     DocList.SetColumn('Дата введения', V);
@@ -811,7 +826,7 @@ begin
     i:= DocList.SelectedIndex;
     TypeName:= SReplace(TypeNames[i], SYMBOL_SPACE, SYMBOL_SPACE_NONBREAK);
     TypeNumMenuItem.Caption:= TypeName + SYMBOL_SPACE_NONBREAK + DocNums[i];
-    TypeNumYearMenuItem.Caption:= TypeNumMenuItem.Caption + LDASH_DEFAULT + DocYears[i];
+    TypeNumYearMenuItem.Caption:= TypeNumMenuItem.Caption + Delimiters[i] + DocYears[i];
     NameMenuItem.Caption:= DocNames[i];
     FullNameMenuItem.Caption:= TypeNumYearMenuItem.Caption + SYMBOL_SPACE_NONBREAK + SRusQuoted(DocNames[i]);
   end;
@@ -837,6 +852,7 @@ begin
       DocID:= DocIDs[DocList.SelectedIndex];
       DocumentEditForm.OldTypeID:= TypeIDs[DocList.SelectedIndex];
       DocumentEditForm.OldStatusID:= StatusIDs[DocList.SelectedIndex];
+      DocumentEditForm.OldSymbolID:= SymbolIDs[DocList.SelectedIndex];
       DocumentEditForm.DocNumEdit.Text:= DocNums[DocList.SelectedIndex];
       DocumentEditForm.DocYearEdit.Text:= DocYears[DocList.SelectedIndex];
       DocumentEditForm.DocDatePicker.Date:= DocDates[DocList.SelectedIndex];

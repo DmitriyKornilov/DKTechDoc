@@ -3,6 +3,7 @@
     "ADDONS",
     "DOCUMENTS",
     "STATUSES",
+    "SYMBOLS",
     "TYPES"
   ],
   "ADDONS" : {
@@ -173,6 +174,7 @@
       "StatusID",
       "TypeID",
       "DocNum",
+      "SymbolID",
       "DocYear",
       "DocName",
       "DocDate",
@@ -269,6 +271,30 @@
         "FieldName" : "",
         "OnDelete" : 4,
         "OnUpdate" : 4
+      },
+      "ReferenceFrom" : {
+        "TableNames" : [
+        ],
+        "FieldNames" : [
+        ]
+      }
+    },
+    "SymbolID" : {
+      "FieldType" : "INTEGER",
+      "PrimaryKey" : false,
+      "Status" : false,
+      "NotNull" : true,
+      "DefaultValue" : "0",
+      "Description" : [
+        "Разделитель номера и года документа"
+      ],
+      "ExistingValues" : [
+      ],
+      "ReferenceTo" : {
+        "TableName" : "SYMBOLS",
+        "FieldName" : "SymbolID",
+        "OnDelete" : 2,
+        "OnUpdate" : 0
       },
       "ReferenceFrom" : {
         "TableNames" : [
@@ -448,6 +474,73 @@
       "ExistingValues" : [
         "<не указан>",
         "действует"
+      ],
+      "ReferenceTo" : {
+        "TableName" : "",
+        "FieldName" : "",
+        "OnDelete" : 4,
+        "OnUpdate" : 4
+      },
+      "ReferenceFrom" : {
+        "TableNames" : [
+        ],
+        "FieldNames" : [
+        ]
+      }
+    },
+    "IndexesList" : [
+    ]
+  },
+  "SYMBOLS" : {
+    "Description" : "Разделители номера и года",
+    "Notes" : [
+    ],
+    "FieldsList" : [
+      "SymbolID",
+      "SymbolValue"
+    ],
+    "SymbolID" : {
+      "FieldType" : "INTEGER",
+      "PrimaryKey" : true,
+      "Status" : true,
+      "NotNull" : true,
+      "DefaultValue" : "",
+      "Description" : [
+        "ID символа"
+      ],
+      "ExistingValues" : [
+        "0",
+        "1",
+        "2"
+      ],
+      "ReferenceTo" : {
+        "TableName" : "",
+        "FieldName" : "",
+        "OnDelete" : 4,
+        "OnUpdate" : 4
+      },
+      "ReferenceFrom" : {
+        "TableNames" : [
+          "DOCUMENTS"
+        ],
+        "FieldNames" : [
+          "SymbolID"
+        ]
+      }
+    },
+    "SymbolValue" : {
+      "FieldType" : "TEXT",
+      "PrimaryKey" : false,
+      "Status" : false,
+      "NotNull" : true,
+      "DefaultValue" : "",
+      "Description" : [
+        "Символ"
+      ],
+      "ExistingValues" : [
+        "—",
+        ":",
+        "/"
       ],
       "ReferenceTo" : {
         "TableName" : "",
