@@ -235,14 +235,19 @@ end;
 
 procedure TMainForm.ExportButtonClick(Sender: TObject);
 begin
-  DocList.Save([ctInteger, //№ п/п
-                ctString,  //тип
-                ctString,  //номер
-                ctDate,    //дата введения в действие
-                ctString,  //статус
-                ctString,  //наименование
-                ctString   //примечание
-  ]);
+  Screen.Cursor:= crHourGlass;
+  try
+    DocList.Save([ctInteger, //№ п/п
+                  ctString,  //тип
+                  ctString,  //номер
+                  ctDate,    //дата введения в действие
+                  ctString,  //статус
+                  ctString,  //наименование
+                  ctString   //примечание
+    ]);
+  finally
+    Screen.Cursor:= crDefault;
+  end;
 end;
 
 procedure TMainForm.FilterClearButtonClick(Sender: TObject);
@@ -746,10 +751,10 @@ begin
   DocList.CanSelect:= True;
   DocList.HeaderFont.Style:= [fsBold];
   DocList.AddColumn('№ п/п', 60);
+  DocList.AddColumn('Дата актуализации', 130);
   DocList.AddColumn('Тип', 130);
   DocList.AddColumn('Номер', 130);
   DocList.AddColumn('Дата введения', 130);
-  DocList.AddColumn('Дата актуализации', 130);
   DocList.AddColumn('Статус', 150);
   DocList.AddColumn('Наименование документа', 250);
   DocList.AddColumn('Примечание', 250);
