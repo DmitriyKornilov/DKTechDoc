@@ -244,7 +244,7 @@ begin
                   ctString,  //статус
                   ctString,  //наименование
                   ctString   //примечание
-    ]);
+    ], 'Лист1', EmptyStr, True);
   finally
     Screen.Cursor:= crDefault;
   end;
@@ -468,8 +468,9 @@ begin
   DestFileName:= AddonFileName(S,
                                AddonNames[AddonList.SelectedIndex],
                                AddonNums[AddonList.SelectedIndex]);
-  if DocumentCopy(SrcFileName, DestFileName) then
-    ShowInfo('Выполнено!');
+  //if DocumentCopy(SrcFileName, DestFileName) then
+  //  ShowInfo('Выполнено!');
+  DocumentCopy(SrcFileName, DestFileName);
 end;
 
 procedure TMainForm.AddonPDFShowButtonClick(Sender: TObject);
@@ -581,8 +582,9 @@ begin
                                   DocNums[DocList.SelectedIndex],
                                   Delimiters[DocList.SelectedIndex],
                                   DocYears[DocList.SelectedIndex]);
-  if DocumentCopy(SrcFileName, DestFileName) then
-    ShowInfo('Выполнено!');
+  //if DocumentCopy(SrcFileName, DestFileName) then
+  //  ShowInfo('Выполнено!');
+  DocumentCopy(SrcFileName, DestFileName);
 end;
 
 procedure TMainForm.DocumentShow;
