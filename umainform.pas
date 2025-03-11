@@ -40,9 +40,7 @@ type
     DividerBevel3: TDividerBevel;
     DividerBevel4: TDividerBevel;
     DividerBevel5: TDividerBevel;
-    DividerBevel6: TDividerBevel;
     DividerBevel8: TDividerBevel;
-    DividerBevel9: TDividerBevel;
     DocCaptionPanel: TPanel;
     DocCaptionSymbolLabel: TLabel;
     DocCodeCaptionLabel: TLabel;
@@ -67,11 +65,11 @@ type
     ExitButton: TSpeedButton;
     ExportButton: TSpeedButton;
     FilterClearButton: TSpeedButton;
-    FilterLabel: TLabel;
-    FilterPanel: TPanel;
     FilterTimer: TTimer;
     FullNameMenuItem: TMenuItem;
     InfoPanel: TPanel;
+    FilterPanel: TPanel;
+    StatusLabel: TLabel;
     SymbolsMenuItem: TMenuItem;
     NameCopyButton: TSpeedButton;
     MainPanel: TPanel;
@@ -79,7 +77,6 @@ type
     PDFShowButton: TSpeedButton;
     RefreshButton: TSpeedButton;
     Splitter1: TSplitter;
-    StatusLabel: TLabel;
     ToolPanel: TPanel;
     TypeNumMenuItem: TMenuItem;
     NameCopyMenu: TPopupMenu;
