@@ -42,7 +42,9 @@ type
     DividerBevel5: TDividerBevel;
     DividerBevel8: TDividerBevel;
     DocCaptionPanel: TPanel;
+    FilterCaptionPanel: TPanel;
     DocCaptionSymbolLabel: TLabel;
+    FilterCaptionSymbolLabel: TLabel;
     DocCodeCaptionLabel: TLabel;
     DocCodeValueLabel: TLabel;
     DocDateCaptionLabel: TLabel;
@@ -65,10 +67,11 @@ type
     ExitButton: TSpeedButton;
     ExportButton: TSpeedButton;
     FilterClearButton: TSpeedButton;
+    FilterPanel: TPanel;
     FilterTimer: TTimer;
     FullNameMenuItem: TMenuItem;
     InfoPanel: TPanel;
-    FilterPanel: TPanel;
+    DocListPanel: TPanel;
     StatusLabel: TLabel;
     SymbolsMenuItem: TMenuItem;
     NameCopyButton: TSpeedButton;
@@ -96,6 +99,7 @@ type
     procedure AddonPDFShowButtonClick(Sender: TObject);
     procedure AddonVTDblClick(Sender: TObject);
     procedure DocCaptionPanelClick(Sender: TObject);
+    procedure FilterCaptionPanelClick(Sender: TObject);
     procedure FilterTimerTimer(Sender: TObject);
     procedure SymbolsMenuItemClick(Sender: TObject);
     procedure TypeNumMenuItemClick(Sender: TObject);
@@ -161,6 +165,9 @@ type
     procedure DBConnect;
     procedure DictionarySelect(const ADictionary: Byte);
     procedure ViewUpdate;
+
+    procedure SettingsLoad;
+    procedure SettingsSave;
   public
 
   end;
@@ -180,6 +187,7 @@ begin
   Caption:= 'DKTechDoc v.0.0.1 - Библиотека технических документов';
   DBConnect;
 
+
   DataBase.DocTypesLoad(DocTypeComboBox, FilterTypeIDs, True);
   DataBase.DocStatusesLoad(DocStatusComboBox, FilterStatusIDs, True);
 
@@ -188,10 +196,14 @@ begin
   DocListCreate;
   AddonListCreate;
   DocInfoUpdate;
+
+  SettingsLoad;
 end;
 
 procedure TMainForm.FormDestroy(Sender: TObject);
 begin
+  SettingsSave;
+
   FreeAndNil(DataBase);
   FreeAndNil(DocList);
   FreeAndNil(AddonList);
@@ -203,7 +215,7 @@ begin
     ToolPanel, AddonToolPanel
   ]);
   SetCaptionPanels([
-    DocCaptionPanel, AddonCaptionPanel
+    FilterCaptionPanel, DocCaptionPanel, AddonCaptionPanel
   ]);
   SetToolButtons([
     RefreshButton, AboutButton, ExitButton,
@@ -482,50 +494,23 @@ end;
 
 procedure TMainForm.AddonCaptionPanelClick(Sender: TObject);
 begin
-  VT.Align:= alTop;
-  InfoPanel.Visible:= False;
-  Splitter1.Align:= alTop;
-  try
-    AddonInfoPanel.Visible:= not AddonInfoPanel.Visible;
-    if AddonInfoPanel.Visible then
-    begin
-      InfoPanel.Height:= InfoPanel.Height + AddonInfoPanel.Height;
-      AddonCaptionSymbolLabel.Caption:= SYMBOL_COLLAPSE;
-    end
-    else begin
-      InfoPanel.Height:= InfoPanel.Height - AddonInfoPanel.Height;
-      AddonCaptionSymbolLabel.Caption:= SYMBOL_DROPDOWN;
-    end;
-
-  finally
-    InfoPanel.Visible:= True;
-    Splitter1.Align:= alBottom;
-    VT.Align:= alClient;
-  end;
+  ToggleCaptionPanel(not AddonInfoPanel.Visible,
+                     DocListPanel, Splitter1, InfoPanel,
+                     AddonCaptionSymbolLabel, AddonInfoPanel);
 end;
 
 procedure TMainForm.DocCaptionPanelClick(Sender: TObject);
 begin
-  VT.Align:= alTop;
-  InfoPanel.Visible:= False;
-  Splitter1.Align:= alTop;
-  try
-    DocInfoPanel.Visible:= not DocInfoPanel.Visible;
-    if DocInfoPanel.Visible then
-    begin
-      InfoPanel.Height:= InfoPanel.Height + DocInfoPanel.Height;
-      DocCaptionSymbolLabel.Caption:= SYMBOL_COLLAPSE;
-    end
-    else begin
-      InfoPanel.Height:= InfoPanel.Height - DocInfoPanel.Height;
-      DocCaptionSymbolLabel.Caption:= SYMBOL_DROPDOWN;
-    end;
+  ToggleCaptionPanel(not DocInfoPanel.Visible,
+                     DocListPanel, Splitter1, InfoPanel,
+                     DocCaptionSymbolLabel, DocInfoPanel);
+end;
 
-  finally
-    InfoPanel.Visible:= True;
-    Splitter1.Align:= alBottom;
-    VT.Align:= alClient;
-  end;
+procedure TMainForm.FilterCaptionPanelClick(Sender: TObject);
+begin
+  ToggleCaptionPanel(not FilterPanel.Visible,
+                     nil, nil, nil,
+                     FilterCaptionSymbolLabel, FilterPanel);
 end;
 
 procedure TMainForm.TypeNumMenuItemClick(Sender: TObject);
@@ -741,6 +726,34 @@ end;
 procedure TMainForm.ViewUpdate;
 begin
   DocListLoad;
+end;
+
+procedure TMainForm.SettingsLoad;
+var
+  Expanded: Boolean;
+begin
+  Expanded:= DataBase.SettingLoad('FILTERTOGGLE')=1;
+  ToggleCaptionPanel(Expanded,
+                     nil, nil, nil,
+                     FilterCaptionSymbolLabel, FilterPanel);
+
+  //Expanded:= DataBase.SettingLoad('DOCINFOTOGGLE')=1;
+  //ToggleCaptionPanel(Expanded,
+  //                   DocListPanel, Splitter1, InfoPanel,
+  //                   DocCaptionSymbolLabel, DocInfoPanel);
+  //
+  //Expanded:= DataBase.SettingLoad('ADDONTOGGLE')=1;
+  //ToggleCaptionPanel(Expanded,
+  //                   DocListPanel, Splitter1, InfoPanel,
+  //                   AddonCaptionSymbolLabel, AddonInfoPanel);
+
+end;
+
+procedure TMainForm.SettingsSave;
+begin
+  DataBase.SettingUpdate('FILTERTOGGLE', Ord(FilterPanel.Visible));
+  //DataBase.SettingUpdate('DOCINFOTOGGLE', Ord(DocInfoPanel.Visible));
+  //DataBase.SettingUpdate('ADDONTOGGLE', Ord(AddonInfoPanel.Visible));
 end;
 
 procedure TMainForm.DocListCreate;

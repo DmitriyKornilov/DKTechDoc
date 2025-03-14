@@ -2,6 +2,7 @@
   "TablesList" : [
     "ADDONS",
     "DOCUMENTS",
+    "SETTINGS",
     "STATUSES",
     "SYMBOLS",
     "TYPES"
@@ -409,6 +410,69 @@
         "Дата актуализации документа"
       ],
       "ExistingValues" : [
+      ],
+      "ReferenceTo" : {
+        "TableName" : "",
+        "FieldName" : "",
+        "OnDelete" : 4,
+        "OnUpdate" : 4
+      },
+      "ReferenceFrom" : {
+        "TableNames" : [
+        ],
+        "FieldNames" : [
+        ]
+      }
+    },
+    "IndexesList" : [
+    ]
+  },
+  "SETTINGS" : {
+    "Description" : "Параметры",
+    "Notes" : [
+    ],
+    "FieldsList" : [
+      "NAME",
+      "VALUE"
+    ],
+    "NAME" : {
+      "FieldType" : "TEXT",
+      "PrimaryKey" : true,
+      "Status" : false,
+      "NotNull" : true,
+      "DefaultValue" : "",
+      "Description" : [
+      ],
+      "ExistingValues" : [
+        "FILTERTOGGLE",
+        "DOCINFOTOGGLE",
+        "ADDONTOGGLE"
+      ],
+      "ReferenceTo" : {
+        "TableName" : "",
+        "FieldName" : "",
+        "OnDelete" : 4,
+        "OnUpdate" : 4
+      },
+      "ReferenceFrom" : {
+        "TableNames" : [
+        ],
+        "FieldNames" : [
+        ]
+      }
+    },
+    "VALUE" : {
+      "FieldType" : "INTEGER",
+      "PrimaryKey" : false,
+      "Status" : false,
+      "NotNull" : true,
+      "DefaultValue" : "",
+      "Description" : [
+      ],
+      "ExistingValues" : [
+        "1",
+        "1",
+        "1"
       ],
       "ReferenceTo" : {
         "TableName" : "",

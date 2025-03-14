@@ -17,6 +17,11 @@ type
 
   TDataBase = class (TSQLite3)
   public
+    function SettingLoad(const ASettingName: String): Integer;
+    function SettingsLoad(const ASettingNames: TStrVector): TIntVector;
+    procedure SettingUpdate(const ASettingName: String; const ASettingValue: Integer);
+    procedure SettingsUpdate(const ASettingNames: TStrVector; const ASettingValues: TIntVector);
+
     function AddonListLoad(const ADocID: Integer;
                            out AAddonIDs: TIntVector;
                            out AAddonDates: TDateVector;
@@ -64,6 +69,39 @@ var
 implementation
 
 { TDataBase }
+
+function TDataBase.SettingLoad(const ASettingName: String): Integer;
+begin
+  Result:= ValueIntStrID('SETTINGS', 'Value', 'Name', ASettingName);
+end;
+
+function TDataBase.SettingsLoad(const ASettingNames: TStrVector): TIntVector;
+var
+  i: Integer;
+begin
+  VDim(Result{%H-}, Length(ASettingNames));
+  for i:= 0 to High(Result) do
+    Result[i]:= SettingLoad(ASettingNames[i]);
+end;
+
+procedure TDataBase.SettingUpdate(const ASettingName: String; const ASettingValue: Integer);
+begin
+  UpdateStrID('SETTINGS', 'Value', 'Name', ASettingName, ASettingValue, True {commit});
+end;
+
+procedure TDataBase.SettingsUpdate(const ASettingNames: TStrVector;
+  const ASettingValues: TIntVector);
+var
+  i: Integer;
+begin
+  try
+    for i:= 0 to High(ASettingNames) do
+      UpdateStrID('SETTINGS', 'Value', 'Name', ASettingNames[i], ASettingValues[i], False {no commit});
+    QCommit;
+  finally
+    QRollback;
+  end;
+end;
 
 function TDataBase.AddonListLoad(const ADocID: Integer;
                            out AAddonIDs: TIntVector;
