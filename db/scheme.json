@@ -446,7 +446,16 @@
       "ExistingValues" : [
         "FILTERTOGGLE",
         "DOCINFOTOGGLE",
-        "ADDONTOGGLE"
+        "ADDONTOGGLE",
+        "INFOPANELHEIGHT",
+        "SERIALNUMCOLWIDTH",
+        "ACTUALIZATIONCOLWIDTH",
+        "DOCTYPECOLWIDTH",
+        "DOCNUMCOLWIDTH",
+        "DOCDATECOLWIDTH",
+        "STATUSCOLWIDTH",
+        "DOCNAMECOLWIDTH",
+        "NOTECOLWIDTH"
       ],
       "ReferenceTo" : {
         "TableName" : "",
@@ -472,7 +481,16 @@
       "ExistingValues" : [
         "1",
         "1",
-        "1"
+        "1",
+        "400",
+        "60",
+        "130",
+        "130",
+        "130",
+        "130",
+        "150",
+        "250",
+        "250"
       ],
       "ReferenceTo" : {
         "TableName" : "",

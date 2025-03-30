@@ -162,6 +162,8 @@ type
 
     procedure FilterClearButtonEnable;
 
+    procedure ToggleControlsView;
+
     procedure DBConnect;
     procedure DictionarySelect(const ADictionary: Byte);
     procedure ViewUpdate;
@@ -197,7 +199,7 @@ begin
   AddonListCreate;
   DocInfoUpdate;
 
-  SettingsLoad;
+  //SettingsLoad;
 end;
 
 procedure TMainForm.FormDestroy(Sender: TObject);
@@ -233,6 +235,8 @@ begin
   ]);
 
   DocListLoad;
+
+  SettingsLoad;
 
   MainPanel.Visible:= True;
 end;
@@ -492,11 +496,23 @@ begin
   AddonShow;
 end;
 
+procedure TMainForm.ToggleControlsView;
+begin
+  AddonInfoPanel.Align:= alBottom;
+  AddonCaptionPanel.Align:= alBottom;
+  DocInfoPanel.Align:= alBottom;
+
+  DocInfoPanel.Align:= alTop;
+  AddonCaptionPanel.Align:= alTop;
+  AddonInfoPanel.Align:= alClient;
+end;
+
 procedure TMainForm.AddonCaptionPanelClick(Sender: TObject);
 begin
   ToggleCaptionPanel(not AddonInfoPanel.Visible,
                      DocListPanel, Splitter1, InfoPanel,
                      AddonCaptionSymbolLabel, AddonInfoPanel);
+  ToggleControlsView;
 end;
 
 procedure TMainForm.DocCaptionPanelClick(Sender: TObject);
@@ -504,6 +520,7 @@ begin
   ToggleCaptionPanel(not DocInfoPanel.Visible,
                      DocListPanel, Splitter1, InfoPanel,
                      DocCaptionSymbolLabel, DocInfoPanel);
+  ToggleControlsView;
 end;
 
 procedure TMainForm.FilterCaptionPanelClick(Sender: TObject);
@@ -736,24 +753,45 @@ begin
   ToggleCaptionPanel(Expanded,
                      nil, nil, nil,
                      FilterCaptionSymbolLabel, FilterPanel);
+  Expanded:= DataBase.SettingLoad('DOCINFOTOGGLE')=1;
+  ToggleCaptionPanel(Expanded,
+                     DocListPanel, Splitter1, InfoPanel,
+                     DocCaptionSymbolLabel, DocInfoPanel);
 
-  //Expanded:= DataBase.SettingLoad('DOCINFOTOGGLE')=1;
-  //ToggleCaptionPanel(Expanded,
-  //                   DocListPanel, Splitter1, InfoPanel,
-  //                   DocCaptionSymbolLabel, DocInfoPanel);
-  //
-  //Expanded:= DataBase.SettingLoad('ADDONTOGGLE')=1;
-  //ToggleCaptionPanel(Expanded,
-  //                   DocListPanel, Splitter1, InfoPanel,
-  //                   AddonCaptionSymbolLabel, AddonInfoPanel);
+  Expanded:= DataBase.SettingLoad('ADDONTOGGLE')=1;
+  ToggleCaptionPanel(Expanded,
+                     DocListPanel, Splitter1, InfoPanel,
+                     AddonCaptionSymbolLabel, AddonInfoPanel);
 
+  InfoPanel.Height:= InfoPanel.Scale96ToScreen(DataBase.SettingLoad('INFOPANELHEIGHT'));
+
+  DocList.SetColumnWidth('№ п/п', DataBase.SettingLoad('SERIALNUMCOLWIDTH'));
+  DocList.SetColumnWidth('Дата актуализации', DataBase.SettingLoad('ACTUALIZATIONCOLWIDTH'));
+  DocList.SetColumnWidth('Тип', DataBase.SettingLoad('DOCTYPECOLWIDTH'));
+  DocList.SetColumnWidth('Номер', DataBase.SettingLoad('DOCNUMCOLWIDTH'));
+  DocList.SetColumnWidth('Дата введения', DataBase.SettingLoad('DOCDATECOLWIDTH'));
+  DocList.SetColumnWidth('Статус', DataBase.SettingLoad('STATUSCOLWIDTH'));
+  DocList.SetColumnWidth('Наименование документа', DataBase.SettingLoad('DOCNAMECOLWIDTH'));
+  DocList.SetColumnWidth('Примечание', DataBase.SettingLoad('NOTECOLWIDTH'));
 end;
 
 procedure TMainForm.SettingsSave;
 begin
   DataBase.SettingUpdate('FILTERTOGGLE', Ord(FilterPanel.Visible));
-  //DataBase.SettingUpdate('DOCINFOTOGGLE', Ord(DocInfoPanel.Visible));
-  //DataBase.SettingUpdate('ADDONTOGGLE', Ord(AddonInfoPanel.Visible));
+  DataBase.SettingUpdate('DOCINFOTOGGLE', Ord(DocInfoPanel.Visible));
+  DataBase.SettingUpdate('ADDONTOGGLE', Ord(AddonInfoPanel.Visible));
+  DataBase.SettingUpdate('INFOPANELHEIGHT', InfoPanel.ScaleScreenTo96(InfoPanel.Height));
+
+  DataBase.SettingUpdate('SERIALNUMCOLWIDTH', DocList.GetColumnWidth('№ п/п'));
+  DataBase.SettingUpdate('ACTUALIZATIONCOLWIDTH', DocList.GetColumnWidth('Дата актуализации'));
+  DataBase.SettingUpdate('DOCTYPECOLWIDTH', DocList.GetColumnWidth('Тип'));
+  DataBase.SettingUpdate('DOCNUMCOLWIDTH', DocList.GetColumnWidth('Номер'));
+  DataBase.SettingUpdate('DOCDATECOLWIDTH', DocList.GetColumnWidth('Дата введения'));
+  DataBase.SettingUpdate('STATUSCOLWIDTH', DocList.GetColumnWidth('Статус'));
+  DataBase.SettingUpdate('DOCNAMECOLWIDTH', DocList.GetColumnWidth('Наименование документа'));
+  DataBase.SettingUpdate('NOTECOLWIDTH', DocList.GetColumnWidth('Примечание'));
+
+
 end;
 
 procedure TMainForm.DocListCreate;
