@@ -908,7 +908,8 @@ begin
       DocumentEditForm.OldTypeID:= TypeIDs[DocList.SelectedIndex];
       DocumentEditForm.OldStatusID:= StatusIDs[DocList.SelectedIndex];
       DocumentEditForm.OldSymbolID:= SymbolIDs[DocList.SelectedIndex];
-      DocumentEditForm.DocNumEdit.Text:= DocNums[DocList.SelectedIndex];
+      DocumentEditForm.DocNumEdit.Text:=
+        SReplace(DocNums[DocList.SelectedIndex], MDASH_DEFAULT, SYMBOL_HYPHEN);
       DocumentEditForm.DocYearEdit.Text:= DocYears[DocList.SelectedIndex];
       DocumentEditForm.DocDatePicker.Date:= DocDates[DocList.SelectedIndex];
       DocumentEditForm.DocNameEdit.Text:= DocNames[DocList.SelectedIndex];
