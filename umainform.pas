@@ -189,7 +189,6 @@ begin
   Caption:= 'DKTechDoc v.0.0.1 - Библиотека технических документов';
   DBConnect;
 
-
   DataBase.DocTypesLoad(DocTypeComboBox, FilterTypeIDs, True);
   DataBase.DocStatusesLoad(DocStatusComboBox, FilterStatusIDs, True);
 
@@ -198,8 +197,6 @@ begin
   DocListCreate;
   AddonListCreate;
   DocInfoUpdate;
-
-  //SettingsLoad;
 end;
 
 procedure TMainForm.FormDestroy(Sender: TObject);
@@ -225,6 +222,7 @@ begin
     ExportButton, FilterClearButton,
     AddonAddButton, AddonDelButton, AddonEditButton, AddonPDFShowButton, AddonPDFCopyButton
   ]);
+  ControlHeight(FilterClearButton, TOOL_PANEL_HEIGHT_DEFAULT - 2);
 
   Images.ToButtons([
     DictionaryButton, NameCopyButton,
