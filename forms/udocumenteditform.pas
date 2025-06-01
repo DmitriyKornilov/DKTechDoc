@@ -121,14 +121,14 @@ begin
   DocNum:= STrim(DocNumEdit.Text);
   if SEmpty(DocNum) then
   begin
-    ShowInfo('Не указан номер документа!');
+    Inform('Не указан номер документа!');
     Exit;
   end;
 
   DocYear:= STrim(DocYearEdit.Text);
   if SEmpty(DocYear) then
   begin
-    ShowInfo('Не указан год документа!');
+    Inform('Не указан год документа!');
     Exit;
   end;
 
@@ -143,7 +143,7 @@ begin
   DocName:= STrim(DocNameEdit.Text);
   if SEmpty(DocName) then
   begin
-    ShowInfo('Не указано наименование документа!');
+    Inform('Не указано наименование документа!');
     Exit;
   end;
 
@@ -153,7 +153,7 @@ begin
     SrcFileName:= STrim(FileNameEdit.Text);
     if SEmpty(SrcFileName) then
     begin
-      ShowInfo('Не указан файл документа!');
+      Inform('Не указан файл документа!');
       Exit;
     end;
   end;

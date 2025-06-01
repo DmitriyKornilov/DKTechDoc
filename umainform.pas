@@ -9,7 +9,7 @@ uses
   Menus, StdCtrls, DividerBevel, VirtualTrees, Clipbrd,
   //DK packages utils
   {DK_HeapTrace,} DK_LCLStrRus, DK_CtrlUtils, DK_VSTTables, DK_VSTTypes,
-  DK_Vector, DK_Const, DK_Dialogs, DK_StrUtils,
+  DK_Vector, DK_Const, DK_Dialogs, DK_StrUtils, DK_DBUtils,
   //Project utils
   UDataBase, UUtils, UImages,
   //Forms
@@ -716,9 +716,6 @@ begin
   DataBase.Connect(DBName);
 
   DataBase.ExecuteScript(DDLName);
-  DataBase.ExecuteScript([
-    'CREATE VIRTUAL TABLE IF NOT EXISTS DOCS_FTS USING FTS5(DocID, DocName);'
-  ]);
 end;
 
 procedure TMainForm.DictionarySelect(const ADictionary: Byte);

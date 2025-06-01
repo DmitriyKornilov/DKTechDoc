@@ -313,6 +313,7 @@ begin
   if SEmpty(AMatchStr) then Exit;
 
   ExecuteScript([
+    'CREATE VIRTUAL TABLE IF NOT EXISTS DOCS_FTS USING FTS5(DocID, DocName);',
     'INSERT OR IGNORE INTO DOCS_FTS SELECT DocID, DocName FROM DOCUMENTS;'
   ]);
 
@@ -335,6 +336,10 @@ begin
     Result:= True;
   end;
   QClose;
+
+  ExecuteScript([
+    'DELETE FROM DOCS_FTS;'
+  ]);
 end;
 
 function TDataBase.DocAdd(out ADocID: Integer;

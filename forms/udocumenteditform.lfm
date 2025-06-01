@@ -7,9 +7,9 @@ object DocumentEditForm: TDocumentEditForm
   ClientHeight = 405
   ClientWidth = 1050
   DesignTimePPI = 120
+  LCLVersion = '4.0.0.4'
   OnCreate = FormCreate
   OnShow = FormShow
-  LCLVersion = '3.2.0.0'
   object ButtonPanel: TPanel
     AnchorSideTop.Control = OpenButton
     AnchorSideTop.Side = asrBottom
@@ -46,8 +46,8 @@ object DocumentEditForm: TDocumentEditForm
       ImageIndex = 7
       Margin = 5
       Spacing = 5
-      OnClick = CancelButtonClick
       ParentFont = False
+      OnClick = CancelButtonClick
     end
     object SaveButton: TSpeedButton
       AnchorSideTop.Control = CancelButton
@@ -65,8 +65,8 @@ object DocumentEditForm: TDocumentEditForm
       ImageIndex = 6
       Margin = 5
       Spacing = 5
-      OnClick = SaveButtonClick
       ParentFont = False
+      OnClick = SaveButtonClick
     end
     object ButtonPanelBevel: TBevel
       Left = 0

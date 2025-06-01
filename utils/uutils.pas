@@ -39,8 +39,6 @@ function VAddonFullName(const ADocCode: String; const AAddonNames, AAddonNums: T
 function AddonFileName(const ADocID, AAddonID: Integer): String;
 function AddonFileName(const ADocCode, AAddonName, AAddonNum: String): String;
 
-function PrepareMatchStr(const AMatchStr: String): String;
-
 implementation
 
 function DocumentNumber(const ADocNum, ADelimiter, ADocYear: String): String;
@@ -213,7 +211,7 @@ begin
   if not FileExists(AFileName) then Exit;
   Result:= DeleteFile(AFileName);
   if not Result then
-    ShowInfo('Не удалось удалить файл' + SYMBOL_BREAK + AFileName);
+    Inform('Не удалось удалить файл' + SYMBOL_BREAK + AFileName);
 end;
 
 function DocumentCopy(const ASrcFileName, ADestFileName: String;
@@ -298,29 +296,6 @@ function AddonFileName(const ADocCode, AAddonName, AAddonNum: String): String;
 begin
   Result:= AddonFullName(ADocCode, AAddonName, AAddonNum) + '.pdf';
 end;
-
-function PrepareMatchStr(const AMatchStr: String): String;
-var
-  i: Integer;
-  S: String;
-const
-  ALLOWABLE_SYMBOLS = LETTERS_RUSSIAN_UPPER + LETTERS_ENGLISH_UPPER;
-begin
-  Result:= EmptyStr;
-  if SEmpty(AMatchStr) then Exit;
-
-  for i:= 1 to SLength(AMatchStr) do
-  begin
-    S:= SSymbol(AMatchStr, i);
-    if SFind(ALLOWABLE_SYMBOLS, SUpper(S)) then
-      Result:= Result + S
-    else
-      Result:= Result + SYMBOL_SPACE
-  end;
-
-  Result:= STrim(Result);
-end;
-
 
 end.
 

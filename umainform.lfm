@@ -6,11 +6,11 @@ object MainForm: TMainForm
   ClientHeight = 734
   ClientWidth = 900
   DesignTimePPI = 120
+  LCLVersion = '4.0.0.4'
+  WindowState = wsMaximized
   OnCreate = FormCreate
   OnDestroy = FormDestroy
   OnShow = FormShow
-  LCLVersion = '3.8.0.0'
-  WindowState = wsMaximized
   object MainPanel: TPanel
     Left = 0
     Height = 734
@@ -33,8 +33,8 @@ object MainForm: TMainForm
       BorderSpacing.Right = 2
       BevelOuter = bvNone
       BorderStyle = bsSingle
-      ClientHeight = 36
-      ClientWidth = 892
+      ClientHeight = 40
+      ClientWidth = 896
       ParentFont = False
       TabOrder = 0
       object AboutButton: TSpeedButton
@@ -49,9 +49,9 @@ object MainForm: TMainForm
         Constraints.MinWidth = 40
         Images = Images.PX24
         ImageIndex = 1
-        OnClick = AboutButtonClick
         ShowHint = True
         ParentShowHint = False
+        OnClick = AboutButtonClick
       end
       object ExitButton: TSpeedButton
         Cursor = crHandPoint
@@ -65,9 +65,9 @@ object MainForm: TMainForm
         Constraints.MinWidth = 40
         Images = Images.PX24
         ImageIndex = 0
-        OnClick = ExitButtonClick
         ShowHint = True
         ParentShowHint = False
+        OnClick = ExitButtonClick
       end
       object RefreshButton: TSpeedButton
         Cursor = crHandPoint
@@ -81,9 +81,9 @@ object MainForm: TMainForm
         Constraints.MinWidth = 40
         Images = Images.PX24
         ImageIndex = 2
-        OnClick = RefreshButtonClick
         ShowHint = True
         ParentShowHint = False
+        OnClick = RefreshButtonClick
       end
       object DividerBevel1: TDividerBevel
         Left = 832
@@ -111,9 +111,9 @@ object MainForm: TMainForm
         ImageIndex = 11
         Margin = 5
         Spacing = 5
-        OnClick = DictionaryButtonClick
         ShowHint = True
         ParentShowHint = False
+        OnClick = DictionaryButtonClick
       end
       object DividerBevel2: TDividerBevel
         Left = 732
@@ -137,9 +137,9 @@ object MainForm: TMainForm
         Align = alLeft
         Images = Images.PX24
         ImageIndex = 3
-        OnClick = AddButtonClick
         ShowHint = True
         ParentShowHint = False
+        OnClick = AddButtonClick
       end
       object DelButton: TSpeedButton
         Cursor = crHandPoint
@@ -152,9 +152,9 @@ object MainForm: TMainForm
         Enabled = False
         Images = Images.PX24
         ImageIndex = 4
-        OnClick = DelButtonClick
         ShowHint = True
         ParentShowHint = False
+        OnClick = DelButtonClick
       end
       object EditButton: TSpeedButton
         Cursor = crHandPoint
@@ -167,9 +167,9 @@ object MainForm: TMainForm
         Enabled = False
         Images = Images.PX24
         ImageIndex = 5
-        OnClick = EditButtonClick
         ShowHint = True
         ParentShowHint = False
+        OnClick = EditButtonClick
       end
       object DividerBevel3: TDividerBevel
         Left = 120
@@ -194,9 +194,9 @@ object MainForm: TMainForm
         Enabled = False
         Images = Images.PX24
         ImageIndex = 10
-        OnClick = ExportButtonClick
         ShowHint = True
         ParentShowHint = False
+        OnClick = ExportButtonClick
       end
       object PDFShowButton: TSpeedButton
         Cursor = crHandPoint
@@ -344,10 +344,10 @@ object MainForm: TMainForm
         }
         Images = Images.PX24
         ImageIndex = 13
-        OnClick = PDFShowButtonClick
         ShowHint = True
         ParentFont = False
         ParentShowHint = False
+        OnClick = PDFShowButtonClick
       end
       object PDFCopyButton: TSpeedButton
         Cursor = crHandPoint
@@ -495,10 +495,10 @@ object MainForm: TMainForm
         }
         Images = Images.PX24
         ImageIndex = 9
-        OnClick = PDFCopyButtonClick
         ShowHint = True
         ParentFont = False
         ParentShowHint = False
+        OnClick = PDFCopyButtonClick
       end
       object DividerBevel4: TDividerBevel
         Left = 220
@@ -539,9 +539,9 @@ object MainForm: TMainForm
         ImageIndex = 14
         Margin = 5
         Spacing = 5
-        OnClick = NameCopyButtonClick
         ShowHint = True
         ParentShowHint = False
+        OnClick = NameCopyButtonClick
       end
     end
     object InfoPanel: TPanel
@@ -570,8 +570,8 @@ object MainForm: TMainForm
         BevelOuter = bvNone
         BorderStyle = bsSingle
         Caption = '  Документ:'
-        ClientHeight = 26
-        ClientWidth = 892
+        ClientHeight = 30
+        ClientWidth = 896
         Font.Style = [fsBold]
         ParentBackground = False
         ParentColor = False
@@ -605,8 +605,8 @@ object MainForm: TMainForm
         BorderSpacing.Top = 2
         BevelOuter = bvNone
         BorderStyle = bsSingle
-        ClientHeight = 136
-        ClientWidth = 892
+        ClientHeight = 140
+        ClientWidth = 896
         Color = clWindow
         ParentBackground = False
         ParentColor = False
@@ -773,8 +773,8 @@ object MainForm: TMainForm
         BevelOuter = bvNone
         BorderStyle = bsSingle
         Caption = '  Приложения (изменения и поправки, не вошедшие в редакцию документа):'
-        ClientHeight = 26
-        ClientWidth = 892
+        ClientHeight = 30
+        ClientWidth = 896
         Font.Style = [fsBold]
         ParentBackground = False
         ParentColor = False
@@ -816,8 +816,8 @@ object MainForm: TMainForm
           BorderSpacing.Top = 2
           BevelOuter = bvNone
           BorderStyle = bsSingle
-          ClientHeight = 36
-          ClientWidth = 892
+          ClientHeight = 40
+          ClientWidth = 896
           TabOrder = 0
           object AddonAddButton: TSpeedButton
             Cursor = crHandPoint
@@ -830,9 +830,9 @@ object MainForm: TMainForm
             Enabled = False
             Images = Images.PX24
             ImageIndex = 3
-            OnClick = AddonAddButtonClick
             ShowHint = True
             ParentShowHint = False
+            OnClick = AddonAddButtonClick
           end
           object AddonDelButton: TSpeedButton
             Cursor = crHandPoint
@@ -845,9 +845,9 @@ object MainForm: TMainForm
             Enabled = False
             Images = Images.PX24
             ImageIndex = 4
-            OnClick = AddonDelButtonClick
             ShowHint = True
             ParentShowHint = False
+            OnClick = AddonDelButtonClick
           end
           object AddonEditButton: TSpeedButton
             Cursor = crHandPoint
@@ -860,9 +860,9 @@ object MainForm: TMainForm
             Enabled = False
             Images = Images.PX24
             ImageIndex = 5
-            OnClick = AddonEditButtonClick
             ShowHint = True
             ParentShowHint = False
+            OnClick = AddonEditButtonClick
           end
           object DividerBevel8: TDividerBevel
             Left = 120
@@ -1022,10 +1022,10 @@ object MainForm: TMainForm
             }
             Images = Images.PX24
             ImageIndex = 13
-            OnClick = AddonPDFShowButtonClick
             ShowHint = True
             ParentFont = False
             ParentShowHint = False
+            OnClick = AddonPDFShowButtonClick
           end
           object AddonPDFCopyButton: TSpeedButton
             Cursor = crHandPoint
@@ -1173,10 +1173,10 @@ object MainForm: TMainForm
             }
             Images = Images.PX24
             ImageIndex = 9
-            OnClick = AddonPDFCopyButtonClick
             ShowHint = True
             ParentFont = False
             ParentShowHint = False
+            OnClick = AddonPDFCopyButtonClick
           end
           object DividerBevel10: TDividerBevel
             Left = 220
@@ -1238,8 +1238,8 @@ object MainForm: TMainForm
         BorderSpacing.Around = 2
         BevelOuter = bvNone
         BorderStyle = bsSingle
-        ClientHeight = 73
-        ClientWidth = 892
+        ClientHeight = 77
+        ClientWidth = 896
         TabOrder = 0
         object StatusLabel: TLabel
           AnchorSideLeft.Control = DocNumEdit
@@ -1519,10 +1519,10 @@ object MainForm: TMainForm
           }
           Images = Images.PX24
           ImageIndex = 8
-          OnClick = FilterClearButtonClick
           ShowHint = True
           ParentFont = False
           ParentShowHint = False
+          OnClick = FilterClearButtonClick
         end
       end
       object VT: TVirtualStringTree
@@ -1555,8 +1555,8 @@ object MainForm: TMainForm
         BevelOuter = bvNone
         BorderStyle = bsSingle
         Caption = '  Фильтр:'
-        ClientHeight = 26
-        ClientWidth = 892
+        ClientHeight = 30
+        ClientWidth = 896
         Font.Style = [fsBold]
         ParentBackground = False
         ParentColor = False

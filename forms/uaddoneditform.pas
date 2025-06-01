@@ -88,7 +88,7 @@ begin
     SrcFileName:= STrim(FileNameEdit.Text);
     if SEmpty(SrcFileName) then
     begin
-      ShowInfo('Не указан файл приложения!');
+      Inform('Не указан файл приложения!');
       Exit;
     end;
   end;
