@@ -1,52 +1,50 @@
 object MainForm: TMainForm
   Left = 427
-  Height = 734
+  Height = 587
   Top = 134
-  Width = 900
-  ClientHeight = 734
-  ClientWidth = 900
-  DesignTimePPI = 120
-  LCLVersion = '4.0.0.4'
+  Width = 720
+  ClientHeight = 587
+  ClientWidth = 720
   WindowState = wsMaximized
   OnCreate = FormCreate
   OnDestroy = FormDestroy
   OnShow = FormShow
   object MainPanel: TPanel
     Left = 0
-    Height = 734
+    Height = 587
     Top = 0
-    Width = 900
+    Width = 720
     Align = alClient
     BevelOuter = bvNone
-    ClientHeight = 734
-    ClientWidth = 900
+    ClientHeight = 587
+    ClientWidth = 720
     TabOrder = 0
     Visible = False
     object ToolPanel: TPanel
       Left = 2
-      Height = 40
+      Height = 32
       Top = 2
-      Width = 896
+      Width = 716
       Align = alTop
       BorderSpacing.Left = 2
       BorderSpacing.Top = 2
       BorderSpacing.Right = 2
       BevelOuter = bvNone
       BorderStyle = bsSingle
-      ClientHeight = 40
-      ClientWidth = 896
+      ClientHeight = 28
+      ClientWidth = 712
       ParentFont = False
       TabOrder = 0
       object AboutButton: TSpeedButton
         Cursor = crHandPoint
-        Left = 792
-        Height = 36
+        Left = 630
+        Height = 28
         Hint = 'О программе'
         Top = 0
-        Width = 40
+        Width = 32
         Align = alRight
-        Constraints.MaxWidth = 40
-        Constraints.MinWidth = 40
+        Constraints.MaxWidth = 32
+        Constraints.MinWidth = 32
         Images = Images.PX24
         ImageIndex = 1
         ShowHint = True
@@ -55,14 +53,14 @@ object MainForm: TMainForm
       end
       object ExitButton: TSpeedButton
         Cursor = crHandPoint
-        Left = 852
-        Height = 36
+        Left = 680
+        Height = 28
         Hint = 'Выход'
         Top = 0
-        Width = 40
+        Width = 32
         Align = alRight
-        Constraints.MaxWidth = 40
-        Constraints.MinWidth = 40
+        Constraints.MaxWidth = 32
+        Constraints.MinWidth = 32
         Images = Images.PX24
         ImageIndex = 0
         ShowHint = True
@@ -71,14 +69,14 @@ object MainForm: TMainForm
       end
       object RefreshButton: TSpeedButton
         Cursor = crHandPoint
-        Left = 752
-        Height = 36
+        Left = 598
+        Height = 28
         Hint = 'Обновить'
         Top = 0
-        Width = 40
+        Width = 32
         Align = alRight
-        Constraints.MaxWidth = 40
-        Constraints.MinWidth = 40
+        Constraints.MaxWidth = 32
+        Constraints.MinWidth = 32
         Images = Images.PX24
         ImageIndex = 2
         ShowHint = True
@@ -86,10 +84,10 @@ object MainForm: TMainForm
         OnClick = RefreshButtonClick
       end
       object DividerBevel1: TDividerBevel
-        Left = 832
-        Height = 36
+        Left = 662
+        Height = 28
         Top = 0
-        Width = 20
+        Width = 18
         Caption = 'DividerBevel1'
         Align = alRight
         BevelWidth = 2
@@ -99,11 +97,11 @@ object MainForm: TMainForm
       end
       object DictionaryButton: TSpeedButton
         Cursor = crHandPoint
-        Left = 672
-        Height = 36
+        Left = 519
+        Height = 28
         Hint = 'Атрибуты документов'
         Top = 0
-        Width = 60
+        Width = 61
         Align = alRight
         AutoSize = True
         Caption = ' ▼ '
@@ -116,10 +114,10 @@ object MainForm: TMainForm
         OnClick = DictionaryButtonClick
       end
       object DividerBevel2: TDividerBevel
-        Left = 732
-        Height = 36
+        Left = 580
+        Height = 28
         Top = 0
-        Width = 20
+        Width = 18
         Caption = 'DividerBevel2'
         Align = alRight
         BevelWidth = 2
@@ -130,10 +128,10 @@ object MainForm: TMainForm
       object AddButton: TSpeedButton
         Cursor = crHandPoint
         Left = 0
-        Height = 36
+        Height = 28
         Hint = 'Добавить'
         Top = 0
-        Width = 40
+        Width = 32
         Align = alLeft
         Images = Images.PX24
         ImageIndex = 3
@@ -143,11 +141,11 @@ object MainForm: TMainForm
       end
       object DelButton: TSpeedButton
         Cursor = crHandPoint
-        Left = 40
-        Height = 36
+        Left = 32
+        Height = 28
         Hint = 'Удалить'
         Top = 0
-        Width = 40
+        Width = 32
         Align = alLeft
         Enabled = False
         Images = Images.PX24
@@ -158,11 +156,11 @@ object MainForm: TMainForm
       end
       object EditButton: TSpeedButton
         Cursor = crHandPoint
-        Left = 80
-        Height = 36
+        Left = 64
+        Height = 28
         Hint = 'Редактировать'
         Top = 0
-        Width = 40
+        Width = 32
         Align = alLeft
         Enabled = False
         Images = Images.PX24
@@ -172,10 +170,10 @@ object MainForm: TMainForm
         OnClick = EditButtonClick
       end
       object DividerBevel3: TDividerBevel
-        Left = 120
-        Height = 36
+        Left = 96
+        Height = 28
         Top = 0
-        Width = 20
+        Width = 18
         Caption = 'DividerBevel3'
         Align = alLeft
         BevelWidth = 2
@@ -185,11 +183,11 @@ object MainForm: TMainForm
       end
       object ExportButton: TSpeedButton
         Cursor = crHandPoint
-        Left = 240
-        Height = 36
+        Left = 200
+        Height = 28
         Hint = 'Экспорт в файл электронной таблицы XLSX или ODS'
         Top = 0
-        Width = 40
+        Width = 32
         Align = alLeft
         Enabled = False
         Images = Images.PX24
@@ -200,15 +198,15 @@ object MainForm: TMainForm
       end
       object PDFShowButton: TSpeedButton
         Cursor = crHandPoint
-        Left = 140
-        Height = 38
+        Left = 114
+        Height = 30
         Hint = 'Открыть документ'
         Top = 0
-        Width = 40
+        Width = 34
         Align = alLeft
         AutoSize = True
-        Constraints.MinHeight = 38
-        Constraints.MinWidth = 40
+        Constraints.MinHeight = 30
+        Constraints.MinWidth = 32
         Enabled = False
         Glyph.Data = {
           36100000424D3610000000000000360000002800000020000000200000000100
@@ -351,15 +349,15 @@ object MainForm: TMainForm
       end
       object PDFCopyButton: TSpeedButton
         Cursor = crHandPoint
-        Left = 180
-        Height = 38
+        Left = 148
+        Height = 30
         Hint = 'Скопировать документ'
         Top = 0
-        Width = 40
+        Width = 34
         Align = alLeft
         AutoSize = True
-        Constraints.MinHeight = 38
-        Constraints.MinWidth = 40
+        Constraints.MinHeight = 30
+        Constraints.MinWidth = 32
         Enabled = False
         Glyph.Data = {
           36100000424D3610000000000000360000002800000020000000200000000100
@@ -501,10 +499,10 @@ object MainForm: TMainForm
         OnClick = PDFCopyButtonClick
       end
       object DividerBevel4: TDividerBevel
-        Left = 220
-        Height = 36
+        Left = 182
+        Height = 28
         Top = 0
-        Width = 20
+        Width = 18
         Caption = 'DividerBevel4'
         Align = alLeft
         BevelWidth = 2
@@ -513,10 +511,10 @@ object MainForm: TMainForm
         ParentFont = False
       end
       object DividerBevel5: TDividerBevel
-        Left = 280
-        Height = 36
+        Left = 232
+        Height = 28
         Top = 0
-        Width = 20
+        Width = 18
         Caption = 'DividerBevel5'
         Align = alLeft
         BevelWidth = 2
@@ -526,11 +524,11 @@ object MainForm: TMainForm
       end
       object NameCopyButton: TSpeedButton
         Cursor = crHandPoint
-        Left = 300
-        Height = 36
+        Left = 250
+        Height = 28
         Hint = 'Скопировать наименование документа'
         Top = 0
-        Width = 60
+        Width = 61
         Align = alLeft
         AutoSize = True
         Caption = ' ▼ '
@@ -546,32 +544,32 @@ object MainForm: TMainForm
     end
     object InfoPanel: TPanel
       Left = 2
-      Height = 400
-      Top = 332
-      Width = 896
+      Height = 320
+      Top = 265
+      Width = 716
       Align = alBottom
       BorderSpacing.Left = 2
       BorderSpacing.Right = 2
       BorderSpacing.Bottom = 2
       BevelOuter = bvNone
-      ClientHeight = 400
-      ClientWidth = 896
+      ClientHeight = 320
+      ClientWidth = 716
       TabOrder = 1
       object DocCaptionPanel: TPanel
         AnchorSideTop.Control = InfoPanel
         Cursor = crHandPoint
         Left = 0
-        Height = 30
+        Height = 24
         Top = 2
-        Width = 896
+        Width = 716
         Align = alTop
         Alignment = taLeftJustify
         BorderSpacing.Top = 2
         BevelOuter = bvNone
         BorderStyle = bsSingle
         Caption = '  Документ:'
-        ClientHeight = 30
-        ClientWidth = 896
+        ClientHeight = 20
+        ClientWidth = 712
         Font.Style = [fsBold]
         ParentBackground = False
         ParentColor = False
@@ -583,12 +581,12 @@ object MainForm: TMainForm
           AnchorSideTop.Side = asrCenter
           AnchorSideRight.Control = DocCaptionPanel
           AnchorSideRight.Side = asrBottom
-          Left = 873
-          Height = 20
+          Left = 697
+          Height = 15
           Top = 3
-          Width = 13
+          Width = 10
           Anchors = [akTop, akRight]
-          BorderSpacing.Right = 6
+          BorderSpacing.Right = 5
           Caption = '▲'
         end
       end
@@ -596,17 +594,17 @@ object MainForm: TMainForm
         AnchorSideTop.Control = DocCaptionPanel
         AnchorSideTop.Side = asrBottom
         Left = 0
-        Height = 140
-        Top = 34
-        Width = 896
+        Height = 109
+        Top = 28
+        Width = 716
         Align = alTop
         Alignment = taLeftJustify
         AutoSize = True
         BorderSpacing.Top = 2
         BevelOuter = bvNone
         BorderStyle = bsSingle
-        ClientHeight = 140
-        ClientWidth = 896
+        ClientHeight = 105
+        ClientWidth = 712
         Color = clWindow
         ParentBackground = False
         ParentColor = False
@@ -615,12 +613,12 @@ object MainForm: TMainForm
         object DocCodeCaptionLabel: TLabel
           AnchorSideLeft.Control = DocInfoPanel
           AnchorSideTop.Control = DocInfoPanel
-          Left = 6
-          Height = 20
-          Top = 6
-          Width = 92
-          BorderSpacing.Left = 6
-          BorderSpacing.Top = 6
+          Left = 5
+          Height = 15
+          Top = 5
+          Width = 76
+          BorderSpacing.Left = 5
+          BorderSpacing.Top = 5
           Caption = 'Обозначение:'
           Font.Style = [fsItalic]
           ParentFont = False
@@ -632,25 +630,25 @@ object MainForm: TMainForm
           AnchorSideTop.Side = asrCenter
           AnchorSideRight.Control = DocInfoPanel
           AnchorSideRight.Side = asrBottom
-          Left = 126
-          Height = 20
-          Top = 6
-          Width = 93
-          BorderSpacing.Left = 12
-          BorderSpacing.Top = 6
-          BorderSpacing.Right = 6
+          Left = 104
+          Height = 15
+          Top = 5
+          Width = 72
+          BorderSpacing.Left = 10
+          BorderSpacing.Top = 5
+          BorderSpacing.Right = 5
           Caption = 'обозначение'
         end
         object DocNameCaptionLabel: TLabel
           AnchorSideLeft.Control = DocInfoPanel
           AnchorSideTop.Control = DocCodeCaptionLabel
           AnchorSideTop.Side = asrBottom
-          Left = 6
-          Height = 20
-          Top = 32
-          Width = 103
-          BorderSpacing.Left = 6
-          BorderSpacing.Top = 6
+          Left = 5
+          Height = 15
+          Top = 25
+          Width = 86
+          BorderSpacing.Left = 5
+          BorderSpacing.Top = 5
           Caption = 'Наименование:'
           Font.Style = [fsItalic]
           ParentFont = False
@@ -659,12 +657,12 @@ object MainForm: TMainForm
           AnchorSideLeft.Control = DocInfoPanel
           AnchorSideTop.Control = DocNameValueLabel
           AnchorSideTop.Side = asrBottom
-          Left = 6
-          Height = 20
-          Top = 58
-          Width = 62
-          BorderSpacing.Left = 6
-          BorderSpacing.Top = 6
+          Left = 5
+          Height = 15
+          Top = 45
+          Width = 49
+          BorderSpacing.Left = 5
+          BorderSpacing.Top = 5
           Caption = 'Статус:'
           Font.Style = [fsItalic]
           ParentFont = False
@@ -673,12 +671,12 @@ object MainForm: TMainForm
           AnchorSideLeft.Control = DocInfoPanel
           AnchorSideTop.Control = DocStatusCaptionLabel
           AnchorSideTop.Side = asrBottom
-          Left = 6
-          Height = 20
-          Top = 84
-          Width = 108
-          BorderSpacing.Left = 6
-          BorderSpacing.Top = 6
+          Left = 5
+          Height = 15
+          Top = 65
+          Width = 89
+          BorderSpacing.Left = 5
+          BorderSpacing.Top = 5
           Caption = 'Дата введения:'
           Font.Style = [fsItalic]
           ParentFont = False
@@ -687,13 +685,13 @@ object MainForm: TMainForm
           AnchorSideLeft.Control = DocInfoPanel
           AnchorSideTop.Control = DocDateCaptionLabel
           AnchorSideTop.Side = asrBottom
-          Left = 6
-          Height = 20
-          Top = 110
-          Width = 87
-          BorderSpacing.Left = 6
-          BorderSpacing.Top = 6
-          BorderSpacing.Bottom = 6
+          Left = 5
+          Height = 15
+          Top = 85
+          Width = 73
+          BorderSpacing.Left = 5
+          BorderSpacing.Top = 5
+          BorderSpacing.Bottom = 5
           Caption = 'Примечание:'
           Font.Style = [fsItalic]
           ParentFont = False
@@ -704,13 +702,13 @@ object MainForm: TMainForm
           AnchorSideTop.Control = DocNameCaptionLabel
           AnchorSideRight.Control = DocInfoPanel
           AnchorSideRight.Side = asrBottom
-          Left = 126
-          Height = 20
-          Top = 32
-          Width = 760
+          Left = 104
+          Height = 15
+          Top = 25
+          Width = 603
           Anchors = [akTop, akLeft, akRight]
-          BorderSpacing.Left = 12
-          BorderSpacing.Right = 6
+          BorderSpacing.Left = 10
+          BorderSpacing.Right = 5
           Caption = 'наименование'
           WordWrap = True
         end
@@ -720,12 +718,12 @@ object MainForm: TMainForm
           AnchorSideTop.Control = DocStatusCaptionLabel
           AnchorSideTop.Side = asrCenter
           AnchorSideRight.Side = asrBottom
-          Left = 126
-          Height = 20
-          Top = 58
-          Width = 41
-          BorderSpacing.Left = 12
-          BorderSpacing.Top = 6
+          Left = 104
+          Height = 15
+          Top = 45
+          Width = 34
+          BorderSpacing.Left = 10
+          BorderSpacing.Top = 5
           Caption = 'статус'
         end
         object DocDateValueLabel: TLabel
@@ -733,12 +731,12 @@ object MainForm: TMainForm
           AnchorSideLeft.Side = asrBottom
           AnchorSideTop.Control = DocDateCaptionLabel
           AnchorSideTop.Side = asrCenter
-          Left = 126
-          Height = 20
-          Top = 84
-          Width = 100
-          BorderSpacing.Left = 12
-          BorderSpacing.Top = 6
+          Left = 104
+          Height = 15
+          Top = 65
+          Width = 76
+          BorderSpacing.Left = 10
+          BorderSpacing.Top = 5
           Caption = 'дата введения'
         end
         object DocNoteValueLabel: TLabel
@@ -747,14 +745,14 @@ object MainForm: TMainForm
           AnchorSideTop.Control = DocNoteCaptionLabel
           AnchorSideRight.Control = DocInfoPanel
           AnchorSideRight.Side = asrBottom
-          Left = 126
-          Height = 20
-          Top = 110
-          Width = 760
+          Left = 104
+          Height = 15
+          Top = 85
+          Width = 603
           Anchors = [akTop, akLeft, akRight]
-          BorderSpacing.Left = 12
-          BorderSpacing.Right = 6
-          BorderSpacing.Bottom = 6
+          BorderSpacing.Left = 10
+          BorderSpacing.Right = 5
+          BorderSpacing.Bottom = 5
           Caption = 'примечание'
           WordWrap = True
         end
@@ -764,17 +762,17 @@ object MainForm: TMainForm
         AnchorSideTop.Side = asrBottom
         Cursor = crHandPoint
         Left = 0
-        Height = 30
-        Top = 176
-        Width = 896
+        Height = 24
+        Top = 139
+        Width = 716
         Align = alTop
         Alignment = taLeftJustify
         BorderSpacing.Top = 2
         BevelOuter = bvNone
         BorderStyle = bsSingle
         Caption = '  Приложения (изменения и поправки, не вошедшие в редакцию документа):'
-        ClientHeight = 30
-        ClientWidth = 896
+        ClientHeight = 20
+        ClientWidth = 712
         Font.Style = [fsBold]
         ParentBackground = False
         ParentColor = False
@@ -786,12 +784,12 @@ object MainForm: TMainForm
           AnchorSideTop.Side = asrCenter
           AnchorSideRight.Control = DocCaptionPanel
           AnchorSideRight.Side = asrBottom
-          Left = 873
-          Height = 20
+          Left = 692
+          Height = 15
           Top = 2
-          Width = 13
+          Width = 10
           Anchors = [akTop, akRight]
-          BorderSpacing.Right = 6
+          BorderSpacing.Right = 5
           Caption = '▲'
         end
       end
@@ -799,33 +797,33 @@ object MainForm: TMainForm
         AnchorSideTop.Control = AddonCaptionPanel
         AnchorSideTop.Side = asrBottom
         Left = 0
-        Height = 194
-        Top = 206
-        Width = 896
+        Height = 157
+        Top = 163
+        Width = 716
         Align = alClient
         BevelOuter = bvNone
-        ClientHeight = 194
-        ClientWidth = 896
+        ClientHeight = 157
+        ClientWidth = 716
         TabOrder = 3
         object AddonToolPanel: TPanel
           Left = 0
-          Height = 40
+          Height = 32
           Top = 2
-          Width = 896
+          Width = 716
           Align = alTop
           BorderSpacing.Top = 2
           BevelOuter = bvNone
           BorderStyle = bsSingle
-          ClientHeight = 40
-          ClientWidth = 896
+          ClientHeight = 28
+          ClientWidth = 712
           TabOrder = 0
           object AddonAddButton: TSpeedButton
             Cursor = crHandPoint
             Left = 0
-            Height = 36
+            Height = 28
             Hint = 'Добавить'
             Top = 0
-            Width = 40
+            Width = 32
             Align = alLeft
             Enabled = False
             Images = Images.PX24
@@ -836,11 +834,11 @@ object MainForm: TMainForm
           end
           object AddonDelButton: TSpeedButton
             Cursor = crHandPoint
-            Left = 40
-            Height = 36
+            Left = 32
+            Height = 28
             Hint = 'Удалить'
             Top = 0
-            Width = 40
+            Width = 32
             Align = alLeft
             Enabled = False
             Images = Images.PX24
@@ -851,11 +849,11 @@ object MainForm: TMainForm
           end
           object AddonEditButton: TSpeedButton
             Cursor = crHandPoint
-            Left = 80
-            Height = 36
+            Left = 64
+            Height = 28
             Hint = 'Редактировать'
             Top = 0
-            Width = 40
+            Width = 32
             Align = alLeft
             Enabled = False
             Images = Images.PX24
@@ -865,10 +863,10 @@ object MainForm: TMainForm
             OnClick = AddonEditButtonClick
           end
           object DividerBevel8: TDividerBevel
-            Left = 120
-            Height = 36
+            Left = 96
+            Height = 28
             Top = 0
-            Width = 20
+            Width = 18
             Caption = 'DividerBevel8'
             Align = alLeft
             BevelWidth = 2
@@ -878,15 +876,15 @@ object MainForm: TMainForm
           end
           object AddonPDFShowButton: TSpeedButton
             Cursor = crHandPoint
-            Left = 140
-            Height = 38
+            Left = 114
+            Height = 30
             Hint = 'Открыть документ'
             Top = 0
-            Width = 40
+            Width = 34
             Align = alLeft
             AutoSize = True
-            Constraints.MinHeight = 38
-            Constraints.MinWidth = 40
+            Constraints.MinHeight = 30
+            Constraints.MinWidth = 32
             Enabled = False
             Glyph.Data = {
               36100000424D3610000000000000360000002800000020000000200000000100
@@ -1029,15 +1027,15 @@ object MainForm: TMainForm
           end
           object AddonPDFCopyButton: TSpeedButton
             Cursor = crHandPoint
-            Left = 180
-            Height = 38
+            Left = 148
+            Height = 30
             Hint = 'Скопировать документ'
             Top = 0
-            Width = 40
+            Width = 34
             Align = alLeft
             AutoSize = True
-            Constraints.MinHeight = 38
-            Constraints.MinWidth = 40
+            Constraints.MinHeight = 30
+            Constraints.MinWidth = 32
             Enabled = False
             Glyph.Data = {
               36100000424D3610000000000000360000002800000020000000200000000100
@@ -1179,10 +1177,10 @@ object MainForm: TMainForm
             OnClick = AddonPDFCopyButtonClick
           end
           object DividerBevel10: TDividerBevel
-            Left = 220
-            Height = 36
+            Left = 182
+            Height = 28
             Top = 0
-            Width = 20
+            Width = 18
             Caption = 'DividerBevel10'
             Align = alLeft
             BevelWidth = 2
@@ -1193,9 +1191,9 @@ object MainForm: TMainForm
         end
         object AddonVT: TVirtualStringTree
           Left = 0
-          Height = 150
-          Top = 44
-          Width = 896
+          Height = 121
+          Top = 36
+          Width = 716
           Align = alClient
           BorderSpacing.Top = 2
           DefaultText = 'Node'
@@ -1211,35 +1209,35 @@ object MainForm: TMainForm
       AnchorSideBottom.Control = InfoPanel
       Cursor = crVSplit
       Left = 0
-      Height = 6
-      Top = 326
-      Width = 900
+      Height = 5
+      Top = 260
+      Width = 720
       Align = alBottom
       ResizeAnchor = akBottom
       ResizeStyle = rsLine
     end
     object DocListPanel: TPanel
       Left = 0
-      Height = 284
-      Top = 42
-      Width = 900
+      Height = 226
+      Top = 34
+      Width = 720
       Align = alClient
       BevelOuter = bvNone
-      ClientHeight = 284
-      ClientWidth = 900
+      ClientHeight = 226
+      ClientWidth = 720
       TabOrder = 3
       object FilterPanel: TPanel
         Left = 2
-        Height = 77
-        Top = 34
-        Width = 896
+        Height = 65
+        Top = 28
+        Width = 716
         Align = alTop
         AutoSize = True
         BorderSpacing.Around = 2
         BevelOuter = bvNone
         BorderStyle = bsSingle
-        ClientHeight = 77
-        ClientWidth = 896
+        ClientHeight = 61
+        ClientWidth = 712
         TabOrder = 0
         object StatusLabel: TLabel
           AnchorSideLeft.Control = DocNumEdit
@@ -1247,13 +1245,13 @@ object MainForm: TMainForm
           AnchorSideTop.Control = DocStatusComboBox
           AnchorSideTop.Side = asrCenter
           AnchorSideRight.Control = DocStatusComboBox
-          Left = 321
-          Height = 20
-          Top = 9
-          Width = 41
+          Left = 254
+          Height = 15
+          Top = 10
+          Width = 34
           Align = alCustom
-          BorderSpacing.Left = 8
-          BorderSpacing.Right = 8
+          BorderSpacing.Left = 6
+          BorderSpacing.Right = 6
           Caption = 'статус'
         end
         object DocStatusComboBox: TComboBox
@@ -1262,15 +1260,15 @@ object MainForm: TMainForm
           AnchorSideTop.Control = FilterClearButton
           AnchorSideTop.Side = asrCenter
           AnchorSideRight.Side = asrBottom
-          Left = 370
-          Height = 28
-          Top = 5
-          Width = 200
-          BorderSpacing.Top = 4
-          BorderSpacing.Right = 8
-          Constraints.MinWidth = 150
+          Left = 294
+          Height = 23
+          Top = 6
+          Width = 160
+          BorderSpacing.Top = 3
+          BorderSpacing.Right = 6
+          Constraints.MinWidth = 120
           DropDownCount = 20
-          ItemHeight = 20
+          ItemHeight = 15
           Style = csDropDownList
           TabOrder = 0
           OnChange = DocStatusComboBoxChange
@@ -1280,12 +1278,12 @@ object MainForm: TMainForm
           AnchorSideLeft.Side = asrBottom
           AnchorSideTop.Control = DocTypeComboBox
           AnchorSideTop.Side = asrCenter
-          Left = 582
-          Height = 20
-          Top = 9
-          Width = 24
+          Left = 464
+          Height = 15
+          Top = 10
+          Width = 19
           Align = alCustom
-          BorderSpacing.Left = 12
+          BorderSpacing.Left = 10
           Caption = 'тип'
         end
         object DocTypeComboBox: TComboBox
@@ -1294,16 +1292,16 @@ object MainForm: TMainForm
           AnchorSideTop.Control = FilterClearButton
           AnchorSideTop.Side = asrCenter
           AnchorSideRight.Side = asrBottom
-          Left = 614
-          Height = 28
-          Top = 5
-          Width = 200
-          BorderSpacing.Left = 8
-          BorderSpacing.Top = 4
-          BorderSpacing.Right = 8
-          Constraints.MinWidth = 150
+          Left = 489
+          Height = 23
+          Top = 6
+          Width = 160
+          BorderSpacing.Left = 6
+          BorderSpacing.Top = 3
+          BorderSpacing.Right = 6
+          Constraints.MinWidth = 120
           DropDownCount = 20
-          ItemHeight = 20
+          ItemHeight = 15
           Style = csDropDownList
           TabOrder = 1
           OnChange = DocTypeComboBoxChange
@@ -1314,14 +1312,14 @@ object MainForm: TMainForm
           AnchorSideTop.Control = DocNumEdit
           AnchorSideTop.Side = asrCenter
           AnchorSideRight.Control = DocNumEdit
-          Left = 61
-          Height = 20
-          Top = 9
-          Width = 46
+          Left = 47
+          Height = 15
+          Top = 10
+          Width = 36
           Align = alCustom
           Anchors = [akTop, akRight]
-          BorderSpacing.Left = 8
-          BorderSpacing.Right = 6
+          BorderSpacing.Left = 6
+          BorderSpacing.Right = 5
           Caption = 'номер'
         end
         object DocNumEdit: TEdit
@@ -1330,12 +1328,12 @@ object MainForm: TMainForm
           AnchorSideTop.Side = asrCenter
           AnchorSideRight.Control = FilterPanel
           AnchorSideRight.Side = asrBottom
-          Left = 113
-          Height = 28
-          Top = 5
-          Width = 200
-          BorderSpacing.Top = 8
-          Constraints.MinWidth = 100
+          Left = 88
+          Height = 23
+          Top = 6
+          Width = 160
+          BorderSpacing.Top = 6
+          Constraints.MinWidth = 80
           TabOrder = 2
           OnChange = DocNumEditChange
         end
@@ -1344,9 +1342,9 @@ object MainForm: TMainForm
           AnchorSideTop.Control = DocNameEdit
           AnchorSideTop.Side = asrCenter
           Left = 2
-          Height = 20
-          Top = 45
-          Width = 105
+          Height = 15
+          Top = 39
+          Width = 81
           Align = alCustom
           BorderSpacing.Left = 2
           Caption = 'наименование'
@@ -1358,14 +1356,14 @@ object MainForm: TMainForm
           AnchorSideTop.Side = asrBottom
           AnchorSideRight.Control = FilterPanel
           AnchorSideRight.Side = asrBottom
-          Left = 113
-          Height = 28
-          Top = 41
-          Width = 779
+          Left = 88
+          Height = 23
+          Top = 35
+          Width = 624
           Anchors = [akTop, akLeft, akRight]
-          BorderSpacing.Left = 6
-          BorderSpacing.Top = 8
-          BorderSpacing.Bottom = 4
+          BorderSpacing.Left = 5
+          BorderSpacing.Top = 6
+          BorderSpacing.Bottom = 3
           TabOrder = 3
           OnChange = DocNameEditChange
         end
@@ -1376,14 +1374,14 @@ object MainForm: TMainForm
           AnchorSideRight.Side = asrBottom
           Cursor = crHandPoint
           Left = 0
-          Height = 38
+          Height = 34
           Hint = 'Очистить фильтр'
           Top = 0
-          Width = 40
+          Width = 34
           Align = alCustom
           AutoSize = True
-          Constraints.MinHeight = 38
-          Constraints.MinWidth = 40
+          Constraints.MinHeight = 30
+          Constraints.MinWidth = 32
           Enabled = False
           Glyph.Data = {
             36100000424D3610000000000000360000002800000020000000200000000100
@@ -1527,9 +1525,9 @@ object MainForm: TMainForm
       end
       object VT: TVirtualStringTree
         Left = 2
-        Height = 171
-        Top = 113
-        Width = 896
+        Height = 131
+        Top = 95
+        Width = 716
         Align = alClient
         BorderSpacing.Left = 2
         BorderSpacing.Top = 2
@@ -1544,9 +1542,9 @@ object MainForm: TMainForm
       object FilterCaptionPanel: TPanel
         Cursor = crHandPoint
         Left = 2
-        Height = 30
+        Height = 24
         Top = 2
-        Width = 896
+        Width = 716
         Align = alTop
         Alignment = taLeftJustify
         BorderSpacing.Left = 2
@@ -1555,8 +1553,8 @@ object MainForm: TMainForm
         BevelOuter = bvNone
         BorderStyle = bsSingle
         Caption = '  Фильтр:'
-        ClientHeight = 30
-        ClientWidth = 896
+        ClientHeight = 20
+        ClientWidth = 712
         Font.Style = [fsBold]
         ParentBackground = False
         ParentColor = False
@@ -1568,20 +1566,20 @@ object MainForm: TMainForm
           AnchorSideTop.Side = asrCenter
           AnchorSideRight.Control = FilterCaptionPanel
           AnchorSideRight.Side = asrBottom
-          Left = 873
-          Height = 20
+          Left = 697
+          Height = 15
           Top = 3
-          Width = 13
+          Width = 10
           Anchors = [akTop, akRight]
-          BorderSpacing.Right = 6
+          BorderSpacing.Right = 5
           Caption = '▲'
         end
       end
     end
   end
   object DictionaryMenu: TPopupMenu
-    Left = 50
-    Top = 200
+    Left = 40
+    Top = 160
     object TypesMenuItem: TMenuItem
       Caption = 'Типы документов'
       OnClick = TypesMenuItemClick
@@ -1596,8 +1594,8 @@ object MainForm: TMainForm
     end
   end
   object NameCopyMenu: TPopupMenu
-    Left = 170
-    Top = 200
+    Left = 136
+    Top = 160
     object TypeNumMenuItem: TMenuItem
       Caption = 'Номер'
       OnClick = TypeNumMenuItemClick
@@ -1619,7 +1617,109 @@ object MainForm: TMainForm
     Enabled = False
     Interval = 500
     OnTimer = FilterTimerTimer
-    Left = 280
-    Top = 200
+    Left = 224
+    Top = 160
+  end
+  object BaseDDLScript: TSQLScript
+    AutoCommit = False
+    UseDollarString = False
+    Directives.Strings = (
+      'SET TERM'
+      'COMMIT WORK'
+      'COMMIT RETAIN'
+      'COMMIT'
+      '#IFDEF'
+      '#IFNDEF'
+      '#ELSE'
+      '#ENDIF'
+      '#DEFINE'
+      '#UNDEF'
+      '#UNDEFINE'
+    )
+    Script.Strings = (
+      'PRAGMA ENCODING     = "UTF-8";'
+      'PRAGMA FOREIGN_KEYS = ON;'
+      ''
+      '/* Статусы документов */'
+      'CREATE TABLE IF NOT EXISTS STATUSES ('
+      '    StatusID   INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,'
+      '    StatusName TEXT    NOT NULL'
+      ');'
+      'INSERT OR IGNORE INTO  STATUSES (StatusID, StatusName) VALUES (0, ''<не указан>'');'
+      'INSERT OR IGNORE INTO  STATUSES (StatusID, StatusName) VALUES (1, ''действует'');'
+      ''
+      '/* Типы документов */'
+      'CREATE TABLE IF NOT EXISTS TYPES ('
+      '    TypeID   INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,'
+      '    TypeName TEXT    NOT NULL'
+      ');'
+      'INSERT OR IGNORE INTO  TYPES (TypeID, TypeName) VALUES (0, ''<не указан>'');'
+      'INSERT OR IGNORE INTO  TYPES (TypeID, TypeName) VALUES (1, ''ГОСТ'');'
+      'INSERT OR IGNORE INTO  TYPES (TypeID, TypeName) VALUES (2, ''ГОСТ Р'');'
+      'INSERT OR IGNORE INTO  TYPES (TypeID, TypeName) VALUES (3, ''ГОСТ IEC'');'
+      'INSERT OR IGNORE INTO  TYPES (TypeID, TypeName) VALUES (4, ''ГОСТ Р ИСО'');'
+      ''
+      '/* Параметры */'
+      'CREATE TABLE IF NOT EXISTS SETTINGS ('
+      '    NAME  TEXT    PRIMARY KEY NOT NULL,'
+      '    VALUE INTEGER NOT NULL'
+      ');'
+      'INSERT OR IGNORE INTO  SETTINGS (NAME, VALUE) VALUES (''FILTERTOGGLE'', 1);'
+      'INSERT OR IGNORE INTO  SETTINGS (NAME, VALUE) VALUES (''DOCINFOTOGGLE'', 1);'
+      'INSERT OR IGNORE INTO  SETTINGS (NAME, VALUE) VALUES (''ADDONTOGGLE'', 1);'
+      'INSERT OR IGNORE INTO  SETTINGS (NAME, VALUE) VALUES (''INFOPANELHEIGHT'', 400);'
+      'INSERT OR IGNORE INTO  SETTINGS (NAME, VALUE) VALUES (''SERIALNUMCOLWIDTH'', 60);'
+      'INSERT OR IGNORE INTO  SETTINGS (NAME, VALUE) VALUES (''ACTUALIZATIONCOLWIDTH'', 130);'
+      'INSERT OR IGNORE INTO  SETTINGS (NAME, VALUE) VALUES (''DOCTYPECOLWIDTH'', 130);'
+      'INSERT OR IGNORE INTO  SETTINGS (NAME, VALUE) VALUES (''DOCNUMCOLWIDTH'', 130);'
+      'INSERT OR IGNORE INTO  SETTINGS (NAME, VALUE) VALUES (''DOCDATECOLWIDTH'', 130);'
+      'INSERT OR IGNORE INTO  SETTINGS (NAME, VALUE) VALUES (''STATUSCOLWIDTH'', 150);'
+      'INSERT OR IGNORE INTO  SETTINGS (NAME, VALUE) VALUES (''DOCNAMECOLWIDTH'', 250);'
+      'INSERT OR IGNORE INTO  SETTINGS (NAME, VALUE) VALUES (''NOTECOLWIDTH'', 250);'
+      ''
+      '/* Разделители номера и года */'
+      'CREATE TABLE IF NOT EXISTS SYMBOLS ('
+      '    SymbolID    INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,'
+      '    SymbolValue TEXT    NOT NULL'
+      ');'
+      'INSERT OR IGNORE INTO  SYMBOLS (SymbolID, SymbolValue) VALUES (0, ''—'');'
+      'INSERT OR IGNORE INTO  SYMBOLS (SymbolID, SymbolValue) VALUES (1, '':'');'
+      'INSERT OR IGNORE INTO  SYMBOLS (SymbolID, SymbolValue) VALUES (2, ''/'');'
+      ''
+      '/* Список документов */'
+      'CREATE TABLE IF NOT EXISTS DOCUMENTS ('
+      '    DocID       INTEGER  PRIMARY KEY AUTOINCREMENT NOT NULL,'
+      '    StatusID    INTEGER  NOT NULL DEFAULT 0,'
+      '    TypeID      INTEGER  NOT NULL DEFAULT 0,'
+      '    DocNum      TEXT     NOT NULL,'
+      '    SymbolID    INTEGER  NOT NULL DEFAULT 0,'
+      '    DocYear     TEXT     NOT NULL,'
+      '    DocName     TEXT     NOT NULL,'
+      '    DocDate     DATETIME NOT NULL,'
+      '    Note        TEXT    ,'
+      '    ControlDate DATETIME NOT NULL,'
+      '    CONSTRAINT FK_DOCUMENTS_STATUSID FOREIGN KEY (StatusID) REFERENCES STATUSES(StatusID) ON UPDATE CASCADE ON DELETE SET DEFAULT,'
+      '    CONSTRAINT FK_DOCUMENTS_TYPEID   FOREIGN KEY (TypeID)   REFERENCES TYPES(TypeID)      ON UPDATE CASCADE ON DELETE SET DEFAULT,'
+      '    CONSTRAINT FK_DOCUMENTS_SYMBOLID FOREIGN KEY (SymbolID) REFERENCES SYMBOLS(SymbolID)  ON UPDATE CASCADE ON DELETE SET DEFAULT'
+      ');'
+      ''
+      '/* Поправки и изменения */'
+      'CREATE TABLE IF NOT EXISTS ADDONS ('
+      '    AddonID   INTEGER  PRIMARY KEY AUTOINCREMENT NOT NULL,'
+      '    AddonDate DATETIME NOT NULL,'
+      '    AddonName TEXT     NOT NULL,'
+      '    AddonNum  TEXT    ,'
+      '    AddonNote TEXT    ,'
+      '    DocID     INTEGER  NOT NULL,'
+      '    CONSTRAINT FK_ADDONS_DOCID FOREIGN KEY (DocID) REFERENCES DOCUMENTS(DocID) ON UPDATE CASCADE ON DELETE CASCADE'
+      ');'
+    )
+    Terminator = ';'
+    CommentsinSQL = True
+    UseSetTerm = True
+    UseCommit = True
+    UseDefines = True
+    Left = 312
+    Top = 160
   end
 end

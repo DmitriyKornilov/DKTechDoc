@@ -72,7 +72,7 @@ implementation
 
 function TDataBase.SettingLoad(const ASettingName: String): Integer;
 begin
-  Result:= ValueIntStrID('SETTINGS', 'Value', 'Name', ASettingName);
+  Result:= ValueIntByStrID('SETTINGS', 'Value', 'Name', ASettingName);
 end;
 
 function TDataBase.SettingsLoad(const ASettingNames: TStrVector): TIntVector;
@@ -86,7 +86,7 @@ end;
 
 procedure TDataBase.SettingUpdate(const ASettingName: String; const ASettingValue: Integer);
 begin
-  UpdateStrID('SETTINGS', 'Value', 'Name', ASettingName, ASettingValue, True {commit});
+  UpdateByStrID('SETTINGS', 'Value', 'Name', ASettingName, ASettingValue, True {commit});
 end;
 
 procedure TDataBase.SettingsUpdate(const ASettingNames: TStrVector;
@@ -96,7 +96,7 @@ var
 begin
   try
     for i:= 0 to High(ASettingNames) do
-      UpdateStrID('SETTINGS', 'Value', 'Name', ASettingNames[i], ASettingValues[i], False {no commit});
+      UpdateByStrID('SETTINGS', 'Value', 'Name', ASettingNames[i], ASettingValues[i], False {no commit});
     QCommit;
   finally
     QRollback;

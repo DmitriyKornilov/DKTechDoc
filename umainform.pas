@@ -2,16 +2,21 @@ unit UMainForm;
 
 {$mode objfpc}{$H+}
 
+//{$DEFINE DEBUG}
+
 interface
 
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ExtCtrls, Buttons,
   Menus, StdCtrls, DividerBevel, VirtualTrees, Clipbrd,
   //DK packages utils
-  {DK_HeapTrace,} DK_LCLStrRus, DK_CtrlUtils, DK_VSTTables, DK_VSTTypes,
+  {$IFDEF DEBUG}
+  DK_HeapTrace,
+  {$ENDIF}
+  DK_LCLStrRus, DK_CtrlUtils, DK_VSTTables, DK_VSTTypes,
   DK_Vector, DK_Const, DK_Dialogs, DK_StrUtils, DK_DBUtils,
   //Project utils
-  UDataBase, UUtils, UImages,
+  UDataBase, UUtils, UImages, SQLDB,
   //Forms
   UDocumentEditForm, UAddonEditForm, UAboutForm;
 
@@ -32,6 +37,7 @@ type
     AddonPDFShowButton: TSpeedButton;
     AddonToolPanel: TPanel;
     AddonVT: TVirtualStringTree;
+    BaseDDLScript: TSQLScript;
     DelButton: TSpeedButton;
     DictionaryButton: TSpeedButton;
     DividerBevel1: TDividerBevel;
@@ -185,8 +191,11 @@ implementation
 
 procedure TMainForm.FormCreate(Sender: TObject);
 begin
-  //HeapTraceOutputFile('trace.trc');
-  Caption:= 'DKTechDoc v.0.0.1 - Библиотека технических документов';
+  {$IFDEF DEBUG}
+  HeapTraceOutputFile('trace.trc');
+  {$ENDIF}
+
+  Caption:= MAIN_CAPTION + ' - ' + PROJECT_NOTE;
   DBConnect;
 
   DataBase.DocTypesLoad(DocTypeComboBox, FilterTypeIDs, True);
@@ -706,16 +715,17 @@ end;
 
 procedure TMainForm.DBConnect;
 var
-  DBPath, DBName, DDLName: String;
+  DBPath, DBName{, DDLName}: String;
 begin
   DBPath:= ExtractFilePath(Application.ExeName) + 'db' + DirectorySeparator;
   DBName:= DBPath + 'base.db';
-  DDLName:= DBPath + 'ddl.sql';
+  //DDLName:= DBPath + 'ddl.sql';
 
   DataBase:= TDataBase.Create;
   DataBase.Connect(DBName);
 
-  DataBase.ExecuteScript(DDLName);
+  //DataBase.ExecuteScript(DDLName);
+  DataBase.ExecuteScript(BaseDDLScript);
 end;
 
 procedure TMainForm.DictionarySelect(const ADictionary: Byte);
