@@ -231,7 +231,7 @@ begin
     ExportButton, FilterClearButton,
     AddonAddButton, AddonDelButton, AddonEditButton, AddonPDFShowButton, AddonPDFCopyButton
   ]);
-  ControlHeight(FilterClearButton, TOOL_PANEL_HEIGHT_DEFAULT - 2);
+  SetControlHeightScaleToForm(FilterClearButton, TOOL_PANEL_HEIGHT_DEFAULT - 2);
 
   Images.ToButtons([
     DictionaryButton, NameCopyButton,
