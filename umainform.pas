@@ -45,9 +45,11 @@ type
     DividerBevel2: TDividerBevel;
     DividerBevel3: TDividerBevel;
     DividerBevel4: TDividerBevel;
-    DividerBevel5: TDividerBevel;
+    DividerBevel6: TDividerBevel;
+    DividerBevel7: TDividerBevel;
     DividerBevel8: TDividerBevel;
     DocCaptionPanel: TPanel;
+    OrderComboBox: TComboBox;
     FilterCaptionPanel: TPanel;
     DocCaptionSymbolLabel: TLabel;
     FilterCaptionSymbolLabel: TLabel;
@@ -78,6 +80,8 @@ type
     FullNameMenuItem: TMenuItem;
     InfoPanel: TPanel;
     DocListPanel: TPanel;
+    OrderLabel: TLabel;
+    OrderPanel: TPanel;
     StatusLabel: TLabel;
     SymbolsMenuItem: TMenuItem;
     NameCopyButton: TSpeedButton;
@@ -107,6 +111,7 @@ type
     procedure DocCaptionPanelClick(Sender: TObject);
     procedure FilterCaptionPanelClick(Sender: TObject);
     procedure FilterTimerTimer(Sender: TObject);
+    procedure OrderComboBoxChange(Sender: TObject);
     procedure SymbolsMenuItemClick(Sender: TObject);
     procedure TypeNumMenuItemClick(Sender: TObject);
     procedure TypeNumYearMenuItemClick(Sender: TObject);
@@ -413,6 +418,11 @@ procedure TMainForm.FilterTimerTimer(Sender: TObject);
 begin
   FilterTimer.Enabled:= False;
   if not CanApplyFilter then Exit;
+  DocListFilter;
+end;
+
+procedure TMainForm.OrderComboBoxChange(Sender: TObject);
+begin
   DocListFilter;
 end;
 
@@ -835,9 +845,11 @@ begin
     FilterStatusID:= FilterStatusIDs[DocStatusComboBox.ItemIndex];
     FilterDocNum:= STrim(DocNumEdit.Text);
 
-    DataBase.DocListLoad(FilterTypeID, FilterStatusID, FilterDocNum, DocNameMatchStr,
+    DataBase.DocListLoad(FilterTypeID, FilterStatusID, OrderComboBox.ItemIndex,
+                         FilterDocNum, DocNameMatchStr,
                          DocIDs, TypeIDs, StatusIDs, SymbolIDs, DocDates, ControlDates,
-                         TypeNames, DocNums, Delimiters, DocYears, DocNames, StatusNames, Notes);
+                         TypeNames, DocNums, Delimiters, DocYears, DocNames, StatusNames,
+                         Notes);
     ExportButton.Enabled:= not VIsNil(DocIDs);
 
     for i:= 0 to High(DocNums) do

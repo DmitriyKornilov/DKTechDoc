@@ -36,7 +36,7 @@ type
                       const AAddonName, AAddonNum, ANote: String): Boolean;
     function AddonDelete(const AAddonID: Integer): Boolean;
 
-    function DocListLoad(const AFilterTypeID, AFilterStatusID: Integer;
+    function DocListLoad(const AFilterTypeID, AFilterStatusID, AOrderType: Integer;
                          const AFilterDocNum, AMatchStr: String;
                          out ADocIDs, ATypeIDs, AStatusIDs, ASymbolIDs: TIntVector;
                          out ADocDates, AControlDates: TDateVector;
@@ -200,7 +200,7 @@ begin
   Result:= Delete('ADDONS', 'AddonID', AAddonID);
 end;
 
-function TDataBase.DocListLoad(const AFilterTypeID, AFilterStatusID: Integer;
+function TDataBase.DocListLoad(const AFilterTypeID, AFilterStatusID, AOrderType: Integer;
                          const AFilterDocNum, AMatchStr: String;
                          out ADocIDs, ATypeIDs, AStatusIDs, ASymbolIDs: TIntVector;
                          out ADocDates, AControlDates: TDateVector;
@@ -250,7 +250,12 @@ begin
     SQLStr:= SQLStr + 'AND (t1.DocNum LIKE :FilterDocNum) ';
   if not VIsNil(MatchIDs) then
     SQLStr:= SQLStr + 'AND ' + SQLIN('t1', 'DocID', Length(MatchIDs));
-  SQLStr:= SQLStr + 'ORDER BY t1.DocNum, t1.DocYear';
+
+  case AOrderType of
+    0: SQLStr:= SQLStr + 'ORDER BY t1.DocNum, t1.DocYear';
+    1: SQLStr:= SQLStr + 'ORDER BY t1.DocDate, t1.DocNum';
+    2: SQLStr:= SQLStr + 'ORDER BY t1.ControlDate, t1.DocNum, t1.DocYear';
+  end;
 
   QSetQuery(FQuery);
   QSetSQL(SQLStr);
@@ -287,7 +292,7 @@ begin
   end;
   QClose;
 
-  if not Result then Exit;
+  if (not Result) or (AOrderType>0) then Exit;
 
   VDocumentCodeSort(ADocNums, Indexes);
 
